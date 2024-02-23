@@ -15,3 +15,49 @@ button {
     padding: 5px 10px;
     cursor: pointer;
 }
+
+/* Basic reset for padding and margin */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    font-family: Arial, sans-serif;
+    font-size: 16px; /* Good for readability on small screens */
+}
+
+#game-container {
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid #ccc; /* Just to visually define the area */
+}
+
+button {
+    padding: 10px 20px; /* Larger touch targets */
+    margin: 5px; /* Space out buttons */
+    font-size: 1em; /* Increase font size for readability */
+}
+
+input[type="number"] {
+    padding: 10px;
+    margin: 5px;
+    font-size: 1em;
+}
+
+#tasks div {
+    margin-bottom: 20px; /* Space out task sections */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    button, input[type="number"] {
+        width: 100%; /* Full width buttons and inputs on smaller screens */
+    }
+    #tasks div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}
