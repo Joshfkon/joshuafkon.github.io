@@ -81,6 +81,19 @@ function updateDisplay() {
     document.getElementById('population-count').textContent = population;
 }
 
+function adjustTaskAssignments() {
+    let totalAssigned = getTotalAssignedPopulation();
+    while (totalAssigned > population) {
+        Object.keys(tasks).forEach(taskName => {
+            if (tasks[taskName].population > 0 && totalAssigned > population) {
+                tasks[taskName].population -= 1;
+                totalAssigned -= 1;
+            }
+        });
+    }
+    updateResourcesDisplay(); // Ensure this updates your UI to reflect the changes.
+}
+
 
 function updatePopulation() {
     const foodNeeded = population * foodPerPerson;
