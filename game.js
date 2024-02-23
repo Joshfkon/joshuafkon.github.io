@@ -38,7 +38,19 @@ function updatePopulation() {
 function updateResources() {
     for (const task in tasks) {
         const taskInfo = tasks[task];
-        food += taskInfo.population * taskInfo.foodPerTick;
+        if (task === 'hunting') {
+            // Generate variable food for hunting
+            const baseFoodPerTick = 1; // Minimum food per person per tick
+            const variability = 3; // Maximum additional food per person per tick
+            let foodFromHunting = 0;
+            for (let i = 0; i < taskInfo.population; i++) {
+                foodFromHunting += baseFoodPerTick + Math.floor(Math.random() * variability);
+            }
+            food += foodFromHunting;
+        } else {
+            // For other tasks, use the fixed foodPerTick value
+            food += taskInfo.population * taskInfo.foodPerTick;
+        }
     }
     updateDisplay();
 }
@@ -48,7 +60,8 @@ setInterval(updateResources, updateInterval); // Optionally update resources at 
 
 let tasks = {
     hunting: { population: 0, foodPerTick: 2 },
-    // Other tasks
+    gathering: {population:0, foodPerTick: 1 },
+
 };
 
 function assignToTask(task) {
