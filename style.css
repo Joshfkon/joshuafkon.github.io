@@ -1,4 +1,4 @@
-/* Basic reset for padding and margin */
+/* Reset styles */
 * {
     margin: 0;
     padding: 0;
@@ -7,46 +7,35 @@
 
 body, html {
     font-family: Arial, sans-serif;
-    font-size: 16px; /* Good for readability */
+    /* Increase the base font size for small devices */
+    font-size: 22px; /* Adjust if needed based on testing */
+    line-height: 1.6;
 }
 
 #game-container {
-    margin: 20px;
+    /* Remove max-width to allow full width on small screens */
+    width: 95%; /* Slightly less than full width for some padding */
+    min-height: 100vh; /* Ensure it at least covers the viewport height */
+    margin: 20px auto; /* Keep it centered */
     padding: 20px;
-    border: 1px solid #ccc; /* Visually define the area */
-    max-width: 600px; /* Maximum width of the game container */
-    margin: auto; /* Center the game container */
-    text-align: center; /* Center the content */
+    border: 1px solid #ccc;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1); /* Optional: adds subtle shadow for depth */
+    text-align: center;
 }
 
-button {
-    padding: 10px 20px; /* Larger touch targets */
-    margin: 5px; /* Space out buttons */
-    font-size: 1em; /* Increase font size for readability */
+button, input[type="number"] {
+    width: auto; /* Default to auto for larger screens */
+    padding: 12px 24px; /* Increase touch target size */
+    margin: 10px 5px; /* More space around buttons */
+    font-size: 1.1em; /* Slightly larger text inside buttons */
     cursor: pointer;
-}
-
-input[type="number"] {
-    padding: 10px;
-    margin: 5px;
-    font-size: 1em; /* Increase font size for readability */
-}
-
-#tasks div {
-    margin-bottom: 20px; /* Space out task sections */
 }
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
-    body, html {
-        font-size: 18px; /* Increase base font size on smaller screens */
-    }
-
     button, input[type="number"] {
-        width: 100%; /* Full width buttons and inputs on smaller screens */
-        padding: 15px 20px; /* Increase padding for larger touch targets */
-        margin-bottom: 10px; /* Increase space between buttons */
-        font-size: 1.2em; /* Increase font size for better readability */
+        width: 100%; /* Full width for better access on small screens */
+        /* Keep padding and margin consistent, or adjust as needed */
     }
 
     #tasks div {
@@ -55,17 +44,19 @@ input[type="number"] {
         align-items: center;
     }
 
-    p {
-        line-height: 1.5; /* Increase line height for better readability */
-        margin-bottom: 20px; /* Add more space between paragraphs */
+    /* Further increase base font size for very small screens if necessary */
+    body, html {
+        font-size: 20px; /* Adjust based on testing */
     }
+}
 
+/* Optional: Additional media query for very small screens like iPhone SE */
+@media (max-width: 375px) {
     #game-container {
-        margin: 5vw; /* Use viewport width for margins */
-        padding: 5vw; /* Use viewport width for padding */
+        width: 98%; /* Almost full width to use more screen space */
     }
 
-    h1 {
-        font-size: clamp(1.5rem, 5vw, 3rem); /* Adjust title size dynamically */
+    body, html {
+        font-size: 22px; /* Even larger base font size for better readability */
     }
 }
