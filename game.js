@@ -84,9 +84,9 @@ function updateDisplay() {
 function adjustTaskAssignments() {
     let totalAssigned = getTotalAssignedPopulation();
     while (totalAssigned > population) {
-        Object.keys(tasks).forEach(taskName => {
-            if (tasks[taskName].population > 0 && totalAssigned > population) {
-                tasks[taskName].population -= 1;
+        Object.keys(tasks).forEach(hunting => {
+            if (tasks[hunting].population > 0 && totalAssigned > population) {
+                tasks[hunting].population -= 1;
                 totalAssigned -= 1;
             }
         });
