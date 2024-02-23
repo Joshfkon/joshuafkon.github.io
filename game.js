@@ -23,18 +23,17 @@ function updateDisplay() {
 
 // Automatically update population based on food availability
 function updatePopulation() {
+    console.log("Updating population..."); // Add this line to check if the function runs
     const foodNeeded = population * foodPerPerson;
     if (food >= foodNeeded) {
-        // Enough food for everyone, attempt to grow population
         food -= foodNeeded; // Consume food for existing population
-        // Optionally, grow population here if you want automatic growth
     } else {
-        // Not enough food, decrease population
-        population = Math.max(0, population - (foodNeeded - food)); // Ensure population doesn't go negative
-        food = 0; // All available food has been consumed
+        population = Math.max(0, population - 1); // Decrease population if not enough food
+        food = 0; // Assume all available food has been consumed
     }
     updateDisplay();
 }
+
 
 setInterval(updatePopulation, updateInterval); // Update population every 5 seconds
 
