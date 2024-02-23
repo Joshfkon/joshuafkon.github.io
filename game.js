@@ -7,8 +7,12 @@
     const spoilageRate = 0.3;
     const spoilageInterval = 10000;
     let preservationRate = 0;
+    let tasks = {
+        hunting: { population: 0, foodPerTick: 2 },
+        gathering: { population: 0, foodPerTick: 1 },
+    };
 
-    
+
     document.addEventListener('DOMContentLoaded', function() {
     const preservationRateInput = document.getElementById('preservation-rate');
     const preservationRateValueDisplay = document.getElementById('preservation-rate-value');
