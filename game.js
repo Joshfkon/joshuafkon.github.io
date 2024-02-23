@@ -3,11 +3,21 @@ let preservedFood = 0;
 let population = 0;
 const foodPerPerson = 1; // Each person consumes 1 food unit per cycle
 const updateInterval = 5000; // Update every 5 seconds
-const spoilageRate = 0.1; // 10% of perishable food spoils each interval
+const spoilageRate = 0.3; // 10% of perishable food spoils each interval
 const spoilageInterval = 10000; // Frequency of spoilage in milliseconds, e.g., every 10 seconds
 
 setInterval(spoilFood, spoilageInterval);
 
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('preserve-food').addEventListener('click', function() {
+        const amountToPreserve = parseInt(document.getElementById('preserve-amount').value, 10);
+        if (!isNaN(amountToPreserve) && amountToPreserve > 0) {
+            preserveFood(amountToPreserve);
+        } else {
+            alert('Please enter a valid amount of food to preserve.');
+        }
+    });
+});
 
 
 document.getElementById('gather-food').addEventListener('click', function() {
