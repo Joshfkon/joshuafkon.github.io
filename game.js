@@ -148,18 +148,18 @@ function updateResources() {
 
 
 
-function assignToTask(taskName) {
+function assignToTask(hunting) {
     if (population > getTotalAssignedPopulation()) {
-        tasks[taskName].population += 1;
+        tasks[hunting].population += 1;
         updateResourcesDisplay(); // Implement this if needed or simply call updateDisplay();
     } else {
         console.log("Not enough available population.");
     }
 }
 
-function removeFromTask(taskName) {
-    if (tasks[taskName].population > 0) {
-        tasks[taskName].population -= 1;
+function removeFromTask(hunting) {
+    if (tasks[hunting].population > 0) {
+        tasks[hunting].population -= 1;
         updateResourcesDisplay(); // Implement this if needed or simply call updateDisplay();
     }
 }
