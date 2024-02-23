@@ -71,8 +71,8 @@ let tasks = {
 
 
 function updateDisplay() {
-    document.getElementById('perishable-food-count').textContent = parseFloat(perishableFood).toFixed(2);
-    document.getElementById('preserved-food-count').textContent = parseFloat(preservedFood).toFixed(2);
+    document.getElementById('perishable-food-count').textContent = parseFloat(perishableFood)
+    document.getElementById('preserved-food-count').textContent = parseFloat(preservedFood)
     document.getElementById('population-count').textContent = Math.round(population);
 }
 
