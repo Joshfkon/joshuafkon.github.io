@@ -1,26 +1,23 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Set preservation rate
-    document.addEventListener('DOMContentLoaded', function() {
-        const preservationRateInput = document.getElementById('preservation-rate');
-        const preservationRateValueDisplay = document.getElementById('preservation-rate-value');
-    
-        // Update the display value in real-time as the slider moves
-        preservationRateInput.addEventListener('input', function() {
-            preservationRateValueDisplay.textContent = `${this.value}%`;
-            // Optionally, update the preservation rate in real-time as well
-            preservationRate = this.value / 100;
-        });
-    
-        // Optionally, remove the "Set Rate" button if real-time update is sufficient
-        // document.getElementById('set-preservation-rate').addEventListener('click', function() {
-        //     console.log(`Preservation rate set to ${preservationRate * 100}%`);
-        // });
-    
-        // Initialization - display the initial slider value on page load
-        preservationRateValueDisplay.textContent = `${preservationRateInput.value}%`;
-    
-        // Other event listeners...
+    const preservationRateInput = document.getElementById('preservation-rate');
+    const preservationRateValueDisplay = document.getElementById('preservation-rate-value');
+
+    // Update the display value in real-time as the slider moves
+    preservationRateInput.addEventListener('input', function() {
+        preservationRateValueDisplay.textContent = `${this.value}%`;
+        // Optionally, update the preservation rate in real-time as well
+        preservationRate = this.value / 100;
     });
+
+    // Optionally, remove the "Set Rate" button if real-time update is sufficient
+    // document.getElementById('set-preservation-rate').addEventListener('click', function() {
+    //     console.log(`Preservation rate set to ${preservationRate * 100}%`);
+    // });
+
+    // Initialization - display the initial slider value on page load
+    preservationRateValueDisplay.textContent = `${preservationRateInput.value}%`;
+});
+
     
     
 
