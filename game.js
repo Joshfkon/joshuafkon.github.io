@@ -150,11 +150,18 @@ function updateResources() {
     Object.keys(tasks).forEach(task => {
         const taskInfo = tasks[task];
         let foodProduced = taskInfo.population * taskInfo.foodPerTick;
-        if (task === 'hunting' && Math.random() < 0.5) {
-            foodProduced = 0; // 50% chance to produce no food
+        if (task === 'hunting') {
+            let success = Math.random() < 0.5; // Example: 50% chance of success
+            if (success) {
+                foodProduced = taskInfo.population * taskInfo.foodPerTick; // Or some other calculation
+                document.getElementById('hunt-results').textContent = `Success! Hunt yielded ${foodProduced.toFixed(2)} food.`;
+            } else {
+                foodProduced = 0; // No food produced on failure
+                document.getElementById('hunt-results').textContent = "Hunt failed. Better luck next time!";
+            }
         }
         perishableFood += foodProduced;
-    });
+    }); // This closing bracket was missing.
 
     updateDisplay();
 }
