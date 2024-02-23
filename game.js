@@ -64,10 +64,7 @@ const updateInterval = 5000;
 const spoilageRate = 0.3;
 const spoilageInterval = 10000;
 let preservationRate = 0;
-let tasks = {
-    hunting: { population: 0, foodPerTick: 2 },
-    gathering: { population: 0, foodPerTick: 1 },
-};
+
 
 
 function updateDisplay() {
