@@ -94,6 +94,19 @@ function adjustTaskAssignments() {
     updateResourcesDisplay(); // Ensure this updates your UI to reflect the changes.
 }
 
+function adjustTaskAssignments() {
+    let totalAssigned = getTotalAssignedPopulation();
+    while (totalAssigned > population) {
+        Object.keys(tasks).forEach(taskName => {
+            if (tasks[taskName].population > 0 && totalAssigned > population) {
+                tasks[taskName].population -= 1;
+                totalAssigned -= 1;
+            }
+        });
+    }
+    updateResourcesDisplay(); // Ensure this updates your UI to reflect the changes.
+}
+
 
 function updatePopulation() {
     const foodNeeded = population * foodPerPerson;
@@ -101,12 +114,12 @@ function updatePopulation() {
         let surplusFood = perishableFood - foodNeeded;
         perishableFood -= foodNeeded;
         
-        // Assuming 20 units of surplus food are needed for one new population member
-        const surplusThreshold = 20;
+        // Assuming 5 units of surplus food are needed for one new population member
+        const surplusThreshold = 5;
         while (surplusFood >= surplusThreshold) {
             surplusFood -= surplusThreshold;
             population += 1; // Increase population
-            perishableFood -= surplusThreshold; // Assume surplus food is consumed for growth
+            //perishableFood -= surplusThreshold; // Assume surplus food is consumed for growth
         }
     } else {
         let shortfall = foodNeeded - perishableFood;
