@@ -164,6 +164,22 @@ function removeFromTask(hunting) {
     }
 }
 
+function assignToTask(gathering) {
+    if (population > getTotalAssignedPopulation()) {
+        tasks[gathering].population += 1;
+        updateResourcesDisplay(); // Implement this if needed or simply call updateDisplay();
+    } else {
+        console.log("Not enough available population.");
+    }
+}
+
+function removeFromTask(gathering) {
+    if (tasks[gathering].population > 0) {
+        tasks[gathering].population -= 1;
+        updateResourcesDisplay(); // Implement this if needed or simply call updateDisplay();
+    }
+}
+
 function updateResourcesDisplay() {
     // Implement based on your UI needs. For example:
     document.getElementById('hunting-pop').textContent = tasks.hunting.population;
