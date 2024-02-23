@@ -53,6 +53,11 @@ const updateInterval = 5000;
 const spoilageRate = 0.3;
 const spoilageInterval = 10000;
 let preservationRate = 0;
+let tasks = {
+    hunting: { population: 0, foodPerTick: 2 },
+    gathering: { population: 0, foodPerTick: 1 },
+};
+
 
 function updateDisplay() {
     document.getElementById('perishable-food-count').textContent = perishableFood;
@@ -105,13 +110,13 @@ function preserveFood(amount) {
 }
 
 function updateResources() {
-    // Automatically preserve a portion of perishable food
-    const autoPreservationRate = 0.1; // Automatically preserve 10% of perishable food each cycle
-    const amountToPreserveAutomatically = perishableFood * autoPreservationRate;
+    // Automatically preserve a portion of perishable food based on the user-set preservation rate
+    const amountToPreserveAutomatically = perishableFood * preservationRate;
     perishableFood -= amountToPreserveAutomatically;
     preservedFood += amountToPreserveAutomatically;
+    console.log(`${amountToPreserveAutomatically.toFixed(2)} food preserved automatically.`);
 
-    // Variable food production from tasks
+    // Proceed with food production from tasks
     Object.keys(tasks).forEach(task => {
         const taskInfo = tasks[task];
         let foodProduced = taskInfo.population * taskInfo.foodPerTick;
@@ -123,6 +128,7 @@ function updateResources() {
 
     updateDisplay();
 }
+
 
 
 function assignToTask(taskName) {
