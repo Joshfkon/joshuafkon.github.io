@@ -18,9 +18,11 @@
         <button id="buy-population">Increase Population (Cost: 10 Food)</button>
         <div id="preservation-rate-setting">
             <label for="preservation-rate">Preservation Rate (%):</label>
-            <input type="number" id="preservation-rate" placeholder="Enter rate" min="0" max="100">
+            <input type="range" id="preservation-rate" min="0" max="100" value="0">
+            <span id="preservation-rate-value">0%</span>
             <button id="set-preservation-rate">Set Rate</button>
         </div>
+        
 
         <!-- Tasks now inside the main game container -->
         <div id="tasks">

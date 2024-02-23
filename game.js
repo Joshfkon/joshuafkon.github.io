@@ -1,14 +1,24 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Set preservation rate
-    document.getElementById('set-preservation-rate').addEventListener('click', function() {
-        const enteredRate = parseFloat(document.getElementById('preservation-rate').value);
-        if (!isNaN(enteredRate) && enteredRate >= 0 && enteredRate <= 100) {
+    document.addEventListener('DOMContentLoaded', function() {
+        const preservationRateInput = document.getElementById('preservation-rate');
+        const preservationRateValueDisplay = document.getElementById('preservation-rate-value');
+    
+        // Display the current slider value
+        preservationRateInput.addEventListener('input', function() {
+            preservationRateValueDisplay.textContent = `${this.value}%`;
+        });
+    
+        // Set preservation rate on button click
+        document.getElementById('set-preservation-rate').addEventListener('click', function() {
+            const enteredRate = parseFloat(preservationRateInput.value);
             preservationRate = enteredRate / 100; // Convert percentage to a decimal
             console.log(`Preservation rate set to ${preservationRate * 100}%`);
-        } else {
-            alert('Please enter a valid preservation rate between 0 and 100.');
-        }
+        });
+    
+        // Other event listeners...
     });
+    
 
     // Gather food button
     document.getElementById('gather-food').addEventListener('click', function() {
