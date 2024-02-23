@@ -22,7 +22,17 @@
     </div>
 
     <div id="tasks">
-        <!-- Task buttons and counters -->
+        <div>
+            <button onclick="assignToTask('hunting')">+</button>
+            <span id="hunting-pop">0</span>
+            <button onclick="removeFromTask('hunting')">-</button> Hunting
+        </div>
+        <div>
+            <button onclick="assignToTask('gathering')">+</button>
+            <span id="gathering-pop">0</span>
+            <button onclick="removeFromTask('gathering')">-</button> Gathering
+        </div>
+        <!-- Include additional tasks as needed -->
     </div>
 
     <script src="game.js"></script>
