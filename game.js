@@ -70,6 +70,9 @@ function getTotalAssignedPopulation() {
 }
 
 function updateResourcesDisplay() {
-    // Implement to update UI based on task assignments
-    // This could iterate over each task, updating the web page to show the current population assigned to each task
+    for (const task in tasks) {
+        document.getElementById(task + '-pop').textContent = tasks[task].population;
+    }
 }
+
+
