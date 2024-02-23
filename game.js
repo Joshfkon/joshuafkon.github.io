@@ -76,8 +76,8 @@
 
 
 function updateDisplay() {
-    document.getElementById('perishable-food-count').textContent = perishableFood;
-    document.getElementById('preserved-food-count').textContent = preservedFood;
+    document.getElementById('perishable-food-count').textContent = parseFloat(perishableFood).toFixed(2);
+    document.getElementById('preserved-food-count').textContent = parseFloat(preservedFood).toFixed(2);
     document.getElementById('population-count').textContent = population;
 }
 
