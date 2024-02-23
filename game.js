@@ -1,7 +1,7 @@
     
     let perishableFood = 0;
-    let preservedFood = 0;
-    let population = 0;
+    let preservedFood = 5;
+    let population = 10;
     const foodPerPerson = 1;
     const updateInterval = 5000;
     const spoilageRate = 0.3;
