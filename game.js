@@ -61,39 +61,93 @@ function updateDisplay() {
 }
 
 function updatePopulation() {
-    // Your existing logic for updating the population
+    const foodNeeded = population * foodPerPerson;
+    if (perishableFood >= foodNeeded) {
+        let surplusFood = perishableFood - foodNeeded;
+        perishableFood -= foodNeeded;
+        
+        // Assuming 20 units of surplus food are needed for one new population member
+        const surplusThreshold = 20;
+        while (surplusFood >= surplusThreshold) {
+            surplusFood -= surplusThreshold;
+            population += 1; // Increase population
+            perishableFood -= surplusThreshold; // Assume surplus food is consumed for growth
+        }
+    } else {
+        let shortfall = foodNeeded - perishableFood;
+        perishableFood = 0;
+        if (preservedFood >= shortfall) {
+            preservedFood -= shortfall;
+        } else {
+            preservedFood = 0;
+            population = Math.max(0, population - 1); // Prevent negative population
+        }
+    }
+    updateDisplay();
 }
 
+
 function spoilFood() {
-    // Your existing logic for spoiling food
+    let spoiledFood = perishableFood * spoilageRate;
+    perishableFood -= spoiledFood; // Reduce perishable food by the spoilage rate
+    updateDisplay();
 }
 
 function preserveFood(amount) {
-    // Your existing logic for preserving food
+    // Assuming this function is manually called to convert perishable to preserved
+    if (perishableFood >= amount) {
+        perishableFood -= amount;
+        preservedFood += amount;
+        updateDisplay();
+    } else {
+        console.log("Not enough perishable food to preserve.");
+    }
 }
 
 function updateResources() {
-    // Your existing logic for updating resources, including automatic preservation
+    // Automatically preserve a portion of perishable food
+    const autoPreservationRate = 0.1; // Automatically preserve 10% of perishable food each cycle
+    const amountToPreserveAutomatically = perishableFood * autoPreservationRate;
+    perishableFood -= amountToPreserveAutomatically;
+    preservedFood += amountToPreserveAutomatically;
+
+    // Variable food production from tasks
+    Object.keys(tasks).forEach(task => {
+        const taskInfo = tasks[task];
+        let foodProduced = taskInfo.population * taskInfo.foodPerTick;
+        if (task === 'hunting' && Math.random() < 0.5) {
+            foodProduced = 0; // 50% chance to produce no food
+        }
+        perishableFood += foodProduced;
+    });
+
+    updateDisplay();
 }
 
-let tasks = {
-    hunting: { population: 0, foodPerTick: 2 },
-    gathering: { population: 0, foodPerTick: 1 },
-};
 
 function assignToTask(taskName) {
-    // Your logic for assigning a population to a task
+    if (population > getTotalAssignedPopulation()) {
+        tasks[taskName].population += 1;
+        updateResourcesDisplay(); // Implement this if needed or simply call updateDisplay();
+    } else {
+        console.log("Not enough available population.");
+    }
 }
 
 function removeFromTask(taskName) {
-    // Your logic for removing a population from a task
+    if (tasks[taskName].population > 0) {
+        tasks[taskName].population -= 1;
+        updateResourcesDisplay(); // Implement this if needed or simply call updateDisplay();
+    }
 }
 
 function updateResourcesDisplay() {
-    // Update the display for resources, if necessary
+    // Implement based on your UI needs. For example:
+    document.getElementById('hunting-pop').textContent = tasks.hunting.population;
+    document.getElementById('gathering-pop').textContent = tasks.gathering.population;
+    // Add more tasks as needed
 }
 
 function getTotalAssignedPopulation() {
-    // Calculate and return the total assigned population
     return Object.values(tasks).reduce((total, task) => total + task.population, 0);
 }
