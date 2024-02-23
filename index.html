@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Tribal Expansion</title>
     <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
     <div id="game-container">
@@ -20,21 +21,21 @@
             <input type="number" id="preservation-rate" placeholder="Enter rate" min="0" max="100">
             <button id="set-preservation-rate">Set Rate</button>
         </div>
-        
-    </div>
 
-    <div id="tasks">
-        <div>
-            <button onclick="assignToTask('hunting')">+</button>
-            <span id="hunting-pop">0</span>
-            <button onclick="removeFromTask('hunting')">-</button> Hunting
+        <!-- Tasks now inside the main game container -->
+        <div id="tasks">
+            <div>
+                <button onclick="assignToTask('hunting')">+</button>
+                <span id="hunting-pop">0</span>
+                <button onclick="removeFromTask('hunting')">-</button> Hunting
+            </div>
+            <div>
+                <button onclick="assignToTask('gathering')">+</button>
+                <span id="gathering-pop">0</span>
+                <button onclick="removeFromTask('gathering')">-</button> Gathering
+            </div>
+            <!-- Include additional tasks as needed -->
         </div>
-        <div>
-            <button onclick="assignToTask('gathering')">+</button>
-            <span id="gathering-pop">0</span>
-            <button onclick="removeFromTask('gathering')">-</button> Gathering
-        </div>
-        <!-- Include additional tasks as needed -->
     </div>
 
     <script src="game.js"></script>
