@@ -8,13 +8,16 @@ const spoilageInterval = 10000; // Frequency of spoilage in milliseconds, e.g., 
 
 setInterval(spoilFood, spoilageInterval);
 
+let preservationRate = 0; // Default rate is 0%
+
 document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('preserve-food').addEventListener('click', function() {
-        const amountToPreserve = parseInt(document.getElementById('preserve-amount').value, 10);
-        if (!isNaN(amountToPreserve) && amountToPreserve > 0) {
-            preserveFood(amountToPreserve);
+    document.getElementById('set-preservation-rate').addEventListener('click', function() {
+        const enteredRate = parseFloat(document.getElementById('preservation-rate').value);
+        if (!isNaN(enteredRate) && enteredRate >= 0 && enteredRate <= 100) {
+            preservationRate = enteredRate / 100; // Convert percentage to a decimal for calculations
+            console.log(`Preservation rate set to ${preservationRate * 100}%`);
         } else {
-            alert('Please enter a valid amount of food to preserve.');
+            alert('Please enter a valid preservation rate between 0 and 100.');
         }
     });
 });
@@ -80,24 +83,34 @@ function preserveFood(amount) {
 
 // Calculate food production from tasks
 function updateResources() {
+    // Automatically preserve a portion of perishable food based on the preservation rate
+    const amountToPreserve = perishableFood * preservationRate; // Calculate amount based on rate
+    perishableFood -= amountToPreserve; // Deduct from perishable
+    preservedFood += amountToPreserve; // Add to preserved
+    console.log(`${amountToPreserve.toFixed(2)} food preserved automatically.`);
+
+    // Example logic for variable food production from hunting
     for (const task in tasks) {
         const taskInfo = tasks[task];
         if (task === 'hunting') {
             // Generate variable food for hunting
-            const baseFoodPerTick = 1; // Minimum food per person per tick
-            const variability = 3; // Maximum additional food per person per tick
+            const baseFoodPerTick = 0; // Minimum food per person per tick
+            const variability = 4; // Maximum additional food per person per tick
             let foodFromHunting = 0;
             for (let i = 0; i < taskInfo.population; i++) {
                 foodFromHunting += baseFoodPerTick + Math.floor(Math.random() * variability);
             }
-            perishableFood += foodFromHunting;
+            perishableFood += foodFromHunting; // Add to perishable food
         } else {
             // For other tasks, use the fixed foodPerTick value
-            perishableFood += taskInfo.population * taskInfo.foodPerTick;
+            perishableFood += taskInfo.population * taskInfo.foodPerTick; // Add to perishable food
         }
     }
+
+    // Update the display to reflect the new amounts of perishable and preserved food
     updateDisplay();
 }
+
 
 setInterval(updatePopulation, updateInterval); // Update population every 5 seconds
 setInterval(updateResources, updateInterval); // Optionally update resources at a different interval
