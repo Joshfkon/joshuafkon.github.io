@@ -1,3 +1,14 @@
+    
+    let perishableFood = 0;
+    let preservedFood = 0;
+    let population = 0;
+    const foodPerPerson = 1;
+    const updateInterval = 5000;
+    const spoilageRate = 0.3;
+    const spoilageInterval = 10000;
+    let preservationRate = 0;
+
+    
     document.addEventListener('DOMContentLoaded', function() {
     const preservationRateInput = document.getElementById('preservation-rate');
     const preservationRateValueDisplay = document.getElementById('preservation-rate-value');
@@ -56,14 +67,7 @@
     setInterval(spoilFood, spoilageInterval);
 
 
-let perishableFood = 0;
-let preservedFood = 0;
-let population = 0;
-const foodPerPerson = 1;
-const updateInterval = 5000;
-const spoilageRate = 0.3;
-const spoilageInterval = 10000;
-let preservationRate = 0;
+
 
 
 
