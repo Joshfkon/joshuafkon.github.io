@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function() {
     const preservationRateInput = document.getElementById('preservation-rate');
     const preservationRateValueDisplay = document.getElementById('preservation-rate-value');
 
@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', function() {
     setInterval(updatePopulation, updateInterval);
     setInterval(updateResources, updateInterval);
     setInterval(spoilFood, spoilageInterval);
-;
+
 
 let perishableFood = 0;
 let preservedFood = 0;
