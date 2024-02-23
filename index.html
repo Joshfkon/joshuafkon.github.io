@@ -9,28 +9,22 @@
     <div id="game-container">
         <h1>Tribal Expansion</h1>
         <div id="resources">
-            <p>Food: <span id="food-count">0</span></p>
+            <p>Perishable Food: <span id="perishable-food-count">0</span></p>
+            <p>Preserved Food: <span id="preserved-food-count">0</span></p>
             <p>Population: <span id="population-count">0</span></p>
         </div>
         <button id="gather-food">Gather Food</button>
         <button id="buy-population">Increase Population (Cost: 10 Food)</button>
+        <div id="preservation">
+            <input type="number" id="preserve-amount" placeholder="Amount to preserve" min="1">
+            <button id="preserve-food">Preserve</button>
+        </div>
     </div>
-    <script src="game.js"></script>
 
     <div id="tasks">
-        <div>
-            <button onclick="assignToTask('hunting')">+</button>
-            <span id="hunting-pop">0</span>
-            <button onclick="removeFromTask('hunting')">-</button> Hunting
-        </div>
-        <div>
-            <button onclick="assignToTask('gathering')">+</button>
-            <span id="gathering-pop">0</span>
-            <button onclick="removeFromTask('gathering')">-</button> Gathering
-        </div>
-        <!-- Repeat structure for farming, fishing, raiding, construction -->
+        <!-- Task buttons and counters -->
     </div>
-    
-    
+
+    <script src="game.js"></script>
 </body>
 </html>

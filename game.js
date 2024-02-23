@@ -1,38 +1,72 @@
-let food = 0;
+let perishableFood = 0;
+let preservedFood = 0;
 let population = 0;
 const foodPerPerson = 1; // Each person consumes 1 food unit per cycle
 const updateInterval = 5000; // Update every 5 seconds
+const spoilageRate = 0.1; // 10% of perishable food spoils each interval
+const spoilageInterval = 10000; // Frequency of spoilage in milliseconds, e.g., every 10 seconds
+
+setInterval(spoilFood, spoilageInterval);
+
+
 
 document.getElementById('gather-food').addEventListener('click', function() {
-    food += 1;
+    perishableFood += 1;
     updateDisplay();
 });
 
 document.getElementById('buy-population').addEventListener('click', function() {
-    if (food >= 10) {
-        food -= 10;
+    if (perishableFood >= 10) {
+        perishableFood-= 10;
         population += 1;
         updateDisplay();
     }
 });
 
+
 function updateDisplay() {
-    document.getElementById('food-count').textContent = food;
+    document.getElementById('perishable-food-count').textContent = perishableFood;
+    document.getElementById('preserved-food-count').textContent = preservedFood;
     document.getElementById('population-count').textContent = population;
 }
 
 // Automatically update population based on food availability
 function updatePopulation() {
-    console.log("Updating population..."); // Add this line to check if the function runs
     const foodNeeded = population * foodPerPerson;
-    if (food >= foodNeeded) {
-        food -= foodNeeded; // Consume food for existing population
+    if (perishableFood >= foodNeeded) {
+        perishableFood -= foodNeeded;
     } else {
-        population = Math.max(0, population - 1); // Decrease population if not enough food
-        food = 0; // Assume all available food has been consumed
+        let shortfall = foodNeeded - perishableFood;
+        perishableFood = 0; // All perishable food is used
+        if (preservedFood >= shortfall) {
+            preservedFood -= shortfall; // Use preserved food to cover the shortfall
+        } else {
+            // Not enough food, population decreases
+            preservedFood = 0; // Use up what's left
+            population -= 1; // Adjust population decrease based on your game's mechanics
+        }
     }
     updateDisplay();
 }
+
+function spoilFood() {
+    let spoiledFood = perishableFood * spoilageRate;
+    perishableFood -= spoiledFood;
+    console.log(`${spoiledFood} food spoiled.`);
+    updateDisplay(); // Update your display accordingly
+}
+
+function preserveFood(amount) {
+    if (perishableFood >= amount) {
+        perishableFood -= amount;
+        preservedFood += amount; // Convert directly for simplicity
+        console.log(`${amount} food preserved.`);
+    } else {
+        console.log("Not enough perishable food to preserve.");
+    }
+    updateDisplay();
+}
+
 
 // Calculate food production from tasks
 function updateResources() {
@@ -46,10 +80,10 @@ function updateResources() {
             for (let i = 0; i < taskInfo.population; i++) {
                 foodFromHunting += baseFoodPerTick + Math.floor(Math.random() * variability);
             }
-            food += foodFromHunting;
+            perishableFood += foodFromHunting;
         } else {
             // For other tasks, use the fixed foodPerTick value
-            food += taskInfo.population * taskInfo.foodPerTick;
+            perishableFood += taskInfo.population * taskInfo.foodPerTick;
         }
     }
     updateDisplay();
