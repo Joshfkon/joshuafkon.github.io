@@ -37,19 +37,19 @@
     
 
     // Gather food button
-    document.getElementById('gather-food').addEventListener('click', function() {
-        perishableFood += 1;
-        updateDisplay();
-    });
+   // document.getElementById('gather-food').addEventListener('click', function() {
+    //    perishableFood += 1;
+      //  updateDisplay();
+   // });
 
     // Increase population button
-    document.getElementById('buy-population').addEventListener('click', function() {
-        if (perishableFood >= 10) {
-            perishableFood -= 10;
-            population += 1;
-            updateDisplay();
-        }
-    });
+   // document.getElementById('buy-population').addEventListener('click', function() {
+ //       if (perishableFood >= 10) {
+  //          perishableFood -= 10;
+   //         population += 1;
+   //         updateDisplay();
+   //     }
+   // });
 
     // Task assignment buttons
     document.getElementById('assign-hunting').addEventListener('click', function() {
