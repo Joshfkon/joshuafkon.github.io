@@ -71,10 +71,12 @@ let tasks = {
 
 
 function updateDisplay() {
-    document.getElementById('perishable-food-count').textContent = perishableFood;
-    document.getElementById('preserved-food-count').textContent = preservedFood;
-    document.getElementById('population-count').textContent = population;
+    document.getElementById('perishable-food-count').textContent = parseFloat(perishableFood).toFixed(2);
+    document.getElementById('preserved-food-count').textContent = parseFloat(preservedFood).toFixed(2);
+    document.getElementById('population-count').textContent = Math.round(population);
 }
+
+
 
 function updatePopulation() {
     const foodNeeded = population * foodPerPerson;
