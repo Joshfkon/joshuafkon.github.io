@@ -81,35 +81,31 @@ function preserveFood(amount) {
 }
 
 
-// Calculate food production from tasks
-function updateResources() {
-    // Automatically preserve a portion of perishable food based on the preservation rate
-    const amountToPreserve = perishableFood * preservationRate; // Calculate amount based on rate
-    perishableFood -= amountToPreserve; // Deduct from perishable
-    preservedFood += amountToPreserve; // Add to preserved
-    console.log(`${amountToPreserve.toFixed(2)} food preserved automatically.`);
-
-    // Example logic for variable food production from hunting
-    for (const task in tasks) {
-        const taskInfo = tasks[task];
-        if (task === 'hunting') {
-            // Generate variable food for hunting
-            const baseFoodPerTick = 0; // Minimum food per person per tick
-            const variability = 4; // Maximum additional food per person per tick
-            let foodFromHunting = 0;
-            for (let i = 0; i < taskInfo.population; i++) {
+// Example logic for variable food production from hunting
+for (const task in tasks) {
+    const taskInfo = tasks[task];
+    if (task === 'hunting') {
+        // Generate variable food for hunting
+        const baseFoodPerTick = 0; // Minimum food per person per tick
+        const variability = 5; // Maximum additional food per person per tick
+        let foodFromHunting = 0;
+        for (let i = 0; i < taskInfo.population; i++) {
+            // 50% chance to return food
+            if (Math.random() < 0.5) {
+                // If the condition is true, proceed to add food
                 foodFromHunting += baseFoodPerTick + Math.floor(Math.random() * variability);
+            } else {
+                // 50% of the time, this else block means no food is added for this iteration
+                console.log("No food returned from hunting this time.");
             }
-            perishableFood += foodFromHunting; // Add to perishable food
-        } else {
-            // For other tasks, use the fixed foodPerTick value
-            perishableFood += taskInfo.population * taskInfo.foodPerTick; // Add to perishable food
         }
+        perishableFood += foodFromHunting; // Add to perishable food
+    } else {
+        // For other tasks, use the fixed foodPerTick value
+        perishableFood += taskInfo.population * taskInfo.foodPerTick; // Add to perishable food
     }
-
-    // Update the display to reflect the new amounts of perishable and preserved food
-    updateDisplay();
 }
+
 
 
 setInterval(updatePopulation, updateInterval); // Update population every 5 seconds
