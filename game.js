@@ -34,6 +34,42 @@ function updatePopulation() {
     updateDisplay();
 }
 
+// Calculate food production from tasks
+function updateResources() {
+    for (const task in tasks) {
+        const taskInfo = tasks[task];
+        food += taskInfo.population * taskInfo.foodPerTick;
+    }
+    updateDisplay();
+}
 
 setInterval(updatePopulation, updateInterval); // Update population every 5 seconds
+setInterval(updateResources, updateInterval); // Optionally update resources at a different interval
 
+let tasks = {
+    hunting: { population: 0, foodPerTick: 2 },
+    // Other tasks
+};
+
+function assignToTask(task) {
+    if (population > getTotalAssignedPopulation()) {
+        tasks[task].population += 1;
+        updateResourcesDisplay(); // Remember to implement this
+    }
+}
+
+function removeFromTask(task) {
+    if (tasks[task].population > 0) {
+        tasks[task].population -= 1;
+        updateResourcesDisplay(); // Remember to implement this
+    }
+}
+
+function getTotalAssignedPopulation() {
+    return Object.values(tasks).reduce((total, task) => total + task.population, 0);
+}
+
+function updateResourcesDisplay() {
+    // Implement to update UI based on task assignments
+    // This could iterate over each task, updating the web page to show the current population assigned to each task
+}
