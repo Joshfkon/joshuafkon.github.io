@@ -56,19 +56,29 @@
     // Task assignment buttons
     // Event listener for the hunting rate slider
     document.addEventListener('DOMContentLoaded', function() {
-        document.getElementById('hunting-rate').addEventListener('input', function() {
+        const huntingRateInput = document.getElementById('hunting-rate');
+        const huntingRateValueDisplay = document.getElementById('hunting-rate-value');
+    
+        huntingRateInput.addEventListener('input', function() {
+            huntingRateValueDisplay.textContent = `${this.value}%`;
             tasks.hunting.rate = this.value / 100;
             updateTaskPercentages(); // Adjust task assignments based on new rates
         });
-    });
-
-    document.addEventListener('DOMContentLoaded', function() {
-        document.getElementById('gathering-rate').addEventListener('input', function() {
+    
+        const gatheringRateInput = document.getElementById('gathering-rate');
+        const gatheringRateValueDisplay = document.getElementById('gathering-rate-value');
+    
+        gatheringRateInput.addEventListener('input', function() {
+            gatheringRateValueDisplay.textContent = `${this.value}%`;
             tasks.gathering.rate = this.value / 100;
             updateTaskPercentages(); // Adjust task assignments based on new rates
         });
-        
+    
+        // Initialization - display the initial slider values on page load
+        huntingRateValueDisplay.textContent = `${huntingRateInput.value}%`;
+        gatheringRateValueDisplay.textContent = `${gatheringRateInput.value}%`;
     });
+    
     
 
 
