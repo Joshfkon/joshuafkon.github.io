@@ -3,9 +3,9 @@
     let preservedFood = 5;
     let population = 10;
     const foodPerPerson = 1;
-    const updateInterval = 5000;
+    const updateInterval = 10000;
     const spoilageRate = 0.3;
-    const spoilageInterval = 10000;
+    const spoilageInterval = 20000;
     let preservationRate = 0;
   // At the beginning of your script, adjust the tasks object to include a rate property
     let tasks = {
