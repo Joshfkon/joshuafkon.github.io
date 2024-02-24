@@ -17,16 +17,17 @@
     gathering: { population: 0, foodPerTick: 1.2, rate: 0 }, // Add rate: 0
     };
 
-document.getElementById('toggle-population-details').addEventListener('click', function() {
-    var details = document.getElementById('population-details');
-    if (details.style.display === 'none') {
-        details.style.display = 'block';
-        this.textContent = 'Collapse';
+document.getElementById("toggle-population-details").addEventListener("click", function() {
+    var detailsDiv = document.getElementById("population-details");
+    if (detailsDiv.style.display === "none") {
+        detailsDiv.style.display = "block";
+        this.textContent = "Collapse"; // Change the text to "Collapse" after expanding
     } else {
-        details.style.display = 'none';
-        this.textContent = 'Expand';
+        detailsDiv.style.display = "none";
+        this.textContent = "Expand"; // Change back the text to "Expand" after collapsing
     }
 });
+
 
 
     document.addEventListener('DOMContentLoaded', function() {
