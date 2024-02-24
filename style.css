@@ -91,3 +91,7 @@ button, input[type="number"] {
     display: none;
 }
 
+#toggle-population-details:hover {
+    color: blue; /* Change as needed */
+}
+
