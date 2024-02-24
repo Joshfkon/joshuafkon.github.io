@@ -86,3 +86,8 @@ button, input[type="number"] {
     width: auto;
     max-width: 200px;
 }
+
+.hidden {
+    display: none;
+}
+
