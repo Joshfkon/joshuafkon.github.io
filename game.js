@@ -7,10 +7,12 @@
     const spoilageRate = 0.3;
     const spoilageInterval = 10000;
     let preservationRate = 0;
+  // At the beginning of your script, adjust the tasks object to include a rate property
     let tasks = {
-        hunting: { population: 0, foodPerTick: 2 },
-        gathering: { population: 0, foodPerTick: 1 },
+    hunting: { population: 0, foodPerTick: 2, rate: 0 }, // Add rate: 0
+    gathering: { population: 0, foodPerTick: 1, rate: 0 }, // Add rate: 0
     };
+
 
 
     document.addEventListener('DOMContentLoaded', function() {
@@ -52,18 +54,17 @@
    // });
 
     // Task assignment buttons
-    document.getElementById('assign-hunting').addEventListener('click', function() {
-        assignToTask('hunting');
-    });
-    document.getElementById('remove-hunting').addEventListener('click', function() {
-        removeFromTask('hunting');
-    });
-    document.getElementById('assign-gathering').addEventListener('click', function() {
-        assignToTask('gathering');
-    });
-    document.getElementById('remove-gathering').addEventListener('click', function() {
-        removeFromTask('gathering');
-    });
+    // Event listener for the hunting rate slider
+document.getElementById('hunting-rate').addEventListener('input', function() {
+    tasks.hunting.rate = this.value / 100;
+    updateTaskPercentages(); // Adjust task assignments based on new rates
+});
+
+document.getElementById('gathering-rate').addEventListener('input', function() {
+    tasks.gathering.rate = this.value / 100;
+    updateTaskPercentages(); // Adjust task assignments based on new rates
+});
+
 
     // Initialize intervals for updating population and resources
     setInterval(updatePopulation, updateInterval);
@@ -81,17 +82,14 @@ function updateDisplay() {
     document.getElementById('population-count').textContent = population;
 }
 
-function adjustTaskAssignments() {
-    let totalAssigned = getTotalAssignedPopulation();
-    while (totalAssigned > population) {
-        Object.keys(tasks).forEach(hunting => {
-            if (tasks[hunting].population > 0 && totalAssigned > population) {
-                tasks[hunting].population -= 1;
-                totalAssigned -= 1;
-            }
-        });
-    }
-    updateResourcesDisplay(); // Ensure this updates your UI to reflect the changes.
+// Function to update task percentages
+function updateTaskPercentages() {
+    const totalPopulation = population;
+    Object.keys(tasks).forEach(task => {
+        const taskPercentage = tasks[task].rate;
+        tasks[task].population = Math.floor(totalPopulation * taskPercentage);
+    });
+    updateDisplay(); // Make sure this function updates UI to reflect task population changes
 }
 
 function adjustTaskAssignments() {
