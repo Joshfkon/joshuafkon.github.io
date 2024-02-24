@@ -17,6 +17,16 @@
     gathering: { population: 0, foodPerTick: 1.2, rate: 0 }, // Add rate: 0
     };
 
+document.getElementById('toggle-population-details').addEventListener('click', function() {
+    var details = document.getElementById('population-details');
+    if (details.style.display === 'none') {
+        details.style.display = 'block';
+        this.textContent = 'Collapse';
+    } else {
+        details.style.display = 'none';
+        this.textContent = 'Expand';
+    }
+});
 
 
     document.addEventListener('DOMContentLoaded', function() {
