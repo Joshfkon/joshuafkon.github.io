@@ -9,8 +9,8 @@
     let preservationRate = 0;
   // At the beginning of your script, adjust the tasks object to include a rate property
     let tasks = {
-    hunting: { population: 0, foodPerTick: 2, rate: 0 }, // Add rate: 0
-    gathering: { population: 0, foodPerTick: 1, rate: 0 }, // Add rate: 0
+    hunting: { population: 0, foodPerTick: 2.5, rate: 0 }, // Add rate: 0
+    gathering: { population: 0, foodPerTick: 1.2, rate: 0 }, // Add rate: 0
     };
 
 
@@ -176,22 +176,32 @@ function updateResources() {
     // Proceed with food production from tasks
     Object.keys(tasks).forEach(task => {
         const taskInfo = tasks[task];
-        let foodProduced = taskInfo.population * taskInfo.foodPerTick;
+        let foodProduced = 0; // Initialize foodProduced
+
         if (task === 'hunting') {
-            let success = Math.random() < 0.5; // Example: 50% chance of success
+            // Example: 50% chance of success for hunting
+            let success = Math.random() < 0.5;
             if (success) {
-                foodProduced = taskInfo.population * taskInfo.foodPerTick; // Or some other calculation
+                foodProduced = taskInfo.population * taskInfo.foodPerTick;
                 document.getElementById('hunt-results').textContent = `Success! Hunt yielded ${foodProduced.toFixed(2)} food.`;
             } else {
                 foodProduced = 0; // No food produced on failure
                 document.getElementById('hunt-results').textContent = "Hunt failed. Better luck next time!";
             }
+        } else if (task === 'gathering') {
+            // Introduce variability in gathering
+            let variabilityFactor = Math.random() * 0.5 + 0.75; // Random factor between 0.75 and 1.25
+            foodProduced = taskInfo.population * taskInfo.foodPerTick * variabilityFactor;
+            // Optionally, display gathering results if you have a dedicated element for it
+            // document.getElementById('gathering-results').textContent = `Gathered ${foodProduced.toFixed(2)} food.`;
         }
+
         perishableFood += foodProduced;
-    }); // This closing bracket was missing.
+    });
 
     updateDisplay();
 }
+
 
 
 function updateResourcesDisplay() {
@@ -204,3 +214,11 @@ function updateResourcesDisplay() {
 function getTotalAssignedPopulation() {
     return Object.values(tasks).reduce((total, task) => total + task.population, 0);
 }
+
+function updateCulturalTraits(cohesiveness, warriorSpirit) {
+    document.getElementById('cohesiveness').textContent = cohesiveness;
+    document.getElementById('warrior-spirit').textContent = warriorSpirit;
+}
+
+// Example usage
+updateCulturalTraits(5, 10); // Update with actual values based on game logic
