@@ -55,15 +55,21 @@
 
     // Task assignment buttons
     // Event listener for the hunting rate slider
-document.getElementById('hunting-rate').addEventListener('input', function() {
-    tasks.hunting.rate = this.value / 100;
-    updateTaskPercentages(); // Adjust task assignments based on new rates
-});
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('hunting-rate').addEventListener('input', function() {
+            tasks.hunting.rate = this.value / 100;
+            updateTaskPercentages(); // Adjust task assignments based on new rates
+        });
+    });
 
-document.getElementById('gathering-rate').addEventListener('input', function() {
-    tasks.gathering.rate = this.value / 100;
-    updateTaskPercentages(); // Adjust task assignments based on new rates
-});
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('gathering-rate').addEventListener('input', function() {
+            tasks.gathering.rate = this.value / 100;
+            updateTaskPercentages(); // Adjust task assignments based on new rates
+        });
+        
+    });
+    
 
 
     // Initialize intervals for updating population and resources
