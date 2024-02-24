@@ -126,6 +126,8 @@ function adjustTaskAssignments() {
 }
 
 
+
+
 function updatePopulation() {
     const foodNeeded = population * foodPerPerson;
     if (perishableFood >= foodNeeded) {
@@ -136,8 +138,8 @@ function updatePopulation() {
         const surplusThreshold = 5;
         while (surplusFood >= surplusThreshold) {
             surplusFood -= surplusThreshold;
-            population += 1; // Increase population
-            //perishableFood -= surplusThreshold; // Assume surplus food is consumed for growth
+            population += women - children; // Modify population based on women and children
+            perishableFood -= surplusThreshold;
         }
     } else {
         let shortfall = foodNeeded - perishableFood;
@@ -145,12 +147,23 @@ function updatePopulation() {
         if (preservedFood >= shortfall) {
             preservedFood -= shortfall;
         } else {
+            shortfall -= preservedFood;
             preservedFood = 0;
-            population = Math.max(0, population - 1); // Prevent negative population
+            // For every unit of shortfall, reduce the population, not just by 1
+            const peoplePerFoodUnit = 1; // How many people are affected per unit of food shortfall
+            population = Math.max(0, population - Math.ceil(shortfall / peoplePerFoodUnit)); // Adjust for more realistic decline
         }
     }
-    updateDisplay();
+    updateDisplay(); // Make sure this function updates your display with the new values
 }
+
+// Assuming you have a function to periodically call updatePopulation
+setInterval(updatePopulation, 270000);
+
+function updateDisplay() {
+    console.log(`Population: ${population}, Perishable Food: ${perishableFood}, Preserved Food: ${preservedFood}`);
+}
+
 
 
 function spoilFood() {
