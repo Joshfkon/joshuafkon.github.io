@@ -1,7 +1,11 @@
     
     let perishableFood = 0;
     let preservedFood = 5;
-    let population = 10;
+    let men = 10;
+    let women = 10;
+    let children = 2;
+    let population = men + women + children;
+
     const foodPerPerson = 1;
     const updateInterval = 10000;
     const spoilageRate = 0.3;
