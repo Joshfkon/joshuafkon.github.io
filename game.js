@@ -106,8 +106,78 @@
 
 
 
-
-
+    function adjustPopulationForFood() {
+        const totalFood = perishableFood + preservedFood;
+        let foodPerPerson = totalFood / population;
+    
+        while (foodPerPerson < 1 && population > 0) {
+            if (children > 0) {
+                children--;
+            } else if (men > 0 && women > 0) {
+                // Try to reduce men and women equally
+                men--;
+                women--;
+            } else if (men > 0) {
+                men--;
+            } else if (women > 0) {
+                women--;
+            }
+    
+            // Update population and recalculate food per person
+            population = men + women + children;
+            foodPerPerson = (perishableFood + preservedFood) / population;
+        }
+    }
+    function simulatePopulationDynamics() {
+        // Birth
+        for (let i = 0; i < women; i++) {
+            if (Math.random() < 1 / 125) {
+                children++;
+            }
+        }
+    
+        // Growth
+        let childrenBecomingAdults = 0;
+        for (let i = 0; i < children; i++) {
+            if (Math.random() < 1 / 365) {
+                childrenBecomingAdults++;
+            }
+        }
+        children -= childrenBecomingAdults;
+        // Assume half of the children become men and half become women, for simplicity
+        men += Math.floor(childrenBecomingAdults / 2);
+        women += Math.ceil(childrenBecomingAdults / 2);
+    
+        // Death from Old Age
+        ['men', 'women'].forEach(gender => {
+            for (let i = 0; i < window[gender]; i++) {
+                if (Math.random() < 1 / 10950) {
+                    window[gender]--;
+                }
+            }
+        });
+    
+        // Death from Disease - Children
+        for (let i = 0; i < children; i++) {
+            if (Math.random() < 1 / 1825) {
+                children--;
+            }
+        }
+    
+        // Death from Disease - Adults
+        ['men', 'women'].forEach(gender => {
+            for (let i = 0; i < window[gender]; i++) {
+                if (Math.random() < 1 / 13140) {
+                    window[gender]--;
+                }
+            }
+        });
+    
+        // Update total population count
+        population = men + women + children;
+        updateDisplay(); // Make sure the display is updated with the new values
+    }
+    
 
 function updateDisplay() {
     document.getElementById('perishable-food-count').textContent = parseFloat(perishableFood).toFixed(2);
