@@ -208,6 +208,35 @@ function adjustTaskAssignments() {
     updateResourcesDisplay(); // Ensure this updates your UI to reflect the changes.
 }
 
+document.addEventListener('DOMContentLoaded', function() {
+    let day = 1;
+    let year = 0;
+    const seasons = ['Spring', 'Summer', 'Autumn', 'Winter'];
+    let currentSeasonIndex = 0;
+
+    function updateDisplay() {
+        document.getElementById('day').textContent = day;
+        document.getElementById('season').textContent = seasons[currentSeasonIndex];
+        document.getElementById('year').textContent = year;
+    }
+
+    function incrementTime() {
+        day++;
+        if (day > 364) {
+            day = 1; // Reset day to 1
+            year++; // Increment year
+        }
+
+        if (day % 91 === 0) { // Change season every 91 days
+            currentSeasonIndex = (currentSeasonIndex + 1) % seasons.length; // Cycle through the seasons
+        }
+
+        updateDisplay(); // Update the display with the new day, season, and year
+    }
+
+    setInterval(incrementTime, 10000); // Increment time every 10 seconds
+    updateDisplay(); // Initialize display
+});
 
 
 
