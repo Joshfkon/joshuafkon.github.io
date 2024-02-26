@@ -252,6 +252,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let year = 0;
     const seasons = ['Spring', 'Summer', 'Autumn', 'Winter'];
     let currentSeasonIndex = 0;
+    let popupShown = false; // Flag to track if the popup has been shown
 
     function updateDisplay() {
         document.getElementById('day').textContent = day;
@@ -259,15 +260,29 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('year').textContent = year;
     }
 
+    function showPopup() {
+        // Show the popup only if it hasn't been shown yet
+        if (!popupShown) {
+            document.getElementById('popup-container').style.display = 'flex';
+            popupShown = true; // Update the flag so the popup isn't shown again
+        }
+    }
+
     function incrementTime() {
         day++;
         if (day > 364) {
             day = 1; // Reset day to 1
             year++; // Increment year
+            popupShown = false; // Reset the popup shown flag each year
         }
 
         if (day % 91 === 0) { // Change season every 91 days
             currentSeasonIndex = (currentSeasonIndex + 1) % seasons.length; // Cycle through the seasons
+        }
+
+        // Show the popup sometime between day 3 and day 10
+        if (day >= 3 && day <= 10 && !popupShown) {
+            showPopup();
         }
 
         updateDisplay(); // Update the display with the new day, season, and year
@@ -276,7 +291,6 @@ document.addEventListener('DOMContentLoaded', function() {
     setInterval(incrementTime, 10000); // Increment time every 10 seconds
     updateDisplay(); // Initialize display
 });
-
 
 
 function updatePopulation() {

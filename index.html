@@ -8,6 +8,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
+
+    <!-- Popup Container -->
+<div id="popup-container" style="display: none;">
+    <!-- Popup Content -->
+    <div id="popup-content">
+      <h2>Choose Your Action</h2>
+      <p id="situation-description">Food has grown Scarce - and it has not rained for weeks.</p>
+      <!-- Options -->
+      <button onclick="handleOption('Option1')">Move to find bettter conditions elseware</button>
+      <button onclick="handleOption('Option2')">Make a Sacrifice to the Cloud Spririt for Rain</button>
+      <button onclick="handleOption('Option3')">Raid a Neighboring Tribe for their resources</button>
+      <!-- Close Button -->
+      <button onclick="closePopup()">Close</button>
+    </div>
+  </div>
+  
     <div id="game-container">
         <h1>Tribal Expansion</h1>
 
