@@ -12,6 +12,13 @@ body, html {
     line-height: 1.6;
 }
 
+#time-container p {
+    font-size: 0.9em; /* Adjust the font size to be slightly smaller */
+    margin: 0; /* Remove default margin if desired */
+    /* You can add more styling here as needed */
+}
+
+
 #game-container {
     /* Remove max-width to allow full width on small screens */
     width: 95%; /* Slightly less than full width for some padding */
