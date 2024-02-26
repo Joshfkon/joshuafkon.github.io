@@ -30,7 +30,46 @@
         }
     });
     
-
+    document.addEventListener('DOMContentLoaded', function() {
+        // Select all tooltip elements
+        var tooltips = document.querySelectorAll('.tooltip');
+    
+        tooltips.forEach(function(tooltip) {
+            // Mouse events
+            tooltip.addEventListener('mouseover', showTooltip);
+            tooltip.addEventListener('mouseout', hideTooltip);
+    
+            // Touch events
+            tooltip.addEventListener('touchstart', toggleTooltip);
+        });
+    
+        function showTooltip(event) {
+            var tooltipText = event.currentTarget.querySelector('.tooltip-text');
+            tooltipText.style.visibility = 'visible';
+        }
+    
+        function hideTooltip(event) {
+            var tooltipText = event.currentTarget.querySelector('.tooltip-text');
+            tooltipText.style.visibility = 'hidden';
+        }
+    
+        function toggleTooltip(event) {
+            // Prevent the page from scrolling when you tap the tooltip
+            event.preventDefault();
+    
+            var tooltipText = event.currentTarget.querySelector('.tooltip-text');
+            var isTooltipVisible = tooltipText.style.visibility === 'visible';
+    
+            // Hide all other tooltips
+            document.querySelectorAll('.tooltip .tooltip-text').forEach(function(el) {
+                el.style.visibility = 'hidden';
+            });
+    
+            // Show or hide the current tooltip based on its previous state
+            tooltipText.style.visibility = isTooltipVisible ? 'hidden' : 'visible';
+        }
+    });
+    
 
     document.addEventListener('DOMContentLoaded', function() {
     const preservationRateInput = document.getElementById('preservation-rate');

@@ -57,7 +57,33 @@
         
 
         <h2>Cultural Traits</h2>
-        <p>Cohesiveness: <span id="cohesiveness" title="The unity and solidarity of the community.">50</span></p>
+        <style>
+            .tooltip {
+              display: inline-block;
+              position: relative;
+            }
+            .tooltip .tooltip-text {
+              visibility: hidden;
+              width: 120px;
+              background-color: black;
+              color: #fff;
+              text-align: center;
+              border-radius: 6px;
+              padding: 5px 0;
+              position: absolute;
+              z-index: 1;
+              bottom: 100%;
+              left: 50%;
+              margin-left: -60px;
+            }
+            .tooltip:hover .tooltip-text {
+              visibility: visible;
+            }
+            </style>
+            
+            <p>Cohesiveness: <span class="tooltip">50
+              <span class="tooltip-text">The unity and solidarity of the community.</span>
+            </span></p>
         <p>Warrior Spirit: <span id="warrior-spirit" title="The aggressiveness and bravery in battle. - Combat Modifier">50</span></p>
         <p>Sexual Practice: <span title="The practice of having multiple marital partners. - Impacts Cultural Cohesivness, Warriro Spirit, and Fertility Rate">Polygamy</span></p>
         <p>Religion: <span title="Belief that objects, places, and creatures all possess a distinct spiritual essence. - Impacts Cultural Cohesivness and Warriro Spirit">Animism</span></p>
