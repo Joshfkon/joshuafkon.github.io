@@ -11,11 +11,29 @@
     const spoilageRate = 0.3;
     const spoilageInterval = 20000;
     let preservationRate = 0;
+
   // At the beginning of your script, adjust the tasks object to include a rate property
     let tasks = {
     hunting: { population: 0, foodPerTick: 2.5, rate: 0 }, // Add rate: 0
     gathering: { population: 0, foodPerTick: 1.2, rate: 0 }, // Add rate: 0
     };
+
+    let isGamePaused = false;
+
+    function showPopup() {
+        if (!popupShown) {
+            document.getElementById('popup-container').style.display = 'flex';
+            popupShown = true; // Update the flag so the popup isn't shown again
+            isGamePaused = true; // Pause the game
+        }
+    }
+    
+    function closePopup() {
+        document.getElementById('popup-container').style.display = 'none';
+        // Other reset logic here...
+        isGamePaused = false; // Resume the game
+    }
+    
 
     document.getElementById("population-label").addEventListener("click", function() {
         var detailsDiv = document.getElementById("population-details");
@@ -146,6 +164,7 @@
 
 
     function adjustPopulationForFood() {
+        if (isGamePaused) return; // Check if the game is paused
         const totalFood = perishableFood + preservedFood;
         let foodPerPerson = totalFood / population;
     
@@ -168,6 +187,7 @@
         }
     }
     function simulatePopulationDynamics() {
+        if (isGamePaused) return; // Check if the game is paused
         // Birth
         for (let i = 0; i < women; i++) {
             if (Math.random() < 1 / 125) {
@@ -226,6 +246,7 @@ function updateDisplay() {
 
 // Function to update task percentages
 function updateTaskPercentages() {
+    if (isGamePaused) return; // Check if the game is paused
     const totalPopulation = population;
     Object.keys(tasks).forEach(task => {
         const taskPercentage = tasks[task].rate;
@@ -235,6 +256,7 @@ function updateTaskPercentages() {
 }
 
 function adjustTaskAssignments() {
+    if (isGamePaused) return; // Check if the game is paused
     let totalAssigned = getTotalAssignedPopulation();
     while (totalAssigned > population) {
         Object.keys(tasks).forEach(taskName => {
@@ -248,6 +270,7 @@ function adjustTaskAssignments() {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
+    if (isGamePaused) return; // Check if the game is paused
     let day = 1;
     let year = 0;
     const seasons = ['Spring', 'Summer', 'Autumn', 'Winter'];
@@ -360,6 +383,7 @@ function closePopup() {
 
 
 function updatePopulation() {
+    if (isGamePaused) return; // Check if the game is paused
     const foodNeeded = population * foodPerPerson;
     if (perishableFood >= foodNeeded) {
         let surplusFood = perishableFood - foodNeeded;
@@ -398,12 +422,14 @@ function updateDisplay() {
 
 
 function spoilFood() {
+    if (isGamePaused) return; // Check if the game is paused
     let spoiledFood = perishableFood * spoilageRate;
     perishableFood -= spoiledFood; // Reduce perishable food by the spoilage rate
     updateDisplay();
 }
 
 function preserveFood(amount) {
+    if (isGamePaused) return; // Check if the game is paused
     // Assuming this function is manually called to convert perishable to preserved
     if (perishableFood >= amount) {
         perishableFood -= amount;
@@ -415,6 +441,7 @@ function preserveFood(amount) {
 }
 
 function updateResources() {
+    if (isGamePaused) return; // Check if the game is paused
     // Automatically preserve a portion of perishable food based on the user-set preservation rate
     const amountToPreserveAutomatically = perishableFood * preservationRate;
     perishableFood -= amountToPreserveAutomatically;
@@ -453,6 +480,7 @@ function updateResources() {
 
 
 function updateResourcesDisplay() {
+    if (isGamePaused) return; // Check if the game is paused
     // Implement based on your UI needs. For example:
     document.getElementById('hunting-pop').textContent = tasks.hunting.population;
     document.getElementById('gathering-pop').textContent = tasks.gathering.population;
@@ -460,6 +488,7 @@ function updateResourcesDisplay() {
 }
 
 function getTotalAssignedPopulation() {
+    if (isGamePaused) return; // Check if the game is paused
     return Object.values(tasks).reduce((total, task) => total + task.population, 0);
 }
 
