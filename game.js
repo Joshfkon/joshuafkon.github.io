@@ -268,6 +268,32 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    function handleOption(option) {
+        // Example result text, customize as needed
+        const resultText = "You selected: " + option + ". Here's the outcome...";
+        document.getElementById('result-text').textContent = resultText;
+        document.getElementById('result-text').style.display = 'block';
+        
+        // Hide the option buttons
+        document.querySelectorAll('#popup-content button:not(#close-button)').forEach(button => {
+            button.style.display = 'none';
+        });
+
+        // Show the close button
+        document.getElementById('close-button').style.display = 'inline-block';
+    }
+
+    function closePopup() {
+        document.getElementById('popup-container').style.display = 'none';
+        document.getElementById('result-text').style.display = 'none';
+        document.getElementById('close-button').style.display = 'none';
+        // Reset option buttons for next time
+        document.querySelectorAll('#popup-content button:not(#close-button)').forEach(button => {
+            button.style.display = 'inline-block';
+        });
+        popupShown = false; // Allow the popup to be shown again next year
+    }
+
     function incrementTime() {
         day++;
         if (day > 364) {
@@ -277,7 +303,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         if (day % 91 === 0) { // Change season every 91 days
-            currentSeasonIndex = (currentSeasonIndex + 1) % seasons.length; // Cycle through the seasons
+            currentSeasonIndex = (currentSeasonIndex + 1) % seasons.length;
         }
 
         // Show the popup sometime between day 3 and day 10
@@ -291,6 +317,7 @@ document.addEventListener('DOMContentLoaded', function() {
     setInterval(incrementTime, 10000); // Increment time every 10 seconds
     updateDisplay(); // Initialize display
 });
+
 
 
 function updatePopulation() {
