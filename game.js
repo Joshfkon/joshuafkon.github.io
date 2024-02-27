@@ -1,25 +1,37 @@
     
-    let perishableFood = 0;
+    // Initial Conditions
+
+    let isGamePaused = false;
+    
+    let perishableFood = 10;
     let preservedFood = 5;
+    let tools =10;
     let men = 10;
     let women = 10;
     let children = 2;
     let population = men + women + children;
 
+    
     const foodPerPerson = 1;
+
+    //One day
     const updateInterval = 10000;
+
     const spoilageRate = 0.3;
-    const spoilageInterval = 20000;
+    const spoilageInterval = 30000;
     let preservationRate = 0;
 
   // At the beginning of your script, adjust the tasks object to include a rate property
     let tasks = {
     hunting: { population: 0, foodPerTick: 2.5, rate: 0 }, // Add rate: 0
     gathering: { population: 0, foodPerTick: 1.2, rate: 0 }, // Add rate: 0
+    toolMaking: { population: 0, foodPerTick: 0, toolsPerTick: .5, rate: 0 }, // Add rate: 0
+    FoodPreservation: { population: 0, preservedFoodfoodPerTick: 1, rate: 0 }, // Add rate: 0
+
     };
 
-    let isGamePaused = false;
-
+ 
+// Event Popups Functionallity
     function showPopup() {
         if (!popupShown) {
             document.getElementById('popup-container').style.display = 'flex';
@@ -47,6 +59,11 @@
             // this.textContent = "Population:";
         }
     });
+
+
+
+
+    //ToolTip Fuctionallity
     
     document.addEventListener('DOMContentLoaded', function() {
         // Select all tooltip elements
@@ -89,6 +106,69 @@
     });
     
 
+    //Function to Make sure all Sliders can not be more than 100% total
+    function adjustSliders(currentSlider) {
+        // Define all sliders and their current values
+        let sliders = {
+            preservation: preservationRateInput,
+            hunting: huntingRateInput,
+            gathering: gatheringRateInput
+        };
+    
+        // Calculate total rate
+        let totalRate = Object.values(sliders).reduce((total, slider) => total + parseFloat(slider.value), 0);
+    
+        // If total rate exceeds 100, adjust other sliders
+        if (totalRate > 100) {
+            // Calculate the excess amount
+            let excess = totalRate - 100;
+    
+            // Distribute the adjustment among the other sliders
+            Object.keys(sliders).forEach(key => {
+                if (sliders[key] !== currentSlider) {
+                    let currentValue = parseFloat(sliders[key].value);
+                    let adjustedValue = Math.max(0, currentValue - (excess / (Object.keys(sliders).length - 1)));
+                    sliders[key].value = adjustedValue.toFixed(2); // Adjust slider value
+    
+                    // Update the corresponding display
+                    if (key === 'preservation') {
+                        preservationRateValueDisplay.textContent = `${adjustedValue.toFixed(2)}%`;
+                        preservationRate = adjustedValue / 100;
+                    } else if (key === 'hunting') {
+                        huntingRateValueDisplay.textContent = `${adjustedValue.toFixed(2)}%`;
+                        tasks.hunting.rate = adjustedValue / 100;
+                    } else if (key === 'gathering') {
+                        gatheringRateValueDisplay.textContent = `${adjustedValue.toFixed(2)}%`;
+                        tasks.gathering.rate = adjustedValue / 100;
+                    }
+                }
+            });
+    
+            updateTaskPercentages(); // Adjust task assignments based on new rates
+        }
+    }
+    
+    // Add event listeners for sliders
+    preservationRateInput.addEventListener('input', function() {
+        preservationRateValueDisplay.textContent = `${this.value}%`;
+        preservationRate = this.value / 100;
+        adjustSliders(this); // Pass the current slider as argument
+    });
+    
+    huntingRateInput.addEventListener('input', function() {
+        huntingRateValueDisplay.textContent = `${this.value}%`;
+        tasks.hunting.rate = this.value / 100;
+        adjustSliders(this);
+    });
+    
+    gatheringRateInput.addEventListener('input', function() {
+        gatheringRateValueDisplay.textContent = `${this.value}%`;
+        tasks.gathering.rate = this.value / 100;
+        adjustSliders(this);
+    });
+    
+
+    // Preservation Rate Slider
     document.addEventListener('DOMContentLoaded', function() {
     const preservationRateInput = document.getElementById('preservation-rate');
     const preservationRateValueDisplay = document.getElementById('preservation-rate-value');
@@ -109,26 +189,8 @@
         preservationRateValueDisplay.textContent = `${preservationRateInput.value}%`;
     });
 
-    
-    
 
-    // Gather food button
-   // document.getElementById('gather-food').addEventListener('click', function() {
-    //    perishableFood += 1;
-      //  updateDisplay();
-   // });
-
-    // Increase population button
-   // document.getElementById('buy-population').addEventListener('click', function() {
- //       if (perishableFood >= 10) {
-  //          perishableFood -= 10;
-   //         population += 1;
-   //         updateDisplay();
-   //     }
-   // });
-
-    // Task assignment buttons
-    // Event listener for the hunting rate slider
+    // Hunting Rate Slider
     document.addEventListener('DOMContentLoaded', function() {
         const huntingRateInput = document.getElementById('hunting-rate');
         const huntingRateValueDisplay = document.getElementById('hunting-rate-value');
