@@ -105,7 +105,7 @@
         }
     });
     
-
+//Sliders Functionality
     document.addEventListener('DOMContentLoaded', function() {
         // Define slider inputs and display elements
         const preservationRateInput = document.getElementById('preservation-rate');
@@ -182,6 +182,7 @@
 
 
 
+ //Population reduced in starvation (add hunger metric that increases mortality rate)
     function adjustPopulationForFood() {
         if (isGamePaused) return; // Check if the game is paused
         const totalFood = perishableFood + preservedFood;
@@ -205,6 +206,8 @@
             foodPerPerson = (perishableFood + preservedFood) / population;
         }
     }
+
+//Function to simulate Population dynamics
     function simulatePopulationDynamics() {
         if (isGamePaused) return; // Check if the game is paused
         // Birth
@@ -288,6 +291,8 @@ function adjustTaskAssignments() {
     updateResourcesDisplay(); // Ensure this updates your UI to reflect the changes.
 }
 
+
+//Functions to show time / popups
 document.addEventListener('DOMContentLoaded', function() {
     if (isGamePaused) return; // Check if the game is paused
     let day = 1;
@@ -494,6 +499,45 @@ function updateResources() {
     });
 
     updateDisplay();
+}
+
+const popupsConfig = {
+    'drought': {
+        title: "Choose Your Action",
+        description: "Food has grown scarce, and it has not rained for weeks.",
+        options: [
+            {
+                text: "Move to find better conditions elsewhere",
+                outcome: "Your tribe finds a fertile land with ample resources. Your people become more resilient.",
+                effect: () => {
+                    adjustCulturalTraits('resilience', 10); // Adjust resilience by +10
+                    adjustCulturalTraits('exploration', 5); // Adjust exploration by +5
+                }
+            },
+            {
+                text: "Make a Sacrifice to the Cloud Spirit for Rain",
+                outcome: "Your sacrifice pleased the Cloud Spirit. Rain rejuvenates your lands, and your people's faith grows stronger.",
+                effect: () => {
+                    adjustCulturalTraits('faith', 10); // Adjust faith by +10
+                    adjustCulturalTraits('agriculture', 5); // Adjust agriculture by +5
+                }
+            },
+            {
+                text: "Raid a Neighboring Tribe for their resources",
+                outcome: "The raid is successful, but it leads to ongoing conflicts. Your tribe becomes more warlike.",
+                effect: () => {
+                    adjustCulturalTraits('warfare', 10); // Adjust warfare by +10
+                    adjustCulturalTraits('diplomacy', -5); // Adjust diplomacy by -5
+                }
+            }
+        ]
+    }
+};
+
+function adjustCulturalTraits(trait, value) {
+    // This function would adjust the specified cultural trait by the given value.
+    // For demonstration purposes, we'll just log the adjustments to the console.
+    console.log(`Adjusted ${trait} by ${value}.`);
 }
 
 
