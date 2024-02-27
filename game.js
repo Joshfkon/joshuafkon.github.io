@@ -25,8 +25,8 @@
     let tasks = {
     hunting: { population: 0, foodPerTick: 2.5, rate: 0 }, // Add rate: 0
     gathering: { population: 0, foodPerTick: 1.2, rate: 0 }, // Add rate: 0
-    toolMaking: { population: 0, foodPerTick: 0, toolsPerTick: .5, rate: 0 }, // Add rate: 0
-    FoodPreservation: { population: 0, preservedFoodfoodPerTick: 1, rate: 0 }, // Add rate: 0
+   // toolMaking: { population: 0, foodPerTick: 0, toolsPerTick: .5, rate: 0 }, // Add rate: 0
+   // FoodPreservation: { population: 0, preservedFoodfoodPerTick: 1, rate: 0 }, // Add rate: 0
 
     };
 
@@ -106,114 +106,71 @@
     });
     
 
-    //Function to Make sure all Sliders can not be more than 100% total
-    function adjustSliders(currentSlider) {
-        // Define all sliders and their current values
-        let sliders = {
-            preservation: preservationRateInput,
-            hunting: huntingRateInput,
-            gathering: gatheringRateInput
-        };
-    
-        // Calculate total rate
-        let totalRate = Object.values(sliders).reduce((total, slider) => total + parseFloat(slider.value), 0);
-    
-        // If total rate exceeds 100, adjust other sliders
-        if (totalRate > 100) {
-            // Calculate the excess amount
-            let excess = totalRate - 100;
-    
-            // Distribute the adjustment among the other sliders
-            Object.keys(sliders).forEach(key => {
-                if (sliders[key] !== currentSlider) {
-                    let currentValue = parseFloat(sliders[key].value);
-                    let adjustedValue = Math.max(0, currentValue - (excess / (Object.keys(sliders).length - 1)));
-                    sliders[key].value = adjustedValue.toFixed(2); // Adjust slider value
-    
-                    // Update the corresponding display
-                    if (key === 'preservation') {
-                        preservationRateValueDisplay.textContent = `${adjustedValue.toFixed(2)}%`;
-                        preservationRate = adjustedValue / 100;
-                    } else if (key === 'hunting') {
-                        huntingRateValueDisplay.textContent = `${adjustedValue.toFixed(2)}%`;
-                        tasks.hunting.rate = adjustedValue / 100;
-                    } else if (key === 'gathering') {
-                        gatheringRateValueDisplay.textContent = `${adjustedValue.toFixed(2)}%`;
-                        tasks.gathering.rate = adjustedValue / 100;
-                    }
-                }
-            });
-    
-            updateTaskPercentages(); // Adjust task assignments based on new rates
-        }
-    }
-    
-    // Add event listeners for sliders
-    preservationRateInput.addEventListener('input', function() {
-        preservationRateValueDisplay.textContent = `${this.value}%`;
-        preservationRate = this.value / 100;
-        adjustSliders(this); // Pass the current slider as argument
-    });
-    
-    huntingRateInput.addEventListener('input', function() {
-        huntingRateValueDisplay.textContent = `${this.value}%`;
-        tasks.hunting.rate = this.value / 100;
-        adjustSliders(this);
-    });
-    
-    gatheringRateInput.addEventListener('input', function() {
-        gatheringRateValueDisplay.textContent = `${this.value}%`;
-        tasks.gathering.rate = this.value / 100;
-        adjustSliders(this);
-    });
-    
-
-    // Preservation Rate Slider
     document.addEventListener('DOMContentLoaded', function() {
-    const preservationRateInput = document.getElementById('preservation-rate');
-    const preservationRateValueDisplay = document.getElementById('preservation-rate-value');
-
-        // Update the display value in real-time as the slider moves
-        preservationRateInput.addEventListener('input', function() {
-            preservationRateValueDisplay.textContent = `${this.value}%`;
-            // Optionally, update the preservation rate in real-time as well
-            preservationRate = this.value / 100;
-        });
-
-        // Optionally, remove the "Set Rate" button if real-time update is sufficient
-        // document.getElementById('set-preservation-rate').addEventListener('click', function() {
-        //     console.log(`Preservation rate set to ${preservationRate * 100}%`);
-        // });
-
-        // Initialization - display the initial slider value on page load
-        preservationRateValueDisplay.textContent = `${preservationRateInput.value}%`;
-    });
-
-
-    // Hunting Rate Slider
-    document.addEventListener('DOMContentLoaded', function() {
+        // Define slider inputs and display elements
+        const preservationRateInput = document.getElementById('preservation-rate');
+        const preservationRateValueDisplay = document.getElementById('preservation-rate-value');
         const huntingRateInput = document.getElementById('hunting-rate');
         const huntingRateValueDisplay = document.getElementById('hunting-rate-value');
-    
-        huntingRateInput.addEventListener('input', function() {
-            huntingRateValueDisplay.textContent = `${this.value}%`;
-            tasks.hunting.rate = this.value / 100;
-            updateTaskPercentages(); // Adjust task assignments based on new rates
-        });
-    
         const gatheringRateInput = document.getElementById('gathering-rate');
         const gatheringRateValueDisplay = document.getElementById('gathering-rate-value');
     
-        gatheringRateInput.addEventListener('input', function() {
-            gatheringRateValueDisplay.textContent = `${this.value}%`;
-            tasks.gathering.rate = this.value / 100;
-            updateTaskPercentages(); // Adjust task assignments based on new rates
+        // Function to adjust sliders so their total does not exceed 100%
+        function adjustSliders(currentSlider) {
+            let sliders = {
+                preservation: preservationRateInput,
+                hunting: huntingRateInput,
+                gathering: gatheringRateInput
+            };
+    
+            let totalRate = Object.values(sliders).reduce((total, slider) => total + parseFloat(slider.value), 0);
+    
+            if (totalRate > 100) {
+                let excess = totalRate - 100;
+                Object.keys(sliders).forEach(key => {
+                    if (sliders[key] !== currentSlider) {
+                        let currentValue = parseFloat(sliders[key].value);
+                        let adjustedValue = Math.max(0, currentValue - (excess / (Object.keys(sliders).length - 1)));
+                        sliders[key].value = adjustedValue.toFixed(2);
+    
+                        if (key === 'preservation') {
+                            preservationRateValueDisplay.textContent = `${adjustedValue.toFixed(2)}%`;
+                            // Adjust your model or state here if needed
+                        } else if (key === 'hunting') {
+                            huntingRateValueDisplay.textContent = `${adjustedValue.toFixed(2)}%`;
+                            // Adjust your model or state here if needed
+                        } else if (key === 'gathering') {
+                            gatheringRateValueDisplay.textContent = `${adjustedValue.toFixed(2)}%`;
+                            // Adjust your model or state here if needed
+                        }
+                    }
+                });
+    
+                // Optionally, call a function to update other aspects of your application
+                // updateTaskPercentages(); 
+            }
+        }
+    
+        // Set up event listeners for sliders
+        [preservationRateInput, huntingRateInput, gatheringRateInput].forEach(input => {
+            input.addEventListener('input', function() {
+                let display = input === preservationRateInput ? preservationRateValueDisplay :
+                              input === huntingRateInput ? huntingRateValueDisplay :
+                              gatheringRateValueDisplay;
+    
+                display.textContent = `${this.value}%`;
+                // Adjust your model or state here if needed
+                
+                adjustSliders(this);
+            });
         });
     
-        // Initialization - display the initial slider values on page load
+        // Initial display update (optional, if you want to set initial values from the sliders on page load)
+        preservationRateValueDisplay.textContent = `${preservationRateInput.value}%`;
         huntingRateValueDisplay.textContent = `${huntingRateInput.value}%`;
         gatheringRateValueDisplay.textContent = `${gatheringRateInput.value}%`;
     });
+    
     
     
 
