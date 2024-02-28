@@ -373,8 +373,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
-// Assuming you have a function to periodically call updatePopulation
-setInterval(updatePopulation, 270000);
 
 function updateDisplay() {
     console.log(`Population: ${population}, Perishable Food: ${perishableFood}, Preserved Food: ${preservedFood}`);
