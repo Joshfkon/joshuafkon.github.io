@@ -342,6 +342,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function incrementTime() {
+        if (isGamePaused) return; // Check if the game is paused
         day++;
         if (day > 364) {
             day = 1; // Reset day to 1
