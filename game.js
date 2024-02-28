@@ -392,7 +392,7 @@ function updateTaskPercentages() {
             population = men + women + children;
             foodPerPerson = (perishableFood + preservedFood) / population;
         }
-        console.log(`After decrement: Men = ${men}, Women = ${women}, Children = ${children}, Total Assigned = ${totalAssigned}, Food Per Person = ${foodPerPerson}`);
+        console.log(`After decrement: Men = ${men}, Women = ${women}, Children = ${children}, Food Per Person = ${foodPerPerson}`);
 
         updateDisplay(); // Ensure this updates your UI to reflect the changes
     }
