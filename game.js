@@ -21,16 +21,32 @@
     const spoilageInterval = 30000;
     let preservationRate = 0;
 
+    // Initialize intervals for updating population and resources
+    setInterval(updatePopulation, updateInterval);
+    setInterval(updateResources, updateInterval);
+    setInterval(spoilFood, spoilageInterval);
+    
+    
+
   // At the beginning of your script, adjust the tasks object to include a rate property
     let tasks = {
-    hunting: { population: 0, foodPerTick: 2.5, rate: 0 }, // Add rate: 0
-    gathering: { population: 0, foodPerTick: 1.2, rate: 0 }, // Add rate: 0
+    hunting: { population: 0, foodPerTick: 2.5, rate: 50 }, // Add rate: 0
+    gathering: { population: 0, foodPerTick: 1.2, rate: 50 }, // Add rate: 0
    // toolMaking: { population: 0, foodPerTick: 0, toolsPerTick: .5, rate: 0 }, // Add rate: 0
    // FoodPreservation: { population: 0, preservedFoodfoodPerTick: 1, rate: 0 }, // Add rate: 0
 
     };
 
- 
+ //** FUNCTIONAL FUNCTIONS - I.E. NOT GAME LOGIC
+
+ //Function to UpdateDisplay
+ function updateDisplay() {
+    document.getElementById('perishable-food-count').textContent = parseFloat(perishableFood).toFixed(2);
+    document.getElementById('preserved-food-count').textContent = parseFloat(preservedFood).toFixed(2);
+    document.getElementById('population-count').textContent = population;
+    }
+
+
 // Event Popups Functionallity
     function showPopup() {
         if (!popupShown) {
@@ -46,7 +62,7 @@
         isGamePaused = false; // Resume the game
     }
     
-
+//Expands Population for gender / age breakdown
     document.getElementById("population-label").addEventListener("click", function() {
         var detailsDiv = document.getElementById("population-details");
         if (detailsDiv.style.display === "none") {
@@ -60,7 +76,31 @@
         }
     });
 
+    // Function to make sure the total number of tasks assigned to the population does not exceed the total population itself 
+function adjustTaskAssignments() {
+    if (isGamePaused) return; // Check if the game is paused
+    let totalAssigned = getTotalAssignedPopulation();
+    while (totalAssigned > population) {
+        Object.keys(tasks).forEach(taskName => {
+            if (tasks[taskName].population > 0 && totalAssigned > population) {
+                tasks[taskName].population -= 1;
+                totalAssigned -= 1;
+            }
+        });
+    }
+    updateResourcesDisplay(); // Ensure this updates your UI to reflect the changes.
+}
 
+// Function to update task percentages
+function updateTaskPercentages() {
+    if (isGamePaused) return; // Check if the game is paused
+    const totalPopulation = population;
+    Object.keys(tasks).forEach(task => {
+        const taskPercentage = tasks[task].rate;
+        tasks[task].population = Math.floor(totalPopulation * taskPercentage);
+    });
+    updateDisplay(); // Make sure this function updates UI to reflect task population changes
+}
 
 
     //ToolTip Fuctionallity
@@ -172,15 +212,7 @@
     });
     
     
-    
-
-
-    // Initialize intervals for updating population and resources
-    setInterval(updatePopulation, updateInterval);
-    setInterval(updateResources, updateInterval);
-    setInterval(spoilFood, spoilageInterval);
-
-
+  //** GAME LOGIC FUNCTIONS 
 
  //Population reduced in starvation (add hunger metric that increases mortality rate)
     function adjustPopulationForFood() {
@@ -209,7 +241,7 @@
 
 //Function to simulate Population dynamics
     function simulatePopulationDynamics() {
-        if (isGamePaused) return; // Check if the game is paused
+    if (isGamePaused) return; // Check if the game is paused
         // Birth
         for (let i = 0; i < women; i++) {
             if (Math.random() < 1 / 125) {
@@ -259,37 +291,9 @@
         updateDisplay(); // Make sure the display is updated with the new values
     }
     
+   
 
-function updateDisplay() {
-    document.getElementById('perishable-food-count').textContent = parseFloat(perishableFood).toFixed(2);
-    document.getElementById('preserved-food-count').textContent = parseFloat(preservedFood).toFixed(2);
-    document.getElementById('population-count').textContent = population;
-}
 
-// Function to update task percentages
-function updateTaskPercentages() {
-    if (isGamePaused) return; // Check if the game is paused
-    const totalPopulation = population;
-    Object.keys(tasks).forEach(task => {
-        const taskPercentage = tasks[task].rate;
-        tasks[task].population = Math.floor(totalPopulation * taskPercentage);
-    });
-    updateDisplay(); // Make sure this function updates UI to reflect task population changes
-}
-
-function adjustTaskAssignments() {
-    if (isGamePaused) return; // Check if the game is paused
-    let totalAssigned = getTotalAssignedPopulation();
-    while (totalAssigned > population) {
-        Object.keys(tasks).forEach(taskName => {
-            if (tasks[taskName].population > 0 && totalAssigned > population) {
-                tasks[taskName].population -= 1;
-                totalAssigned -= 1;
-            }
-        });
-    }
-    updateResourcesDisplay(); // Ensure this updates your UI to reflect the changes.
-}
 
 
 //Functions to show time / popups
@@ -366,76 +370,8 @@ document.addEventListener('DOMContentLoaded', function() {
     updateDisplay(); // Initialize display
 });
 
-function updateDisplay() {
-    document.getElementById('day').textContent = day;
-    document.getElementById('season').textContent = seasons[currentSeasonIndex];
-    document.getElementById('year').textContent = year;
-}
-
-function showPopup() {
-    // Show the popup only if it hasn't been shown yet
-    if (!popupShown) {
-        document.getElementById('popup-container').style.display = 'flex';
-        popupShown = true; // Update the flag so the popup isn't shown again
-    }
-}
-
-function handleOption(option) {
-    // Example result text, customize as needed
-    const resultText = "You selected: " + option + ". Here's the outcome...";
-    document.getElementById('result-text').textContent = resultText;
-    document.getElementById('result-text').style.display = 'block';
-    
-    // Hide the option buttons
-    document.querySelectorAll('#popup-content button:not(#close-button)').forEach(button => {
-        button.style.display = 'none';
-    });
-
-    // Show the close button
-    document.getElementById('close-button').style.display = 'inline-block';
-}
-
-function closePopup() {
-    document.getElementById('popup-container').style.display = 'none';
-    document.getElementById('result-text').style.display = 'none';
-    document.getElementById('close-button').style.display = 'none';
-    // Reset option buttons for next time
-    document.querySelectorAll('#popup-content button:not(#close-button)').forEach(button => {
-        button.style.display = 'inline-block';
-    });
-    popupShown = false; // Allow the popup to be shown again next year
-}
 
 
-function updatePopulation() {
-    if (isGamePaused) return; // Check if the game is paused
-    const foodNeeded = population * foodPerPerson;
-    if (perishableFood >= foodNeeded) {
-        let surplusFood = perishableFood - foodNeeded;
-        perishableFood -= foodNeeded;
-        
-        // Assuming 5 units of surplus food are needed for one new population member
-        const surplusThreshold = 5;
-        while (surplusFood >= surplusThreshold) {
-            surplusFood -= surplusThreshold;
-            population += women - children; // Modify population based on women and children
-            perishableFood -= surplusThreshold;
-        }
-    } else {
-        let shortfall = foodNeeded - perishableFood;
-        perishableFood = 0;
-        if (preservedFood >= shortfall) {
-            preservedFood -= shortfall;
-        } else {
-            shortfall -= preservedFood;
-            preservedFood = 0;
-            // For every unit of shortfall, reduce the population, not just by 1
-            const peoplePerFoodUnit = 1; // How many people are affected per unit of food shortfall
-            population = Math.max(0, population - Math.ceil(shortfall / peoplePerFoodUnit)); // Adjust for more realistic decline
-        }
-    }
-    updateDisplay(); // Make sure this function updates your display with the new values
-}
 
 // Assuming you have a function to periodically call updatePopulation
 setInterval(updatePopulation, 270000);
