@@ -40,13 +40,18 @@
  //** FUNCTIONAL FUNCTIONS - I.E. NOT GAME LOGIC
 
  //Function to UpdateDisplay
+ if (isGamePaused) return; // Check if the game is paused
  function updateDisplay() {
+    // Update UI
     document.getElementById('perishable-food-count').textContent = parseFloat(perishableFood).toFixed(2);
     document.getElementById('preserved-food-count').textContent = parseFloat(preservedFood).toFixed(2);
     document.getElementById('population-count').textContent = population;
-    }
 
+    // Also log to console
+    console.log(`Population: ${population}, Perishable Food: ${perishableFood}, Preserved Food: ${preservedFood}`);
+}
 
+    
 // Event Popups Functionallity
     function showPopup() {
         if (!popupShown) {
@@ -374,9 +379,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
-function updateDisplay() {
-    console.log(`Population: ${population}, Perishable Food: ${perishableFood}, Preserved Food: ${preservedFood}`);
-}
 
 
 
