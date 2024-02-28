@@ -72,6 +72,8 @@
 
         // Finally, update the UI to reflect the new state after all logic has been processed
         updateDisplay(); // This function should refresh your UI based on the latest game state
+
+        incrementTime();
             }
         }
     
