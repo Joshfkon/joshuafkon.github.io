@@ -3,6 +3,10 @@
 
     let isGamePaused = false;
     
+    // Global flag to control the game loop execution
+    
+    let gameLoopInterval;
+
     let perishableFood = 10;
     let preservedFood = 5;
     let tools =10;
@@ -36,6 +40,62 @@
    // FoodPreservation: { population: 0, preservedFoodfoodPerTick: 1, rate: 0 }, // Add rate: 0
 
     };
+
+
+ //** CENTRAL GAME LOOP 
+    function startGameLoop() {
+        if (gameLoopInterval) {
+            console.log("Game loop is already running.");
+            return; // Prevent multiple loops from starting
+        }
+    
+        // Define the game loop logic
+        function gameLoop() {
+            if (!isGamePaused) {
+              // Call your game logic functions here in the order that makes sense for your game
+
+        // 1. Update resources based on current tasks, preservation, etc.
+        updateResources();
+
+        // 2. Adjust the population based on the current food situation
+        adjustPopulationForFood();
+
+        // 3. Simulate population dynamics (births, deaths from old age or disease, etc.)
+        simulatePopulationDynamics();
+
+        // Finally, update the UI to reflect the new state after all logic has been processed
+        updateDisplay(); // This function should refresh your UI based on the latest game state
+            }
+        }
+    
+        // Set the game loop to run every second (1000 milliseconds)
+        gameLoopInterval = setInterval(gameLoop, 1000);
+        console.log("Game loop started.");
+    }
+    
+    function pauseGameLoop() {
+        if (gameLoopInterval) {
+            clearInterval(gameLoopInterval); // Stop the loop
+            gameLoopInterval = null; // Clear the interval ID
+            console.log("Game loop paused.");
+        }
+    }
+    
+    function resumeGameLoop() {
+        if (!gameLoopInterval) {
+            startGameLoop(); // Restart the game loop if it's not running
+            console.log("Game loop resumed.");
+        }
+    }
+    
+    // Example usage:
+    document.addEventListener('DOMContentLoaded', function() {
+        startGameLoop(); // Start the game loop when the document is ready
+    });
+    
+    // Assuming you have pause and resume buttons in your UI:
+    document.getElementById('pauseButton').addEventListener('click', pauseGameLoop);
+    document.getElementById('resumeButton').addEventListener('click', resumeGameLoop);
 
  //** FUNCTIONAL FUNCTIONS - I.E. NOT GAME LOGIC
 
