@@ -15,6 +15,13 @@
     let children = 2;
     let population = men + women + children;
 
+    //Time Variables
+    let day = 1;
+    let year = 0;
+    const seasons = ['Spring', 'Summer', 'Autumn', 'Winter'];
+    let currentSeasonIndex = 0;
+    let popupShown = false; // Flag to track if the popup has been shown
+
     
     const foodPerPerson = 1;
 
@@ -98,6 +105,42 @@
     document.getElementById('resumeButton').addEventListener('click', resumeGameLoop);
 
  //** FUNCTIONAL FUNCTIONS - I.E. NOT GAME LOGIC
+
+ //Functions to handle popups
+    
+function showPopup() {
+    // Show the popup only if it hasn't been shown yet
+    if (!popupShown) {
+        document.getElementById('popup-container').style.display = 'flex';
+        popupShown = true; // Update the flag so the popup isn't shown again
+    }
+}
+
+function handleOption(option) {
+    // Example result text, customize as needed
+    const resultText = "You selected: " + option + ". Here's the outcome...";
+    document.getElementById('result-text').textContent = resultText;
+    document.getElementById('result-text').style.display = 'block';
+    
+    // Hide the option buttons
+    document.querySelectorAll('#popup-content button:not(#close-button)').forEach(button => {
+        button.style.display = 'none';
+    });
+
+    // Show the close button
+    document.getElementById('close-button').style.display = 'inline-block';
+}
+
+function closePopup() {
+    document.getElementById('popup-container').style.display = 'none';
+    document.getElementById('result-text').style.display = 'none';
+    document.getElementById('close-button').style.display = 'none';
+    // Reset option buttons for next time
+    document.querySelectorAll('#popup-content button:not(#close-button)').forEach(button => {
+        button.style.display = 'inline-block';
+    });
+    popupShown = false; // Allow the popup to be shown again next year
+}
 
  //Function to UpdateDisplay
  
@@ -404,84 +447,28 @@ function updateTaskPercentages() {
         updateDisplay(); // Make sure the display is updated with the new values
     }
     
-   
-
-
-
-
-//Functions to show time / popups
-document.addEventListener('DOMContentLoaded', function() {
-    if (isGamePaused) return; // Check if the game is paused
-    let day = 1;
-    let year = 0;
-    const seasons = ['Spring', 'Summer', 'Autumn', 'Winter'];
-    let currentSeasonIndex = 0;
-    let popupShown = false; // Flag to track if the popup has been shown
-
-    function updateDisplay() {
-        document.getElementById('day').textContent = day;
-        document.getElementById('season').textContent = seasons[currentSeasonIndex];
-        document.getElementById('year').textContent = year;
-    }
-
-    function showPopup() {
-        // Show the popup only if it hasn't been shown yet
-        if (!popupShown) {
-            document.getElementById('popup-container').style.display = 'flex';
-            popupShown = true; // Update the flag so the popup isn't shown again
-        }
-    }
-
-    function handleOption(option) {
-        // Example result text, customize as needed
-        const resultText = "You selected: " + option + ". Here's the outcome...";
-        document.getElementById('result-text').textContent = resultText;
-        document.getElementById('result-text').style.display = 'block';
-        
-        // Hide the option buttons
-        document.querySelectorAll('#popup-content button:not(#close-button)').forEach(button => {
-            button.style.display = 'none';
-        });
-
-        // Show the close button
-        document.getElementById('close-button').style.display = 'inline-block';
-    }
-
-    function closePopup() {
-        document.getElementById('popup-container').style.display = 'none';
-        document.getElementById('result-text').style.display = 'none';
-        document.getElementById('close-button').style.display = 'none';
-        // Reset option buttons for next time
-        document.querySelectorAll('#popup-content button:not(#close-button)').forEach(button => {
-            button.style.display = 'inline-block';
-        });
-        popupShown = false; // Allow the popup to be shown again next year
-    }
-
+   //Function to Increment Time
     function incrementTime() {
         if (isGamePaused) return; // Check if the game is paused
         day++;
         if (day > 364) {
             day = 1; // Reset day to 1
             year++; // Increment year
+            currentSeasonIndex = 0; // Optionally reset the season
             popupShown = false; // Reset the popup shown flag each year
         }
-
+    
         if (day % 91 === 0) { // Change season every 91 days
             currentSeasonIndex = (currentSeasonIndex + 1) % seasons.length;
         }
-
-        // Show the popup sometime between day 3 and day 10
-        if (day >= 3 && day <= 10 && !popupShown) {
-            showPopup();
-        }
-
-        updateDisplay(); // Update the display with the new day, season, and year
+    
+        // Consider moving popup logic here if it's directly related to time
     }
 
-    setInterval(incrementTime, 10000); // Increment time every 10 seconds
-    updateDisplay(); // Initialize display
-});
+
+
+
+
 
 
 
@@ -508,6 +495,7 @@ function preserveFood(amount) {
         console.log("Not enough perishable food to preserve.");
     }
 }
+
 
 
 
