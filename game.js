@@ -40,8 +40,9 @@
  //** FUNCTIONAL FUNCTIONS - I.E. NOT GAME LOGIC
 
  //Function to UpdateDisplay
- if (isGamePaused) return; // Check if the game is paused
+ 
  function updateDisplay() {
+    if (isGamePaused) return; // Check if the game is paused
     // Update UI
     document.getElementById('perishable-food-count').textContent = parseFloat(perishableFood).toFixed(2);
     document.getElementById('preserved-food-count').textContent = parseFloat(preservedFood).toFixed(2);
