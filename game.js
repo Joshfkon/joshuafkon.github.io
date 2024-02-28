@@ -220,6 +220,42 @@ function updateTaskPercentages() {
     
   //** GAME LOGIC FUNCTIONS 
 
+  function updateResources() {
+    if (isGamePaused) return; // Check if the game is paused
+    // Automatically preserve a portion of perishable food based on the user-set preservation rate
+    const amountToPreserveAutomatically = perishableFood * preservationRate;
+    perishableFood -= amountToPreserveAutomatically;
+    preservedFood += amountToPreserveAutomatically;
+    console.log(`${amountToPreserveAutomatically.toFixed(2)} food preserved automatically.`);
+
+    // Proceed with food production from tasks
+    Object.keys(tasks).forEach(task => {
+        const taskInfo = tasks[task];
+        let foodProduced = 0; // Initialize foodProduced
+
+        if (task === 'hunting') {
+            // Example: 50% chance of success for hunting
+            let success = Math.random() < 0.5;
+            if (success) {
+                foodProduced = taskInfo.population * taskInfo.foodPerTick;
+                document.getElementById('hunt-results').textContent = `Success! Hunt yielded ${foodProduced.toFixed(2)} food.`;
+            } else {
+                foodProduced = 0; // No food produced on failure
+                document.getElementById('hunt-results').textContent = "Hunt failed. Better luck next time!";
+            }
+        } else if (task === 'gathering') {
+            // Introduce variability in gathering
+            let variabilityFactor = Math.random() * 0.5 + 0.75; // Random factor between 0.75 and 1.25
+            foodProduced = taskInfo.population * taskInfo.foodPerTick * variabilityFactor;
+            // Optionally, display gathering results if you have a dedicated element for it
+            // document.getElementById('gathering-results').textContent = `Gathered ${foodProduced.toFixed(2)} food.`;
+        }
+
+        perishableFood += foodProduced;
+    });
+
+    updateDisplay();
+}
  //Population reduced in starvation (add hunger metric that increases mortality rate)
     function adjustPopulationForFood() {
         if (isGamePaused) return; // Check if the game is paused
@@ -243,6 +279,7 @@ function updateTaskPercentages() {
             population = men + women + children;
             foodPerPerson = (perishableFood + preservedFood) / population;
         }
+        updateDisplay(); // Ensure this updates your UI to reflect the changes
     }
 
 //Function to simulate Population dynamics
@@ -402,42 +439,7 @@ function preserveFood(amount) {
     }
 }
 
-function updateResources() {
-    if (isGamePaused) return; // Check if the game is paused
-    // Automatically preserve a portion of perishable food based on the user-set preservation rate
-    const amountToPreserveAutomatically = perishableFood * preservationRate;
-    perishableFood -= amountToPreserveAutomatically;
-    preservedFood += amountToPreserveAutomatically;
-    console.log(`${amountToPreserveAutomatically.toFixed(2)} food preserved automatically.`);
 
-    // Proceed with food production from tasks
-    Object.keys(tasks).forEach(task => {
-        const taskInfo = tasks[task];
-        let foodProduced = 0; // Initialize foodProduced
-
-        if (task === 'hunting') {
-            // Example: 50% chance of success for hunting
-            let success = Math.random() < 0.5;
-            if (success) {
-                foodProduced = taskInfo.population * taskInfo.foodPerTick;
-                document.getElementById('hunt-results').textContent = `Success! Hunt yielded ${foodProduced.toFixed(2)} food.`;
-            } else {
-                foodProduced = 0; // No food produced on failure
-                document.getElementById('hunt-results').textContent = "Hunt failed. Better luck next time!";
-            }
-        } else if (task === 'gathering') {
-            // Introduce variability in gathering
-            let variabilityFactor = Math.random() * 0.5 + 0.75; // Random factor between 0.75 and 1.25
-            foodProduced = taskInfo.population * taskInfo.foodPerTick * variabilityFactor;
-            // Optionally, display gathering results if you have a dedicated element for it
-            // document.getElementById('gathering-results').textContent = `Gathered ${foodProduced.toFixed(2)} food.`;
-        }
-
-        perishableFood += foodProduced;
-    });
-
-    updateDisplay();
-}
 
 const popupsConfig = {
     'drought': {
