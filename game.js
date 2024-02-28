@@ -22,7 +22,7 @@
     let preservationRate = 0;
 
     // Initialize intervals for updating population and resources
-    setInterval(updatePopulation, updateInterval);
+    
     setInterval(updateResources, updateInterval);
     setInterval(spoilFood, spoilageInterval);
     
