@@ -43,13 +43,19 @@
  
  function updateDisplay() {
     if (isGamePaused) return; // Check if the game is paused
-    // Update UI
+    
+    // Update UI for food counts
     document.getElementById('perishable-food-count').textContent = parseFloat(perishableFood).toFixed(2);
     document.getElementById('preserved-food-count').textContent = parseFloat(preservedFood).toFixed(2);
+    
+    // Update UI for population counts
     document.getElementById('population-count').textContent = population;
+    document.getElementById('men-count').textContent = men;
+    document.getElementById('women-count').textContent = women;
+    document.getElementById('children-count').textContent = children;
 
     // Also log to console
-    console.log(`Population: ${population}, Perishable Food: ${perishableFood}, Preserved Food: ${preservedFood}`);
+    console.log(`Population: ${population}, Men: ${men}, Women: ${women}, Children: ${children}, Perishable Food: ${perishableFood}, Preserved Food: ${preservedFood}`);
 }
 
     
@@ -261,6 +267,8 @@ function updateTaskPercentages() {
         if (isGamePaused) return; // Check if the game is paused
         const totalFood = perishableFood + preservedFood;
         let foodPerPerson = totalFood / population;
+        console.log(`Before adjustment: Population = ${population}, Food Per Person = ${foodPerPerson}`);
+
     
         while (foodPerPerson < 1 && population > 0) {
             if (children > 0) {
@@ -279,6 +287,8 @@ function updateTaskPercentages() {
             population = men + women + children;
             foodPerPerson = (perishableFood + preservedFood) / population;
         }
+        console.log(`After decrement: Men = ${men}, Women = ${women}, Children = ${children}, Total Assigned = ${totalAssigned}, Food Per Person = ${foodPerPerson}`);
+
         updateDisplay(); // Ensure this updates your UI to reflect the changes
     }
 
