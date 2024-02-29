@@ -71,11 +71,13 @@
         // 3. Simulate population dynamics (births, deaths from old age or disease, etc.)
         simulatePopulationDynamics();
 
+        console.log("INCREMENT DAY");   
+        incrementTime();
+
         // Finally, update the UI to reflect the new state after all logic has been processed
         updateDisplay(); // This function should refresh your UI based on the latest game state
 
-        console.log("INCREMENT DAY");   
-        incrementTime();
+      
             }
         }
     
@@ -148,22 +150,28 @@ function closePopup() {
 
  //Function to UpdateDisplay
  
- function updateDisplay() {
+function updateDisplay() {
     if (isGamePaused) return; // Check if the game is paused
-    
+
     // Update UI for food counts
     document.getElementById('perishable-food-count').textContent = parseFloat(perishableFood).toFixed(2);
     document.getElementById('preserved-food-count').textContent = parseFloat(preservedFood).toFixed(2);
-    
+
     // Update UI for population counts
     document.getElementById('population-count').textContent = population;
     document.getElementById('men-count').textContent = men;
     document.getElementById('women-count').textContent = women;
     document.getElementById('children-count').textContent = children;
 
+    // Update UI for day, year, and season based on the provided HTML structure
+    document.getElementById('day').textContent = day;
+    document.getElementById('season').textContent = seasons[currentSeasonIndex];
+    document.getElementById('year').textContent = year;
+
     // Also log to console
-    console.log(`Population: ${population}, Men: ${men}, Women: ${women}, Children: ${children}, Perishable Food: ${perishableFood}, Preserved Food: ${preservedFood}`);
+    console.log(`Day: ${day}, Season: ${seasons[currentSeasonIndex]}, Year: ${year}, Population: ${population}, Men: ${men}, Women: ${women}, Children: ${children}, Perishable Food: ${perishableFood.toFixed(2)}, Preserved Food: ${preservedFood.toFixed(2)}`);
 }
+
 
     
 // Event Popups Functionallity
@@ -466,7 +474,7 @@ function updateTaskPercentages() {
             currentSeasonIndex = (currentSeasonIndex + 1) % seasons.length;
         }
     
-        // Consider moving popup logic here if it's directly related to time
+        updateDisplay(); // Make sure the display is updated with the new values
     }
 
 
