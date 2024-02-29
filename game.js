@@ -385,7 +385,7 @@ document.getElementById('gathering-rate').addEventListener('input', function(eve
             // Example: 50% chance of success for hunting
             let success = Math.random() < 0.5;
             if (success) {
-                foodProduced = taskInfo.adultPopulation* taskInfo.foodPerTick * (Math.floor(Math.random() * 2.5) + 1);
+                foodProduced = taskInfo.adultPopulation * taskInfo.foodPerTick * (Math.floor(Math.random() * 2.5) + 1);
                 document.getElementById('hunt-results').textContent = `Success! Hunt yielded ${foodProduced.toFixed(2)} food.`;
             } else {
                 foodProduced = 0; // No food produced on failure
