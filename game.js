@@ -41,8 +41,8 @@
 
   // At the beginning of your script, adjust the tasks object to include a rate property
     let tasks = {
-    hunting: { population: 0, foodPerTick: 2.5, rate: 50 }, // Add rate: 0
-    gathering: { population: 0, foodPerTick: 1.2, rate: 50 }, // Add rate: 0
+    hunting: { population: 10, foodPerTick: 2.5, rate: 50 }, // Add rate: 0
+    gathering: { population: 10, foodPerTick: 1.2, rate: 50 }, // Add rate: 0
    // toolMaking: { population: 0, foodPerTick: 0, toolsPerTick: .5, rate: 0 }, // Add rate: 0
    // FoodPreservation: { population: 0, preservedFoodfoodPerTick: 1, rate: 0 }, // Add rate: 0
 
