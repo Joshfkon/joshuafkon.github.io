@@ -12,7 +12,7 @@
     let tools =10;
     let men = 10;
     let women = 10;
-    let children = 2;
+    let children = 5;
     let population = men + women + children;
 
     // Assuming adults and children consume food at the same rate for simplicity
