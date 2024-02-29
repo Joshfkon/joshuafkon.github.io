@@ -157,6 +157,10 @@ function updateDisplay() {
     document.getElementById('perishable-food-count').textContent = parseFloat(perishableFood).toFixed(2);
     document.getElementById('preserved-food-count').textContent = parseFloat(preservedFood).toFixed(2);
 
+    document.getElementById('hunting-population').textContent = tasks.hunting.population;
+    document.getElementById('gathering-population').textContent = tasks.gathering.population;
+
+
     // Update UI for population counts
     document.getElementById('population-count').textContent = population;
     document.getElementById('men-count').textContent = men;
@@ -222,13 +226,25 @@ function adjustTaskAssignments() {
 // Function to update task percentages
 function updateTaskPercentages() {
     if (isGamePaused) return; // Check if the game is paused
-    const totalPopulation = population;
+    
+    const totalPopulation = population; // Ensure this is correctly calculated or updated elsewhere in your code
     Object.keys(tasks).forEach(task => {
-        const taskPercentage = tasks[task].rate;
+        const taskPercentage = tasks[task].rate / 100; // Convert percentage to decimal
         tasks[task].population = Math.floor(totalPopulation * taskPercentage);
     });
+
     updateDisplay(); // Make sure this function updates UI to reflect task population changes
 }
+
+document.getElementById('hunting-rate').addEventListener('input', function(event) {
+    tasks.hunting.rate = parseInt(event.target.value, 10);
+    updateTaskPercentages();
+});
+
+document.getElementById('gathering-rate').addEventListener('input', function(event) {
+    tasks.gathering.rate = parseInt(event.target.value, 10);
+    updateTaskPercentages();
+});
 
 
     //ToolTip Fuctionallity
