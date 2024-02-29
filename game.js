@@ -17,9 +17,10 @@
 
     // Assuming adults and children consume food at the same rate for simplicity
     const adultPopulation = men + women; // Or any other calculation that excludes children from task populations
-    const totalFoodConsumption = (adultPopulation + children) * foodConsumptionPerPerson;
-    // Assuming a constant food consumption rate per person
+      // Assuming a constant food consumption rate per person
     const foodConsumptionPerPerson = 0.5; // Adjust this value as needed for your game's logic
+    const totalFoodConsumption = (adultPopulation + children) * foodConsumptionPerPerson;
+
 
 
 
