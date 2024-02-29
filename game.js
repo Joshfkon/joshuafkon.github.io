@@ -107,8 +107,8 @@
     });
     
     // Assuming you have pause and resume buttons in your UI:
-    document.getElementById('pauseButton').addEventListener('click', pauseGameLoop);
-    document.getElementById('resumeButton').addEventListener('click', resumeGameLoop);
+   // document.getElementById('pauseButton').addEventListener('click', pauseGameLoop);
+    //document.getElementById('resumeButton').addEventListener('click', resumeGameLoop);
 
  //** FUNCTIONAL FUNCTIONS - I.E. NOT GAME LOGIC
 
