@@ -360,6 +360,8 @@ function updateTaskPercentages() {
             // Example: 50% chance of success for hunting
             let success = Math.random() < 0.5;
             if (success) {
+                console.log(`Population: ${taskInfo.population}, Food Per Tick: ${taskInfo.foodPerTick}, Random Multiplier: ${Math.floor(Math.random() * 4) + 1}`);
+
                 foodProduced = taskInfo.population * taskInfo.foodPerTick * (Math.floor(Math.random() * 4) + 1);
                 document.getElementById('hunt-results').textContent = `Success! Hunt yielded ${foodProduced.toFixed(2)} food.`;
             } else {
@@ -370,6 +372,7 @@ function updateTaskPercentages() {
             // Introduce variability in gathering
             let variabilityFactor = Math.random() * 0.5 + 0.75; // Random factor between 0.75 and 1.25
             foodProduced = taskInfo.population * taskInfo.foodPerTick * variabilityFactor;
+            document.getElementById('gathering-results').textContent = `Gathered ${foodProduced.toFixed(2)} food.`;
         }
 
         perishableFood += foodProduced;
