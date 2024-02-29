@@ -344,6 +344,7 @@ function updateTaskPercentages() {
 
   function updateResources() {
     if (isGamePaused) return; // Check if the game is paused
+
     // Automatically preserve a portion of perishable food based on the user-set preservation rate
     const amountToPreserveAutomatically = perishableFood * preservationRate;
     perishableFood -= amountToPreserveAutomatically;
@@ -359,7 +360,7 @@ function updateTaskPercentages() {
             // Example: 50% chance of success for hunting
             let success = Math.random() < 0.5;
             if (success) {
-                foodProduced = taskInfo.population * taskInfo.foodPerTick * Math.floor(Math.random() * 4) + 1;
+                foodProduced = taskInfo.population * taskInfo.foodPerTick * (Math.floor(Math.random() * 4) + 1);
                 document.getElementById('hunt-results').textContent = `Success! Hunt yielded ${foodProduced.toFixed(2)} food.`;
             } else {
                 foodProduced = 0; // No food produced on failure
@@ -369,15 +370,29 @@ function updateTaskPercentages() {
             // Introduce variability in gathering
             let variabilityFactor = Math.random() * 0.5 + 0.75; // Random factor between 0.75 and 1.25
             foodProduced = taskInfo.population * taskInfo.foodPerTick * variabilityFactor;
-            // Optionally, display gathering results if you have a dedicated element for it
-            // document.getElementById('gathering-results').textContent = `Gathered ${foodProduced.toFixed(2)} food.`;
         }
 
         perishableFood += foodProduced;
     });
 
-    updateDisplay();
+    // Food consumption
+    const foodConsumptionPerPerson = 0.5; // Example consumption rate
+    const totalFoodConsumption = population * foodConsumptionPerPerson;
+
+    // Subtract consumption, starting with perishable food
+    if (perishableFood >= totalFoodConsumption) {
+        perishableFood -= totalFoodConsumption;
+    } else {
+        // If perishable food is not enough, use preserved food
+        const remainingConsumption = totalFoodConsumption - perishableFood;
+        perishableFood = 0; // All perishable food is consumed
+        preservedFood = Math.max(preservedFood - remainingConsumption, 0); // Ensure preservedFood doesn't go negative
+    }
+
+    updateDisplay(); // Update the UI with the new values
 }
+
+
  //Population reduced in starvation (add hunger metric that increases mortality rate)
     function adjustPopulationForFood() {
         if (isGamePaused) return; // Check if the game is paused
@@ -414,6 +429,7 @@ function updateTaskPercentages() {
         // Birth
         for (let i = 0; i < women; i++) {
             if (Math.random() < 1 / 125) {
+                console.log("Birth");
                 children++;
             }
         }
@@ -422,6 +438,7 @@ function updateTaskPercentages() {
         let childrenBecomingAdults = 0;
         for (let i = 0; i < children; i++) {
             if (Math.random() < 1 / 365) {
+                console.log("Adult Ceremody");
                 childrenBecomingAdults++;
             }
         }
@@ -434,6 +451,7 @@ function updateTaskPercentages() {
         ['men', 'women'].forEach(gender => {
             for (let i = 0; i < window[gender]; i++) {
                 if (Math.random() < 1 / 10950) {
+                    console.log("Old Age Death");
                     window[gender]--;
                 }
             }
