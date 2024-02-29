@@ -191,6 +191,7 @@ function updateDisplay() {
     
 //Expands Population for gender / age breakdown
     document.getElementById("population-label").addEventListener("click", function() {
+        console.log("Label clicked"); // Check if this logs when you click
         var detailsDiv = document.getElementById("population-details");
         if (detailsDiv.style.display === "none") {
             detailsDiv.style.display = "block";
