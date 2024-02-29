@@ -15,6 +15,11 @@
     let children = 2;
     let population = men + women + children;
 
+    // Assuming adults and children consume food at the same rate for simplicity
+    const adultPopulation = men + women; // Or any other calculation that excludes children from task populations
+    const totalFoodConsumption = (adultPopulation + children) * foodConsumptionPerPerson;
+
+
     //Time Variables
     let day = 1;
     let year = 0;
@@ -361,7 +366,7 @@ document.getElementById('gathering-rate').addEventListener('input', function(eve
   function updateResources() {
     if (isGamePaused) return; // Check if the game is paused
 
-    // Automatically preserve a portion of perishable food based on the user-set preservation rate
+    // Automatically preserve a portion of perishable food
     const amountToPreserveAutomatically = perishableFood * preservationRate;
     perishableFood -= amountToPreserveAutomatically;
     preservedFood += amountToPreserveAutomatically;
@@ -376,8 +381,6 @@ document.getElementById('gathering-rate').addEventListener('input', function(eve
             // Example: 50% chance of success for hunting
             let success = Math.random() < 0.5;
             if (success) {
-                console.log(`Population: ${taskInfo.population}, Food Per Tick: ${taskInfo.foodPerTick}, Random Multiplier: ${Math.floor(Math.random() * 4) + 1}`);
-
                 foodProduced = taskInfo.population * taskInfo.foodPerTick * (Math.floor(Math.random() * 2.5) + 1);
                 document.getElementById('hunt-results').textContent = `Success! Hunt yielded ${foodProduced.toFixed(2)} food.`;
             } else {
@@ -388,15 +391,15 @@ document.getElementById('gathering-rate').addEventListener('input', function(eve
             // Introduce variability in gathering
             let variabilityFactor = Math.random() * 0.5 + 0.75; // Random factor between 0.75 and 1.25
             foodProduced = taskInfo.population * taskInfo.foodPerTick * variabilityFactor;
-            document.getElementById('gathering-results').textContent = `Gathered ${foodProduced.toFixed(2)} food.`;
+            document.getElementById('gathering-results').textContent = `Gathering yielded ${foodProduced.toFixed(2)} food.`;
         }
 
         perishableFood += foodProduced;
     });
 
-    // Food consumption
+    // Food consumption, including children
     const foodConsumptionPerPerson = 0.5; // Example consumption rate
-    const totalFoodConsumption = population * foodConsumptionPerPerson;
+    const totalFoodConsumption = (men + women + children) * foodConsumptionPerPerson;
 
     // Subtract consumption, starting with perishable food
     if (perishableFood >= totalFoodConsumption) {
@@ -410,6 +413,7 @@ document.getElementById('gathering-rate').addEventListener('input', function(eve
 
     updateDisplay(); // Update the UI with the new values
 }
+
 
 
  //Population reduced in starvation (add hunger metric that increases mortality rate)
