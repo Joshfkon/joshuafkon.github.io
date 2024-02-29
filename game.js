@@ -7,7 +7,7 @@
     
     let gameLoopInterval;
 
-    let perishableFood = 10;
+    let perishableFood = 100;
     let preservedFood = 50;
     let tools =10;
     let men = 10;
