@@ -157,8 +157,8 @@ function updateDisplay() {
     document.getElementById('perishable-food-count').textContent = parseFloat(perishableFood).toFixed(2);
     document.getElementById('preserved-food-count').textContent = parseFloat(preservedFood).toFixed(2);
 
-    document.getElementById('hunting-population').textContent = tasks.hunting.population;
-    document.getElementById('gathering-population').textContent = tasks.gathering.population;
+    //document.getElementById('hunting-population').textContent = tasks.hunting.population;
+    //document.getElementById('gathering-population').textContent = tasks.gathering.population;
 
 
     // Update UI for population counts
@@ -378,7 +378,7 @@ document.getElementById('gathering-rate').addEventListener('input', function(eve
             if (success) {
                 console.log(`Population: ${taskInfo.population}, Food Per Tick: ${taskInfo.foodPerTick}, Random Multiplier: ${Math.floor(Math.random() * 4) + 1}`);
 
-                foodProduced = taskInfo.population * taskInfo.foodPerTick * (Math.floor(Math.random() * 4) + 1);
+                foodProduced = taskInfo.population * taskInfo.foodPerTick * (Math.floor(Math.random() * 2.5) + 1);
                 document.getElementById('hunt-results').textContent = `Success! Hunt yielded ${foodProduced.toFixed(2)} food.`;
             } else {
                 foodProduced = 0; // No food produced on failure
