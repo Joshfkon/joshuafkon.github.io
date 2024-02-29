@@ -1,5 +1,5 @@
     
-    // Initial Conditions
+    // IINITIAL CONDITIONS / SET VARIABLES
 
     let isGamePaused = false;
     
@@ -8,7 +8,7 @@
     let gameLoopInterval;
 
     let perishableFood = 10;
-    let preservedFood = 5;
+    let preservedFood = 50;
     let tools =10;
     let men = 10;
     let women = 10;
@@ -26,7 +26,7 @@
     const foodPerPerson = 1;
 
     //One day
-    const updateInterval = 10000;
+    const updateInterval = 5000;
 
     const spoilageRate = 0.3;
     const spoilageInterval = 30000;
@@ -60,7 +60,8 @@
         function gameLoop() {
             if (!isGamePaused) {
               // Call your game logic functions here in the order that makes sense for your game
-
+        
+        console.log("Game loop START");      
         // 1. Update resources based on current tasks, preservation, etc.
         updateResources();
 
@@ -73,12 +74,13 @@
         // Finally, update the UI to reflect the new state after all logic has been processed
         updateDisplay(); // This function should refresh your UI based on the latest game state
 
+        console.log("INCREMENT DAY");   
         incrementTime();
             }
         }
     
         // Set the game loop to run every second (1000 milliseconds)
-        gameLoopInterval = setInterval(gameLoop, 1000);
+        gameLoopInterval = setInterval(gameLoop, 5000);
         console.log("Game loop started.");
     }
     
