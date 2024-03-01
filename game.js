@@ -237,16 +237,18 @@ function adjustTaskAssignments() {
 
 // Function to update task percentages
 function updateTaskPercentages() {
-    if (isGamePaused) return; // Check if the game is paused
-    
-   
+    if (isGamePaused) return;
+
+    let totalAdults = men + women; // Ensure these are updated
     Object.keys(tasks).forEach(task => {
-        const taskPercentage = tasks[task].rate / 100; // Convert percentage to decimal
-        tasks[task].adultPopulation  = Math.floor(adultPopulation  * taskPercentage);
+        const taskPercentage = tasks[task].rate / 100;
+        tasks[task].adultPopulation = Math.floor(totalAdults * taskPercentage);
     });
 
-    updateDisplay(); // Make sure this function updates UI to reflect task population changes
+    updateDisplay();
 }
+
+
 
 document.getElementById('hunting-rate').addEventListener('input', function(event) {
     tasks.hunting.rate = parseInt(event.target.value, 10);
@@ -404,6 +406,9 @@ document.getElementById('gathering-rate').addEventListener('input', function(eve
                 foodProduced = taskInfo.adultPopulation * taskInfo.foodPerTick * (Math.random() * 5.95 + 1);
                 document.getElementById('hunt-results').textContent = `Success! Hunt yielded ${foodProduced.toFixed(2)} food.`;
                 console.log(`Hunting Population: ${tasks.hunting.adultPopulation}, Food Produced: ${foodProduced}`);
+                console.log(`Total adults: ${totalAdults}, Hunting rate: ${tasks.hunting.rate}`);
+                console.log(`Assigned hunters: ${tasks.hunting.adultPopulation}`);
+
             } else {
                 foodProduced = 0; // No food produced on failure
                 document.getElementById('hunt-results').textContent = "Hunt failed. Better luck next time!";
