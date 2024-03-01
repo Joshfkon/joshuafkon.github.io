@@ -118,6 +118,9 @@
    // document.getElementById('pauseButton').addEventListener('click', pauseGameLoop);
     //document.getElementById('resumeButton').addEventListener('click', resumeGameLoop);
 
+
+
+
  //** FUNCTIONAL FUNCTIONS - I.E. NOT GAME LOGIC
 
  //Functions to handle popups
@@ -222,8 +225,8 @@ function adjustTaskAssignments() {
     let totalAssigned = getTotalAssignedPopulation();
     while (totalAssigned > population) {
         Object.keys(tasks).forEach(taskName => {
-            if (tasks[taskName].population > 0 && totalAssigned > population) {
-                tasks[taskName].population -= 1;
+            if (tasks[taskName].adultPopulation > 0 && totalAssigned > adultPopulation ) {
+                tasks[taskName].adultPopulation  -= 1;
                 totalAssigned -= 1;
             }
         });
@@ -235,10 +238,10 @@ function adjustTaskAssignments() {
 function updateTaskPercentages() {
     if (isGamePaused) return; // Check if the game is paused
     
-    const totalPopulation = population; // Ensure this is correctly calculated or updated elsewhere in your code
+   
     Object.keys(tasks).forEach(task => {
         const taskPercentage = tasks[task].rate / 100; // Convert percentage to decimal
-        tasks[task].population = Math.floor(totalPopulation * taskPercentage);
+        tasks[task].adultPopulation  = Math.floor(adultPopulation  * taskPercentage);
     });
 
     updateDisplay(); // Make sure this function updates UI to reflect task population changes
@@ -251,6 +254,19 @@ document.getElementById('hunting-rate').addEventListener('input', function(event
 
 document.getElementById('gathering-rate').addEventListener('input', function(event) {
     tasks.gathering.rate = parseInt(event.target.value, 10);
+    updateTaskPercentages();
+});
+
+
+document.getElementById('hunting-rate').addEventListener('input', function(event) {
+    tasks.hunting.rate = parseInt(event.target.value, 10);
+    document.getElementById('hunting-rate-value').textContent = tasks.hunting.rate + '%';
+    updateTaskPercentages();
+});
+
+document.getElementById('gathering-rate').addEventListener('input', function(event) {
+    tasks.gathering.rate = parseInt(event.target.value, 10);
+    document.getElementById('gathering-rate-value').textContent = tasks.gathering.rate + '%';
     updateTaskPercentages();
 });
 
