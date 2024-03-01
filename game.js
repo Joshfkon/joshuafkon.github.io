@@ -72,6 +72,7 @@
         console.log("Game loop START");      
         // 1. Update resources based on current tasks, preservation, etc.
         updateResources();
+        console.log(`Hunting Population: ${tasks.hunting.adultPopulation}, Food Produced: ${foodProduced}`);
 
         // 2. Adjust the population based on the current food situation
         adjustPopulationForFood();
