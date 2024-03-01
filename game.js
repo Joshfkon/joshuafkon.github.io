@@ -72,7 +72,7 @@
         console.log("Game loop START");      
         // 1. Update resources based on current tasks, preservation, etc.
         updateResources();
-        console.log(`Hunting Population: ${tasks.hunting.adultPopulation}, Food Produced: ${foodProduced}`);
+        
 
         // 2. Adjust the population based on the current food situation
         adjustPopulationForFood();
@@ -403,9 +403,11 @@ document.getElementById('gathering-rate').addEventListener('input', function(eve
             if (success) {
                 foodProduced = taskInfo.adultPopulation * taskInfo.foodPerTick * (Math.floor(Math.random() * 1.75) + 1);
                 document.getElementById('hunt-results').textContent = `Success! Hunt yielded ${foodProduced.toFixed(2)} food.`;
+                console.log(`Hunting Population: ${tasks.hunting.adultPopulation}, Food Produced: ${foodProduced}`);
             } else {
                 foodProduced = 0; // No food produced on failure
                 document.getElementById('hunt-results').textContent = "Hunt failed. Better luck next time!";
+                console.log(`Hunting Population: ${tasks.hunting.adultPopulation}, Food Produced: ${foodProduced}`);
             }
         } else if (task === 'gathering') {
             // Introduce variability in gathering
