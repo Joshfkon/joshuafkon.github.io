@@ -417,7 +417,7 @@ document.getElementById('gathering-rate').addEventListener('input', function(eve
     });
 
     // Food consumption, including children
-    const foodConsumptionPerPerson = 0.5; // Example consumption rate
+    const foodConsumptionPerPerson = 1.0; // Example consumption rate
     const totalFoodConsumption = (men + women + children) * foodConsumptionPerPerson;
 
     // Subtract consumption, starting with perishable food
