@@ -48,12 +48,12 @@
     
     
 
-  // At the beginning of your script, adjust the tasks object to include a rate property
-  let tasks = {
-    hunting: { adultPopulation: 10, foodPerTick: 2.5, rate: 50 },
-    gathering: { adultPopulation: 10, foodPerTick: 1.2, rate: 50 },
-    // Additional tasks can be added here
-};
+    let tasks = {
+        hunting: { adultPopulation: 0, foodPerTick: 2.5, rate: 50 },
+        gathering: { adultPopulation: 0, foodPerTick: 1.2, rate: 50 },
+        // Ensure 'rate' is set correctly and represents the desired initial percentage
+    };
+    
 
 
 
@@ -223,7 +223,7 @@ function updateDisplay() {
 function adjustTaskAssignments() {
     if (isGamePaused) return; // Check if the game is paused
     let totalAssigned = getTotalAssignedPopulation();
-    while (totalAssigned > population) {
+    while (totalAssigned > adultPopulationn) {
         Object.keys(tasks).forEach(taskName => {
             if (tasks[taskName].adultPopulation > 0 && totalAssigned > adultPopulation ) {
                 tasks[taskName].adultPopulation  -= 1;
