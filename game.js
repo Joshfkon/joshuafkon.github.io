@@ -49,7 +49,7 @@
     
 
     let tasks = {
-        hunting: { adultPopulation: 0, foodPerTick: 1.5, rate: 50 },
+        hunting: { adultPopulation: 0, foodPerTick: 1, rate: 50 },
         gathering: { adultPopulation: 0, foodPerTick: 1, rate: 50 },
         // Ensure 'rate' is set correctly and represents the desired initial percentage
     };
@@ -401,7 +401,7 @@ document.getElementById('gathering-rate').addEventListener('input', function(eve
             // Example: 50% chance of success for hunting
             let success = Math.random() < 0.25;
             if (success) {
-                foodProduced = taskInfo.adultPopulation * taskInfo.foodPerTick * (Math.floor(Math.random() * 1.75) + 1);
+                foodProduced = taskInfo.adultPopulation * taskInfo.foodPerTick * (Math.random() * 5.95 + 1);
                 document.getElementById('hunt-results').textContent = `Success! Hunt yielded ${foodProduced.toFixed(2)} food.`;
                 console.log(`Hunting Population: ${tasks.hunting.adultPopulation}, Food Produced: ${foodProduced}`);
             } else {
