@@ -14,6 +14,7 @@
     let women = 10;
     let children = 5;
     let population = men + women + children;
+    let totalAdults = men + women; // Ensure these are updated
 
     // Assuming adults and children consume food at the same rate for simplicity
     const adultPopulation = men + women; // Or any other calculation that excludes children from task populations
