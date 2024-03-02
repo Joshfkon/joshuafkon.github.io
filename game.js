@@ -70,13 +70,19 @@
             if (!isGamePaused) {
               // Call your game logic functions here in the order that makes sense for your game
         
-        console.log("Game loop START");      
+        console.log("Game loop START");      +
+
+        updateTaskPercentages();
         // 1. Update resources based on current tasks, preservation, etc.
         updateResources();
+
+        updateTaskPercentages();
         
 
         // 2. Adjust the population based on the current food situation
         adjustPopulationForFood();
+
+        updateTaskPercentages();
 
         // 3. Simulate population dynamics (births, deaths from old age or disease, etc.)
         simulatePopulationDynamics();
