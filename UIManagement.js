@@ -2,13 +2,7 @@
 
  //Functions to handle popups
     
- export function showPopup() {
-    // Show the popup only if it hasn't been shown yet
-    if (!popupShown) {
-        document.getElementById('popup-container').style.display = 'flex';
-        popupShown = true; // Update the flag so the popup isn't shown again
-    }
-}
+
 
 export function handleOption(option) {
     // Example result text, customize as needed
