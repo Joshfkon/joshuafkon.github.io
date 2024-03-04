@@ -69,11 +69,7 @@ export function showPopup() {
         }
     }
     
-    export function closePopup() {
-        document.getElementById('popup-container').style.display = 'none';
-        // Other reset logic here...
-        isGamePaused = false; // Resume the game
-    }
+
     
 //Expands Population for gender / age breakdown
     document.getElementById("population-label").addEventListener("click", function() {

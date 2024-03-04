@@ -1,6 +1,8 @@
  //** GAME LOGIC FUNCTIONS 
+    //One day
+    const updateInterval = 5000;
  setInterval(updateResources, updateInterval);
- 
+
  export function updateResources() {
     if (isGamePaused) return; // Check if the game is paused
 
