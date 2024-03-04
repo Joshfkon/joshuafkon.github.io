@@ -1,5 +1,6 @@
  //** GAME LOGIC FUNCTIONS 
-
+ setInterval(updateResources, updateInterval);
+ 
  export function updateResources() {
     if (isGamePaused) return; // Check if the game is paused
 

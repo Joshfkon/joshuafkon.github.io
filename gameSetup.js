@@ -45,7 +45,6 @@ import { updateResources } from './gameResourceManagement.js';
 
     // Initialize intervals for updating population and resources
     
-    setInterval(updateResources, updateInterval);
     setInterval(spoilFood, spoilageInterval);
     
     
