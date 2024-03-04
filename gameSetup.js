@@ -1,4 +1,5 @@
-    
+import { updateResources } from './gameResourceManagement.js';
+
     // IINITIAL CONDITIONS / SET VARIABLES
 
     let isGamePaused = false;
