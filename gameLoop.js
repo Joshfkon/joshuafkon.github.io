@@ -8,6 +8,8 @@ import { gameState } from './gameSetup.js';
 
  //** CENTRAL GAME LOOP 
     function startGameLoop() {
+        // Assuming gameLoop and gameState are defined, start the interval
+        gameState.gameLoopInterval = setInterval(gameLoop, 5000);
         if (gameLoopInterval) {
             console.log("Game loop is already running.");
             return; // Prevent multiple loops from starting
