@@ -38,9 +38,7 @@
 
  
 
-    const spoilageRate = 0.3;
-    const spoilageInterval = 30000;
-    let preservationRate = 0;
+
 
     // Initialize intervals for updating population and resources
     

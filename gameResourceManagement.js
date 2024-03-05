@@ -1,11 +1,14 @@
  //** GAME LOGIC FUNCTIONS 
     //One day
     const updateInterval = 5000;
+    const spoilageRate = 0.3;
+    const spoilageInterval = 30000;
+    let preservationRate = 0;
  setInterval(updateResources, updateInterval);
  setInterval(spoilFood, spoilageInterval);
 
  export function updateResources() {
-    if (isGamePaused) return; // Check if the game is paused
+   // if (isGamePaused) return; // Check if the game is paused
 
     // Automatically preserve a portion of perishable food
     const amountToPreserveAutomatically = perishableFood * preservationRate;
