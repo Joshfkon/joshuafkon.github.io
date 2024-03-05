@@ -1,4 +1,4 @@
-import { updateResources } from './gameResourceManagement.js';
+
 import { gameState } from './gameSetup.js';
 
  
