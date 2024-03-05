@@ -15,9 +15,9 @@ import { gameState } from './gameSetup.js';
    // if (isGamePaused) return; // Check if the game is paused
 
     // Automatically preserve a portion of perishable food
-    const amountToPreserveAutomatically = perishableFood * preservationRate;
-    perishableFood -= amountToPreserveAutomatically;
-    preservedFood += amountToPreserveAutomatically;
+    const amountToPreserveAutomatically = gameState.perishableFood * preservationRate;
+    gameState.perishableFood -= amountToPreserveAutomatically;
+    gameState.preservedFood += amountToPreserveAutomatically;
     console.log(`${amountToPreserveAutomatically.toFixed(2)} food preserved automatically.`);
 
     // Proceed with food production from tasks
@@ -47,7 +47,7 @@ import { gameState } from './gameSetup.js';
             document.getElementById('gathering-results').textContent = `Gathering yielded ${foodProduced.toFixed(2)} food.`;
         }
 
-        perishableFood += foodProduced;
+        gameState.perishableFood += foodProduced;
     });
 
     // Food consumption, including children
@@ -55,12 +55,12 @@ import { gameState } from './gameSetup.js';
     const totalFoodConsumption = (men + women + children) * foodConsumptionPerPerson;
 
     // Subtract consumption, starting with perishable food
-    if (perishableFood >= totalFoodConsumption) {
-        perishableFood -= totalFoodConsumption;
+    if (gameState.perishableFood >= totalFoodConsumption) {
+        gameState.perishableFood -= totalFoodConsumption;
     } else {
         // If perishable food is not enough, use preserved food
         const remainingConsumption = totalFoodConsumption - perishableFood;
-        perishableFood = 0; // All perishable food is consumed
+        gameState.perishableFood = 0; // All perishable food is consumed
         preservedFood = Math.max(preservedFood - remainingConsumption, 0); // Ensure preservedFood doesn't go negative
     }
 
@@ -72,7 +72,7 @@ import { gameState } from './gameSetup.js';
  //Population reduced in starvation (add hunger metric that increases mortality rate)
  export function adjustPopulationForFood() {
         if (isGamePaused) return; // Check if the game is paused
-        const totalFood = perishableFood + preservedFood;
+        const totalFood = gameState.perishableFood + preservedFood;
         let foodPerPerson = totalFood / population;
         console.log(`Before adjustment: Population = ${population}, Food Per Person = ${foodPerPerson}`);
 
@@ -92,7 +92,7 @@ import { gameState } from './gameSetup.js';
     
             // Update population and recalculate food per person
             population = men + women + children;
-            foodPerPerson = (perishableFood + preservedFood) / population;
+            foodPerPerson = (gameState.perishableFood + preservedFood) / population;
         }
         console.log(`After decrement: Men = ${men}, Women = ${women}, Children = ${children}, Food Per Person = ${foodPerPerson}`);
 
@@ -186,16 +186,16 @@ export function simulatePopulationDynamics() {
 
     export function spoilFood() {
     if (isGamePaused) return; // Check if the game is paused
-    let spoiledFood = perishableFood * spoilageRate;
-    perishableFood -= spoiledFood; // Reduce perishable food by the spoilage rate
+    let spoiledFood = gameState.perishableFood * spoilageRate;
+    gameState.perishableFood -= spoiledFood; // Reduce perishable food by the spoilage rate
     updateDisplay();
 }
 
 export function preserveFood(amount) {
     if (isGamePaused) return; // Check if the game is paused
     // Assuming this function is manually called to convert perishable to preserved
-    if (perishableFood >= amount) {
-        perishableFood -= amount;
+    if (gameState.perishableFood >= amount) {
+        gameState.perishableFood -= amount;
         preservedFood += amount;
         updateDisplay();
     } else {
