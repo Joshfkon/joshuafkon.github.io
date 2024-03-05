@@ -177,7 +177,7 @@ export function simulatePopulationDynamics() {
 
 
 
-    export function -() {
+    export function spoilFood() {
     if (isGamePaused) return; // Check if the game is paused
     let spoiledFood = perishableFood * spoilageRate;
     perishableFood -= spoiledFood; // Reduce perishable food by the spoilage rate
