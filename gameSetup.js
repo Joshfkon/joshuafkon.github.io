@@ -1,7 +1,7 @@
 // Initial game state and configuration
 const gameState = {
     isGamePaused: false,
-    gameLoopInterval: null,
+    gameLoopInterval = setInterval(gameLoop, 5000);
     perishableFood: 100,
     preservedFood: 50,
     tools: 10,

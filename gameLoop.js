@@ -48,7 +48,7 @@ import { gameState } from './gameSetup.js';
         }
     
         // Set the game loop to run every second (1000 milliseconds)
-        gameLoopInterval = setInterval(gameLoop, 5000);
+       
         console.log("Game loop started.");
     }
     
