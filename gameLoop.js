@@ -11,6 +11,8 @@ import { updateResources } from './gameResourceManagement.js';
             console.log("Game loop is already running.");
             return; // Prevent multiple loops from starting
         }
+
+        checkForPopups(); // Check if we should show a popup
     
         // Define the game loop logic
         function gameLoop() {
