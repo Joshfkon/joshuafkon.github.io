@@ -1,3 +1,7 @@
+import { updateResources } from './gameResourceManagement.js';
+import { gameState } from './gameSetup.js';
+
+ 
  //** GAME LOGIC FUNCTIONS 
     //One day
     const updateInterval = 5000;
