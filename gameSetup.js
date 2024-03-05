@@ -1,4 +1,4 @@
-import { updateResources } from './gameResourceManagement.js';
+
 
     // IINITIAL CONDITIONS / SET VARIABLES
 
@@ -36,8 +36,7 @@ import { updateResources } from './gameResourceManagement.js';
     
     const foodPerPerson = 1;
 
-    //One day
-    const updateInterval = 5000;
+ 
 
     const spoilageRate = 0.3;
     const spoilageInterval = 30000;
@@ -45,7 +44,6 @@ import { updateResources } from './gameResourceManagement.js';
 
     // Initialize intervals for updating population and resources
     
-    setInterval(spoilFood, spoilageInterval);
     
     
 

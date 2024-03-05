@@ -2,6 +2,7 @@
     //One day
     const updateInterval = 5000;
  setInterval(updateResources, updateInterval);
+ setInterval(spoilFood, spoilageInterval);
 
  export function updateResources() {
     if (isGamePaused) return; // Check if the game is paused
@@ -176,7 +177,7 @@ export function simulatePopulationDynamics() {
 
 
 
-    export function spoilFood() {
+    export function -() {
     if (isGamePaused) return; // Check if the game is paused
     let spoiledFood = perishableFood * spoilageRate;
     perishableFood -= spoiledFood; // Reduce perishable food by the spoilage rate
