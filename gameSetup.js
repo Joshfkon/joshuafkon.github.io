@@ -1,7 +1,9 @@
+// gameSetup.js
+
 // Initial game state and configuration
-const gameState = {
+let gameState = {
     isGamePaused: false,
-    gameLoopInterval: null, // Initialize as null
+    gameLoopInterval: null,
     perishableFood: 100,
     preservedFood: 50,
     tools: 10,

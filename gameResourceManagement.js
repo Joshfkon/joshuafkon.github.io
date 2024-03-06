@@ -52,7 +52,7 @@ import { gameState } from './gameSetup.js';
 
     // Food consumption, including children
     const foodConsumptionPerPerson = 1.0; // Example consumption rate
-    const totalFoodConsumption = (men + women + children) * foodConsumptionPerPerson;
+    const totalFoodConsumption = (gameState.men + gameState.women + gameState.children) * foodConsumptionPerPerson;
 
     // Subtract consumption, starting with perishable food
     if (gameState.perishableFood >= totalFoodConsumption) {
@@ -61,7 +61,7 @@ import { gameState } from './gameSetup.js';
         // If perishable food is not enough, use preserved food
         const remainingConsumption = totalFoodConsumption - perishableFood;
         gameState.perishableFood = 0; // All perishable food is consumed
-        preservedFood = Math.max(preservedFood - remainingConsumption, 0); // Ensure preservedFood doesn't go negative
+        gameState.preservedFood = Math.max(gameState.preservedFood - remainingConsumption, 0); // Ensure preservedFood doesn't go negative
     }
 
     updateDisplay(); // Update the UI with the new values
@@ -72,29 +72,29 @@ import { gameState } from './gameSetup.js';
  //Population reduced in starvation (add hunger metric that increases mortality rate)
  export function adjustPopulationForFood() {
         if (isGamePaused) return; // Check if the game is paused
-        const totalFood = gameState.perishableFood + preservedFood;
-        let foodPerPerson = totalFood / population;
+        const totalFood = gameState.perishableFood + gameState.preservedFood;
+        let foodPerPerson = totalFood / gameState.population;
         console.log(`Before adjustment: Population = ${population}, Food Per Person = ${foodPerPerson}`);
 
     
-        while (foodPerPerson < 1 && population > 0) {
+        while (foodPerPerson < 1 && gameState.population > 0) {
             if (children > 0) {
                 children--;
-            } else if (men > 0 && women > 0) {
+            } else if (gameState.men > 0 && gameState.women > 0) {
                 // Try to reduce men and women equally
-                men--;
-                women--;
-            } else if (men > 0) {
-                men--;
-            } else if (women > 0) {
-                women--;
+                gameState.men--;
+                gameState.women--;
+            } else if (gameState.men > 0) {
+                gameState.men--;
+            } else if (gameState.women > 0) {
+                gameState.women--;
             }
     
             // Update population and recalculate food per person
-            population = men + women + children;
-            foodPerPerson = (gameState.perishableFood + preservedFood) / population;
+            gameState.population = gameState.men + gameState.women + gameState.children;
+            foodPerPerson = (gameState.perishableFood + gameState.preservedFood) / gameState.population;
         }
-        console.log(`After decrement: Men = ${men}, Women = ${women}, Children = ${children}, Food Per Person = ${foodPerPerson}`);
+        console.log(`After decrement: Men = ${gameState.men}, Women = ${gameState.women}, Children = ${gameState.children}, Food Per Person = ${foodPerPerson}`);
 
         updateDisplay(); // Ensure this updates your UI to reflect the changes
     }
@@ -120,12 +120,12 @@ export function simulatePopulationDynamics() {
         }
         children -= childrenBecomingAdults;
         // Assume half of the children become men and half become women, for simplicity
-        men += Math.floor(childrenBecomingAdults / 2);
-        women += Math.ceil(childrenBecomingAdults / 2);
+        gameState.men += Math.floor(childrenBecomingAdults / 2);
+        gameState.women += Math.ceil(childrenBecomingAdults / 2);
     
         // Death from Old Age
         ['men', 'women'].forEach(gender => {
-            for (let i = 0; i < window[gender]; i++) {
+            for (let i = 0; i < window[gameState.gender]; i++) {
                 if (Math.random() < 1 / 10950) {
                     console.log("Old Age Death");
                     window[gender]--;
@@ -136,7 +136,7 @@ export function simulatePopulationDynamics() {
         // Death from Disease - Children
         for (let i = 0; i < children; i++) {
             if (Math.random() < 1 / 1825) {
-                children--;
+                gameState.children--;
             }
         }
     
@@ -150,7 +150,7 @@ export function simulatePopulationDynamics() {
         });
     
         // Update total population count
-        population = men + women + children;
+        gameState.population = gameState.men + gameState.women + gameState.children;
         updateDisplay(); // Make sure the display is updated with the new values
     }
     
@@ -196,7 +196,7 @@ export function preserveFood(amount) {
     // Assuming this function is manually called to convert perishable to preserved
     if (gameState.perishableFood >= amount) {
         gameState.perishableFood -= amount;
-        preservedFood += amount;
+        gameState.preservedFood += amount;
         updateDisplay();
     } else {
         console.log("Not enough perishable food to preserve.");

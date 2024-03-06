@@ -4,6 +4,7 @@ import { simulatePopulationDynamics } from './gameResourceManagement.js';
 import { incrementTime } from './gameResourceManagement.js';   
 import { updateResources } from './gameResourceManagement.js';
 import { gameState } from './gameSetup.js';
+let gameLoopInterval = null;
 
 
  //** CENTRAL GAME LOOP 
@@ -19,7 +20,7 @@ import { gameState } from './gameSetup.js';
     
         // Define the game loop logic
         function gameLoop() {
-            if (!isGamePaused) {
+            if (!gameState.isGamePaused) {
               // Call your game logic functions here in the order that makes sense for your game
         
         console.log("Game loop START");      +
