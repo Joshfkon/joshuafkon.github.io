@@ -14,7 +14,7 @@ import { updateDisplay } from './UIManagement.js';
  setInterval(spoilFood, spoilageInterval);
 
  export function updateResources() {
-   // if (isGamePaused) return; // Check if the game is paused
+    if (gameState.isGamePaused) return; // Check if the game is paused
 
     // Automatically preserve a portion of perishable food
     const amountToPreserveAutomatically = gameState.perishableFood * preservationRate;
@@ -73,7 +73,7 @@ import { updateDisplay } from './UIManagement.js';
 
  //Population reduced in starvation (add hunger metric that increases mortality rate)
  export function adjustPopulationForFood() {
-        if (isGamePaused) return; // Check if the game is paused
+        if (gameState.isGamePaused) return; // Check if the game is paused
         const totalFood = gameState.perishableFood + gameState.preservedFood;
         let foodPerPerson = totalFood / gameState.population;
         console.log(`Before adjustment: Population = ${population}, Food Per Person = ${foodPerPerson}`);
@@ -103,9 +103,9 @@ import { updateDisplay } from './UIManagement.js';
 
 //Function to simulate Population dynamics
 export function simulatePopulationDynamics() {
-    if (isGamePaused) return; // Check if the game is paused
+    if (gameState.isGamePaused) return; // Check if the game is paused
         // Birth
-        for (let i = 0; i < women; i++) {
+        for (let i = 0; i < gameState.women; i++) {
             if (Math.random() < 1 / 125) {
                 console.log("Birth");
                 children++;
@@ -114,7 +114,7 @@ export function simulatePopulationDynamics() {
     
         // Growth
         let childrenBecomingAdults = 0;
-        for (let i = 0; i < children; i++) {
+        for (let i = 0; i < gameState.children; i++) {
             if (Math.random() < 1 / 365) {
                 console.log("Adult Ceremody");
                 childrenBecomingAdults++;
@@ -158,17 +158,17 @@ export function simulatePopulationDynamics() {
     
    //Function to Increment Time
    export function incrementTime() {
-        if (isGamePaused) return; // Check if the game is paused
-        day++;
-        if (day > 364) {
-            day = 1; // Reset day to 1
-            year++; // Increment year
-            currentSeasonIndex = 0; // Optionally reset the season
+        if (gameState.isGamePaused) return; // Check if the game is paused
+        gameState.day++;
+        if (gameState.day > 364) {
+            gameState.day = 1; // Reset day to 1
+            gameState.year++; // Increment year
+            gameState.currentSeasonIndex = 0; // Optionally reset the season
             popupShown = false; // Reset the popup shown flag each year
         }
     
-        if (day % 91 === 0) { // Change season every 91 days
-            currentSeasonIndex = (currentSeasonIndex + 1) % seasons.length;
+        if (gameState.day % 91 === 0) { // Change season every 91 days
+            gameState.currentSeasonIndex = (gameState.currentSeasonIndex + 1) % seasons.length;
         }
     
         updateDisplay(); // Make sure the display is updated with the new values
@@ -187,14 +187,14 @@ export function simulatePopulationDynamics() {
 
 
     export function spoilFood() {
-    if (isGamePaused) return; // Check if the game is paused
+    if (gameState.isGamePaused) return; // Check if the game is paused
     let spoiledFood = gameState.perishableFood * spoilageRate;
     gameState.perishableFood -= spoiledFood; // Reduce perishable food by the spoilage rate
     updateDisplay();
 }
 
 export function preserveFood(amount) {
-    if (isGamePaused) return; // Check if the game is paused
+    if (gameState.isGamePaused) return; // Check if the game is paused
     // Assuming this function is manually called to convert perishable to preserved
     if (gameState.perishableFood >= amount) {
         gameState.perishableFood -= amount;
