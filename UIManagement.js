@@ -51,7 +51,7 @@ export function closePopup() {
 
     // Update UI for day, year, and season based on the provided HTML structure
     document.getElementById('day').textContent = day;
-    document.getElementById('season').textContent = seasons[currentSeasonIndex];
+    document.getElementById('season').textContent = gameState.seasons[currentSeasonIndex];
     document.getElementById('year').textContent = year;
 
     // Also log to console
