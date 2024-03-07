@@ -50,12 +50,12 @@ export function closePopup() {
     document.getElementById('children-count').textContent = gameState.children;
 
     // Update UI for day, year, and season based on the provided HTML structure
-    document.getElementById('day').textContent = day;
-    document.getElementById('season').textContent = gameState.seasons[currentSeasonIndex];
-    document.getElementById('year').textContent = year;
+    document.getElementById('day').textContent = gameState.day;
+    document.getElementById('season').textContent = gameState.seasons[gameState.currentSeasonIndex];
+    document.getElementById('year').textContent = gameState.year;
 
     // Also log to console
-    console.log(`Day: ${gameState.day}, Season: ${gameState.seasons[currentSeasonIndex]}, Year: ${gameState.year}, Population: ${gameState.population}, Men: ${gameState.men}, Women: ${gameState.women}, Children: ${gameState.children}, Perishable Food: ${gameState.perishableFood.toFixed(2)}, Preserved Food: ${gameState.preservedFood.toFixed(2)}`);
+    console.log(`Day: ${gameState.day}, Season: ${gameState.seasons[gameState.currentSeasonIndex]}, Year: ${gameState.year}, Population: ${gameState.population}, Men: ${gameState.men}, Women: ${gameState.women}, Children: ${gameState.children}, Perishable Food: ${gameState.perishableFood.toFixed(2)}, Preserved Food: ${gameState.preservedFood.toFixed(2)}`);
 }
 
 
