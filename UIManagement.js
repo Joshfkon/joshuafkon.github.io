@@ -4,6 +4,7 @@
     
 import { gameState } from './gameSetup.js';
 
+
 export function handleOption(option) {
     // Example result text, customize as needed
     const resultText = "You selected: " + option + ". Here's the outcome...";
@@ -86,19 +87,24 @@ export function showPopup() {
         }
     });
 
-    // Function to make sure the total number of tasks assigned to the population does not exceed the total population itself 
-    export function adjustTaskAssignments() {
+// Function to make sure the total number of tasks assigned to the population does not exceed the total population itself
+export function adjustTaskAssignments() {
     if (gameState.isGamePaused) return; // Check if the game is paused
+
     let totalAssigned = getTotalAssignedPopulation();
-    while (totalAssigned > adultPopulationn) {
-        Object.keys(tasks).forEach(taskName => {
-            if (tasks[taskName].adultPopulation > 0 && totalAssigned > adultPopulation ) {
-                tasks[taskName].adultPopulation  -= 1;
+    const adultPopulation = gameState.men + gameState.women;
+
+    while (totalAssigned > adultPopulation) {
+        Object.keys(gameState.tasks).forEach(taskName => {
+            if (gameState.tasks[taskName].adultPopulation > 0 && totalAssigned > adultPopulation) {
+                gameState.tasks[taskName].adultPopulation -= 1;
                 totalAssigned -= 1;
             }
         });
     }
-    updateResourcesDisplay(); // Ensure this updates your UI to reflect the changes.
+
+    updateResourcesDisplay();
+    updateTaskPercentages();
 }
 
 // Function to update task percentages
@@ -114,28 +120,26 @@ export function updateTaskPercentages() {
 
 
 document.getElementById('hunting-rate').addEventListener('input', function(event) {
-    tasks.hunting.rate = parseInt(event.target.value, 10);
+    gameState.tasks.hunting.rate = parseInt(event.target.value, 10);
     updateTaskPercentages();
 });
 
 document.getElementById('gathering-rate').addEventListener('input', function(event) {
-    tasks.gathering.rate = parseInt(event.target.value, 10);
+    gameState.tasks.gathering.rate = parseInt(event.target.value, 10);
     updateTaskPercentages();
 });
-
 
 document.getElementById('hunting-rate').addEventListener('input', function(event) {
-    tasks.hunting.rate = parseInt(event.target.value, 10);
-    document.getElementById('hunting-rate-value').textContent = tasks.hunting.rate + '%';
+    gameState.tasks.hunting.rate = parseInt(event.target.value, 10);
+    document.getElementById('hunting-rate-value').textContent = gameState.tasks.hunting.rate + '%';
     updateTaskPercentages();
 });
 
 document.getElementById('gathering-rate').addEventListener('input', function(event) {
-    tasks.gathering.rate = parseInt(event.target.value, 10);
-    document.getElementById('gathering-rate-value').textContent = tasks.gathering.rate + '%';
+    gameState.tasks.gathering.rate = parseInt(event.target.value, 10);
+    document.getElementById('gathering-rate-value').textContent = gameState.tasks.gathering.rate + '%';
     updateTaskPercentages();
 });
-
 
     //ToolTip Fuctionallity
     
