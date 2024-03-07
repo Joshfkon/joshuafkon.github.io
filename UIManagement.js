@@ -55,7 +55,7 @@ export function closePopup() {
     document.getElementById('year').textContent = year;
 
     // Also log to console
-    console.log(`Day: ${day}, Season: ${seasons[currentSeasonIndex]}, Year: ${year}, Population: ${gameState.population}, Men: ${gameState.men}, Women: ${gameState.women}, Children: ${gameState.children}, Perishable Food: ${gameState.perishableFood.toFixed(2)}, Preserved Food: ${gameState.preservedFood.toFixed(2)}`);
+    console.log(`Day: ${gameState.day}, Season: ${gameState.seasons[currentSeasonIndex]}, Year: ${gameState.year}, Population: ${gameState.population}, Men: ${gameState.men}, Women: ${gameState.women}, Children: ${gameState.children}, Perishable Food: ${gameState.perishableFood.toFixed(2)}, Preserved Food: ${gameState.preservedFood.toFixed(2)}`);
 }
 
 
