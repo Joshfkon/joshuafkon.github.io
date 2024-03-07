@@ -104,16 +104,13 @@ export function showPopup() {
 // Function to update task percentages
 export function updateTaskPercentages() {
     if (gameState.isGamePaused) return;
-
-    let totalAdults = gameState.gameState.men + gameState.women; // Ensure these are updated
-    Object.keys(tasks).forEach(task => {
-        const taskPercentage = tasks[task].rate / 100;
-        tasks[task].adultPopulation = Math.floor(totalAdults * taskPercentage);
+    let totalAdults = gameState.men + gameState.women; // Ensure these are updated
+    Object.keys(gameState.tasks).forEach(task => {
+        const taskPercentage = gameState.tasks[task].rate / 100;
+        gameState.tasks[task].adultPopulation = Math.floor(totalAdults * taskPercentage);
     });
-
     updateDisplay();
 }
-
 
 
 document.getElementById('hunting-rate').addEventListener('input', function(event) {
