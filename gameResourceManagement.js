@@ -104,7 +104,7 @@ export function simulatePopulationDynamics() {
         for (let i = 0; i < gameState.women; i++) {
             if (Math.random() < 1 / 125) {
                 console.log("Birth");
-                children++;
+                gameState.children++;
             }
         }
     
@@ -116,7 +116,7 @@ export function simulatePopulationDynamics() {
                 childrenBecomingAdults++;
             }
         }
-        children -= childrenBecomingAdults;
+        gameState.children -= childrenBecomingAdults;
         // Assume half of the children become men and half become women, for simplicity
         gameState.men += Math.floor(childrenBecomingAdults / 2);
         gameState.women += Math.ceil(childrenBecomingAdults / 2);
@@ -132,7 +132,7 @@ export function simulatePopulationDynamics() {
         });
     
         // Death from Disease - Children
-        for (let i = 0; i < children; i++) {
+        for (let i = 0; i < gameState.children; i++) {
             if (Math.random() < 1 / 1825) {
                 gameState.children--;
             }
