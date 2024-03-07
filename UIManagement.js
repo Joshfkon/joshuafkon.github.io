@@ -36,7 +36,7 @@ export function closePopup() {
     if (gameState.isGamePaused) return; // Check if the game is paused
 
     // Update UI for food counts
-    document.getElementById('perishable-food-count').textContent = parseFloat(perishableFood).toFixed(2);
+    document.getElementById('perishable-food-count').textContent = parseFloat(gameState.perishableFood).toFixed(2);
     document.getElementById('preserved-food-count').textContent = parseFloat(preservedFood).toFixed(2);
 
     //document.getElementById('hunting-population').textContent = tasks.hunting.population;
@@ -55,7 +55,7 @@ export function closePopup() {
     document.getElementById('year').textContent = year;
 
     // Also log to console
-    console.log(`Day: ${day}, Season: ${seasons[currentSeasonIndex]}, Year: ${year}, Population: ${population}, Men: ${men}, Women: ${women}, Children: ${children}, Perishable Food: ${perishableFood.toFixed(2)}, Preserved Food: ${preservedFood.toFixed(2)}`);
+    console.log(`Day: ${day}, Season: ${seasons[currentSeasonIndex]}, Year: ${year}, Population: ${population}, Men: ${gameState.men}, Women: ${gameState.women}, Children: ${gameState.children}, Perishable Food: ${gameState.perishableFood.toFixed(2)}, Preserved Food: ${preservedFood.toFixed(2)}`);
 }
 
 
