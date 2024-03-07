@@ -98,6 +98,7 @@ export function adjustPopulationForFood() {
     updateDisplay(); // Ensure this updates your UI to reflect the changes
 }
 // Function to simulate Population dynamics
+// Function to simulate Population dynamics
 export function simulatePopulationDynamics() {
     if (gameState.isGamePaused) return; // Check if the game is paused
     
@@ -148,8 +149,6 @@ export function simulatePopulationDynamics() {
         }
     });
 
-    // Update total population count
-    gameState.population = gameState.men + gameState.women + gameState.children;
     updateDisplay(); // Make sure the display is updated with the new values
 }
     
