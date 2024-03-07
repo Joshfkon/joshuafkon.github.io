@@ -37,17 +37,17 @@ export function closePopup() {
 
     // Update UI for food counts
     document.getElementById('perishable-food-count').textContent = parseFloat(gameState.perishableFood).toFixed(2);
-    document.getElementById('preserved-food-count').textContent = parseFloat(preservedFood).toFixed(2);
+    document.getElementById('preserved-food-count').textContent = parseFloat(gameState.preservedFood).toFixed(2);
 
     //document.getElementById('hunting-population').textContent = tasks.hunting.population;
     //document.getElementById('gathering-population').textContent = tasks.gathering.population;
 
 
     // Update UI for population counts
-    document.getElementById('population-count').textContent = population;
-    document.getElementById('men-count').textContent = men;
-    document.getElementById('women-count').textContent = women;
-    document.getElementById('children-count').textContent = children;
+    document.getElementById('population-count').textContent = gameState.population;
+    document.getElementById('men-count').textContent = gameState.men;
+    document.getElementById('women-count').textContent = gameState.women;
+    document.getElementById('children-count').textContent = gameState.children;
 
     // Update UI for day, year, and season based on the provided HTML structure
     document.getElementById('day').textContent = day;
@@ -55,7 +55,7 @@ export function closePopup() {
     document.getElementById('year').textContent = year;
 
     // Also log to console
-    console.log(`Day: ${day}, Season: ${seasons[currentSeasonIndex]}, Year: ${year}, Population: ${population}, Men: ${gameState.men}, Women: ${gameState.women}, Children: ${gameState.children}, Perishable Food: ${gameState.perishableFood.toFixed(2)}, Preserved Food: ${preservedFood.toFixed(2)}`);
+    console.log(`Day: ${day}, Season: ${seasons[currentSeasonIndex]}, Year: ${year}, Population: ${gameState.population}, Men: ${gameState.men}, Women: ${gameState.women}, Children: ${gameState.children}, Perishable Food: ${gameState.perishableFood.toFixed(2)}, Preserved Food: ${gameState.preservedFood.toFixed(2)}`);
 }
 
 
@@ -105,7 +105,7 @@ export function showPopup() {
 export function updateTaskPercentages() {
     if (gameState.isGamePaused) return;
 
-    let totalAdults = men + women; // Ensure these are updated
+    let totalAdults = gameState.gameState.men + gameState.women; // Ensure these are updated
     Object.keys(tasks).forEach(task => {
         const taskPercentage = tasks[task].rate / 100;
         tasks[task].adultPopulation = Math.floor(totalAdults * taskPercentage);
