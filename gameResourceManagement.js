@@ -23,8 +23,8 @@ import { updateDisplay } from './UIManagement.js';
     console.log(`${amountToPreserveAutomatically.toFixed(2)} food preserved automatically.`);
 
     // Proceed with food production from tasks
-    Object.keys(tasks).forEach(task => {
-        const taskInfo = tasks[task];
+    Object.keys(gameState.tasks).forEach(task => {
+        const taskInfo = gameState.tasks[task];
         let foodProduced = 0; // Initialize foodProduced
 
         if (task === 'hunting') {
@@ -33,15 +33,15 @@ import { updateDisplay } from './UIManagement.js';
             if (success) {
                 foodProduced = taskInfo.adultPopulation * taskInfo.foodPerTick * (Math.random() * 5.95 + 1);
                 document.getElementById('hunt-results').textContent = `Success! Hunt yielded ${foodProduced.toFixed(2)} food.`;
-                console.log(`Hunting Population: ${tasks.hunting.adultPopulation}, Food Produced: ${foodProduced}`);
-                console.log(`Total adults: ${totalAdults}, Hunting rate: ${tasks.hunting.rate}`);
-                console.log(`Assigned hunters: ${tasks.hunting.adultPopulation}`);
-
+                console.log(`Hunting Population: ${gameState.tasks.hunting.adultPopulation}, Food Produced: ${foodProduced}`);
+                console.log(`Total adults: ${gameState.men + gameState.women}, Hunting rate: ${gameState.tasks.hunting.rate}`);
+                console.log(`Assigned hunters: ${gameState.tasks.hunting.adultPopulation}`);
             } else {
                 foodProduced = 0; // No food produced on failure
                 document.getElementById('hunt-results').textContent = "Hunt failed. Better luck next time!";
-                console.log(`Hunting Population: ${tasks.hunting.adultPopulation}, Food Produced: ${foodProduced}`);
+                console.log(`Hunting Population: ${gameState.tasks.hunting.adultPopulation}, Food Produced: ${foodProduced}`);
             }
+
         } else if (task === 'gathering') {
             // Introduce variability in gathering
             let variabilityFactor = Math.random() * 0.5 + 0.75; // Random factor between 0.75 and 1.25
@@ -154,20 +154,20 @@ export function simulatePopulationDynamics() {
     
    //Function to Increment Time
    export function incrementTime() {
-        if (gameState.isGamePaused) return; // Check if the game is paused
-        gameState.day++;
-        if (gameState.day > 364) {
-            gameState.day = 1; // Reset day to 1
-            gameState.year++; // Increment year
-            gameState.currentSeasonIndex = 0; // Optionally reset the season
-            popupShown = false; // Reset the popup shown flag each year
-        }
-    
-        if (gameState.day % 91 === 0) { // Change season every 91 days
-            gameState.currentSeasonIndex = (gameState.currentSeasonIndex + 1) % seasons.length;
-        }
-    
-        updateDisplay(); // Make sure the display is updated with the new values
+    if (gameState.isGamePaused) return; // Check if the game is paused
+    gameState.day++;
+    if (gameState.day > 364) {
+        gameState.day = 1; // Reset day to 1
+        gameState.year++; // Increment year
+        gameState.currentSeasonIndex = 0; // Optionally reset the season
+        gameState.popupShown = false; // Reset the popup shown flag each year
+    }
+
+    if (gameState.day % 91 === 0) { // Change season every 91 days
+        gameState.currentSeasonIndex = (gameState.currentSeasonIndex + 1) % gameState.seasons.length;
+    }
+
+    updateDisplay(); // Make sure the display is updated with the new values
     }
 
 

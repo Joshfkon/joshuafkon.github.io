@@ -1,7 +1,7 @@
 // updateResources.test.js
 
-import { gameState } from './gameSetup';
-import { updateResources } from './gameResourceManagement';
+import { gameState } from './gameSetup.js';
+import { updateResources } from './gameResourceManagement.js';
 
 // Test case 1
 console.log('Test case 1: Preserve a portion of perishable food automatically');
