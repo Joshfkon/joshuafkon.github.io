@@ -71,36 +71,32 @@ import { updateDisplay } from './UIManagement.js';
 
 
 
- //Population reduced in starvation (add hunger metric that increases mortality rate)
- export function adjustPopulationForFood() {
-        if (gameState.isGamePaused) return; // Check if the game is paused
-        const totalFood = gameState.perishableFood + gameState.preservedFood;
-        let foodPerPerson = totalFood / gameState.population;
-        console.log(`Before adjustment: Population = ${population}, Food Per Person = ${foodPerPerson}`);
+export function adjustPopulationForFood() {
+    if (gameState.isGamePaused) return; // Check if the game is paused
+    const totalFood = gameState.perishableFood + gameState.preservedFood;
+    let foodPerPerson = totalFood / gameState.population;
+    console.log(`Before adjustment: Population = ${gameState.population}, Food Per Person = ${foodPerPerson}`);
 
-    
-        while (foodPerPerson < 1 && gameState.population > 0) {
-            if (children > 0) {
-                children--;
-            } else if (gameState.men > 0 && gameState.women > 0) {
-                // Try to reduce men and women equally
-                gameState.men--;
-                gameState.women--;
-            } else if (gameState.men > 0) {
-                gameState.men--;
-            } else if (gameState.women > 0) {
-                gameState.women--;
-            }
-    
-            // Update population and recalculate food per person
-            gameState.population = gameState.men + gameState.women + gameState.children;
-            foodPerPerson = (gameState.perishableFood + gameState.preservedFood) / gameState.population;
+    while (foodPerPerson < 1 && gameState.population > 0) {
+        if (gameState.children > 0) {
+            gameState.children--;
+        } else if (gameState.men > 0 && gameState.women > 0) {
+            // Try to reduce men and women equally
+            gameState.men--;
+            gameState.women--;
+        } else if (gameState.men > 0) {
+            gameState.men--;
+        } else if (gameState.women > 0) {
+            gameState.women--;
         }
-        console.log(`After decrement: Men = ${gameState.men}, Women = ${gameState.women}, Children = ${gameState.children}, Food Per Person = ${foodPerPerson}`);
 
-        updateDisplay(); // Ensure this updates your UI to reflect the changes
+        // Recalculate food per person
+        foodPerPerson = (gameState.perishableFood + gameState.preservedFood) / gameState.population;
     }
+    console.log(`After decrement: Men = ${gameState.men}, Women = ${gameState.women}, Children = ${gameState.children}, Food Per Person = ${foodPerPerson}`);
 
+    updateDisplay(); // Ensure this updates your UI to reflect the changes
+}
 //Function to simulate Population dynamics
 export function simulatePopulationDynamics() {
     if (gameState.isGamePaused) return; // Check if the game is paused
