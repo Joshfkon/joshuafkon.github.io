@@ -33,7 +33,7 @@ export function closePopup() {
  //Function to UpdateDisplay
  
  export function updateDisplay() {
-    if (isGamePaused) return; // Check if the game is paused
+    if (gameState.isGamePaused) return; // Check if the game is paused
 
     // Update UI for food counts
     document.getElementById('perishable-food-count').textContent = parseFloat(perishableFood).toFixed(2);
@@ -65,7 +65,7 @@ export function showPopup() {
         if (!popupShown) {
             document.getElementById('popup-container').style.display = 'flex';
             popupShown = true; // Update the flag so the popup isn't shown again
-            isGamePaused = true; // Pause the game
+            gameState.isGamePaused = true; // Pause the game
         }
     }
     
@@ -88,7 +88,7 @@ export function showPopup() {
 
     // Function to make sure the total number of tasks assigned to the population does not exceed the total population itself 
     export function adjustTaskAssignments() {
-    if (isGamePaused) return; // Check if the game is paused
+    if (gameState.isGamePaused) return; // Check if the game is paused
     let totalAssigned = getTotalAssignedPopulation();
     while (totalAssigned > adultPopulationn) {
         Object.keys(tasks).forEach(taskName => {
@@ -103,7 +103,7 @@ export function showPopup() {
 
 // Function to update task percentages
 export function updateTaskPercentages() {
-    if (isGamePaused) return;
+    if (gameState.isGamePaused) return;
 
     let totalAdults = men + women; // Ensure these are updated
     Object.keys(tasks).forEach(task => {

@@ -4,6 +4,7 @@ import { simulatePopulationDynamics } from './gameResourceManagement.js';
 import { incrementTime } from './gameResourceManagement.js';   
 import { updateResources } from './gameResourceManagement.js';
 import { gameState } from './gameSetup.js';
+import { checkForPopups } from './EventTree.js';   
 let gameLoopInterval = null;
 
 

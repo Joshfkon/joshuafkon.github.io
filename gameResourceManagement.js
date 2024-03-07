@@ -1,5 +1,7 @@
 
 import { gameState } from './gameSetup.js';
+import { updateDisplay } from './UIManagement.js';
+
 
  
  //** GAME LOGIC FUNCTIONS 
