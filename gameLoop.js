@@ -5,6 +5,7 @@ import { incrementTime } from './gameResourceManagement.js';
 import { updateResources } from './gameResourceManagement.js';
 import { gameState } from './gameSetup.js';
 import { checkForPopups } from './EventTree.js';   
+import { updateDisplay } from './UIManagement.js';
 let gameLoopInterval = null;
 
 
