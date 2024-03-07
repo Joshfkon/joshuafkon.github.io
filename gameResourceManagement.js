@@ -97,60 +97,61 @@ export function adjustPopulationForFood() {
 
     updateDisplay(); // Ensure this updates your UI to reflect the changes
 }
-//Function to simulate Population dynamics
+// Function to simulate Population dynamics
 export function simulatePopulationDynamics() {
     if (gameState.isGamePaused) return; // Check if the game is paused
-        // Birth
-        for (let i = 0; i < gameState.women; i++) {
-            if (Math.random() < 1 / 125) {
-                console.log("Birth");
-                gameState.children++;
-            }
+    
+    // Birth
+    for (let i = 0; i < gameState.women; i++) {
+        if (Math.random() < 1 / 125) {
+            console.log("Birth");
+            gameState.children++;
         }
-    
-        // Growth
-        let childrenBecomingAdults = 0;
-        for (let i = 0; i < gameState.children; i++) {
-            if (Math.random() < 1 / 365) {
-                console.log("Adult Ceremody");
-                childrenBecomingAdults++;
-            }
-        }
-        gameState.children -= childrenBecomingAdults;
-        // Assume half of the children become men and half become women, for simplicity
-        gameState.men += Math.floor(childrenBecomingAdults / 2);
-        gameState.women += Math.ceil(childrenBecomingAdults / 2);
-    
-        // Death from Old Age
-        ['men', 'women'].forEach(gender => {
-            for (let i = 0; i < window[gameState.gender]; i++) {
-                if (Math.random() < 1 / 10950) {
-                    console.log("Old Age Death");
-                    window[gender]--;
-                }
-            }
-        });
-    
-        // Death from Disease - Children
-        for (let i = 0; i < gameState.children; i++) {
-            if (Math.random() < 1 / 1825) {
-                gameState.children--;
-            }
-        }
-    
-        // Death from Disease - Adults
-        ['men', 'women'].forEach(gender => {
-            for (let i = 0; i < window[gender]; i++) {
-                if (Math.random() < 1 / 13140) {
-                    window[gender]--;
-                }
-            }
-        });
-    
-        // Update total population count
-        gameState.population = gameState.men + gameState.women + gameState.children;
-        updateDisplay(); // Make sure the display is updated with the new values
     }
+
+    // Growth
+    let childrenBecomingAdults = 0;
+    for (let i = 0; i < gameState.children; i++) {
+        if (Math.random() < 1 / 365) {
+            console.log("Adult Ceremony");
+            childrenBecomingAdults++;
+        }
+    }
+    gameState.children -= childrenBecomingAdults;
+    // Assume half of the children become men and half become women, for simplicity
+    gameState.men += Math.floor(childrenBecomingAdults / 2);
+    gameState.women += Math.ceil(childrenBecomingAdults / 2);
+
+    // Death from Old Age
+    ['men', 'women'].forEach(gender => {
+        for (let i = 0; i < gameState[gender]; i++) {
+            if (Math.random() < 1 / 10950) {
+                console.log("Old Age Death");
+                gameState[gender]--;
+            }
+        }
+    });
+
+    // Death from Disease - Children
+    for (let i = 0; i < gameState.children; i++) {
+        if (Math.random() < 1 / 1825) {
+            gameState.children--;
+        }
+    }
+
+    // Death from Disease - Adults
+    ['men', 'women'].forEach(gender => {
+        for (let i = 0; i < gameState[gender]; i++) {
+            if (Math.random() < 1 / 13140) {
+                gameState[gender]--;
+            }
+        }
+    });
+
+    // Update total population count
+    gameState.population = gameState.men + gameState.women + gameState.children;
+    updateDisplay(); // Make sure the display is updated with the new values
+}
     
    //Function to Increment Time
    export function incrementTime() {
