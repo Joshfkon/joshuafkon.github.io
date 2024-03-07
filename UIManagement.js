@@ -2,7 +2,7 @@
 
  //Functions to handle popups
     
-
+import { gameState } from './gameSetup.js';
 
 export function handleOption(option) {
     // Example result text, customize as needed
