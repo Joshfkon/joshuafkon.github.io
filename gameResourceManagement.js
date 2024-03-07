@@ -61,7 +61,7 @@ import { updateDisplay } from './UIManagement.js';
         gameState.perishableFood -= totalFoodConsumption;
     } else {
         // If perishable food is not enough, use preserved food
-        const remainingConsumption = totalFoodConsumption - perishableFood;
+        const remainingConsumption = totalFoodConsumption - gameState.perishableFood;
         gameState.perishableFood = 0; // All perishable food is consumed
         gameState.preservedFood = Math.max(gameState.preservedFood - remainingConsumption, 0); // Ensure preservedFood doesn't go negative
     }
