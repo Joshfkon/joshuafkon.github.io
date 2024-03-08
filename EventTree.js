@@ -1,5 +1,6 @@
 // GameEvents.js
-
+// EventTree.js
+import { popupsConfig } from './GameEvents.js';
 import { gameState } from './gameSetup.js';
 
 // ... (existing code for popupsConfig and adjustCulturalTraits)
