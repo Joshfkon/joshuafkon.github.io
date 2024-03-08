@@ -18,14 +18,15 @@ let gameLoopInterval = null;
             return; // Prevent multiple loops from starting
         }
 
-        checkForPopups(); // Check if we should show a popup
+     
     
         // Define the game loop logic
         function gameLoop() {
             if (!gameState.isGamePaused) {
               // Call your game logic functions here in the order that makes sense for your game
         
-        console.log("Game loop START");      +
+        console.log("Game loop START"); 
+        checkForPopups(); // Check if we should show a popup     +
 
         updateTaskPercentages();
         // 1. Update resources based on current tasks, preservation, etc.
