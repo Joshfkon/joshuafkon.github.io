@@ -34,7 +34,16 @@ let gameState = {
         hunting: { adultPopulation: 0, foodPerTick: 1, rate: 50 },
         gathering: { adultPopulation: 0, foodPerTick: 1, rate: 50 },
     },
-};
 
+    culturalTraits: {
+        agriculture: 50,
+        resilience: 50,
+        exploration: 50,
+        faith: 50,
+        warfare: 50,
+        diplomacy: 50,
+        // Add more cultural traits as needed
+},
+}
 // Export the gameState object
 export { gameState };
