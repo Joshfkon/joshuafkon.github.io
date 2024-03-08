@@ -1,19 +1,16 @@
-
 import { gameState } from './gameSetup.js';
 import { updateDisplay } from './UIManagement.js';
 
+//** GAME LOGIC FUNCTIONS 
+//One day
+const updateInterval = 5000;
+const spoilageRate = 0.3;
+const spoilageInterval = 30000;
+let preservationRate = 0;
+setInterval(updateResources, updateInterval);
+setInterval(spoilFood, spoilageInterval);
 
- 
- //** GAME LOGIC FUNCTIONS 
-    //One day
-    const updateInterval = 5000;
-    const spoilageRate = 0.3;
-    const spoilageInterval = 30000;
-    let preservationRate = 0;
- setInterval(updateResources, updateInterval);
- setInterval(spoilFood, spoilageInterval);
-
- export function updateResources() {
+export function updateResources() {
     if (gameState.isGamePaused) return; // Check if the game is paused
 
     // Automatically preserve a portion of perishable food
@@ -32,21 +29,29 @@ import { updateDisplay } from './UIManagement.js';
             let success = Math.random() < 0.25;
             if (success) {
                 foodProduced = taskInfo.adultPopulation * taskInfo.foodPerTick * (Math.random() * 5.95 + 1);
-                document.getElementById('hunt-results').textContent = `Success! Hunt yielded ${foodProduced.toFixed(2)} food.`;
+                const huntResultsElement = document.getElementById('hunt-results');
+                if (huntResultsElement) {
+                    huntResultsElement.textContent = `Success! Hunt yielded ${foodProduced.toFixed(2)} food.`;
+                }
                 console.log(`Hunting Population: ${gameState.tasks.hunting.adultPopulation}, Food Produced: ${foodProduced}`);
                 console.log(`Total adults: ${gameState.men + gameState.women}, Hunting rate: ${gameState.tasks.hunting.rate}`);
                 console.log(`Assigned hunters: ${gameState.tasks.hunting.adultPopulation}`);
             } else {
                 foodProduced = 0; // No food produced on failure
-                document.getElementById('hunt-results').textContent = "Hunt failed. Better luck next time!";
+                const huntResultsElement = document.getElementById('hunt-results');
+                if (huntResultsElement) {
+                    huntResultsElement.textContent = "Hunt failed. Better luck next time!";
+                }
                 console.log(`Hunting Population: ${gameState.tasks.hunting.adultPopulation}, Food Produced: ${foodProduced}`);
             }
-
         } else if (task === 'gathering') {
             // Introduce variability in gathering
             let variabilityFactor = Math.random() * 0.5 + 0.75; // Random factor between 0.75 and 1.25
             foodProduced = taskInfo.adultPopulation * taskInfo.foodPerTick * variabilityFactor;
-            document.getElementById('gathering-results').textContent = `Gathering yielded ${foodProduced.toFixed(2)} food.`;
+            const gatheringResultsElement = document.getElementById('gathering-results');
+            if (gatheringResultsElement) {
+                gatheringResultsElement.textContent = `Gathering yielded ${foodProduced.toFixed(2)} food.`;
+            }
         }
 
         gameState.perishableFood += foodProduced;
@@ -68,8 +73,6 @@ import { updateDisplay } from './UIManagement.js';
 
     updateDisplay(); // Update the UI with the new values
 }
-
-
 
 export function adjustPopulationForFood() {
     if (gameState.isGamePaused) return; // Check if the game is paused
@@ -97,7 +100,7 @@ export function adjustPopulationForFood() {
 
     updateDisplay(); // Ensure this updates your UI to reflect the changes
 }
-// Function to simulate Population dynamics
+
 // Function to simulate Population dynamics
 export function simulatePopulationDynamics() {
     if (gameState.isGamePaused) return; // Check if the game is paused
@@ -151,9 +154,9 @@ export function simulatePopulationDynamics() {
 
     updateDisplay(); // Make sure the display is updated with the new values
 }
-    
-   //Function to Increment Time
-   export function incrementTime() {
+
+//Function to Increment Time
+export function incrementTime() {
     if (gameState.isGamePaused) return; // Check if the game is paused
     gameState.day++;
     if (gameState.day > 364) {
@@ -168,21 +171,9 @@ export function simulatePopulationDynamics() {
     }
 
     updateDisplay(); // Make sure the display is updated with the new values
-    }
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-    export function spoilFood() {
+export function spoilFood() {
     if (gameState.isGamePaused) return; // Check if the game is paused
     let spoiledFood = gameState.perishableFood * spoilageRate;
     gameState.perishableFood -= spoiledFood; // Reduce perishable food by the spoilage rate
@@ -200,4 +191,3 @@ export function preserveFood(amount) {
         console.log("Not enough perishable food to preserve.");
     }
 }
-
