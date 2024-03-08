@@ -27,6 +27,7 @@ let gameLoopInterval = null;
         
         console.log("Game loop START"); 
         checkForPopups(); // Check if we should show a popup     +
+        console.log("check for events"); 
 
         updateTaskPercentages();
         // 1. Update resources based on current tasks, preservation, etc.
