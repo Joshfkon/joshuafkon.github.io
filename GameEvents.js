@@ -1,4 +1,4 @@
-const popupsConfig = {
+export const popupsConfig = {
     'drought': {
         title: "Choose Your Action",
         description: "Food has grown scarce, and it has not rained for weeks.",
@@ -31,7 +31,7 @@ const popupsConfig = {
     }
 };
 
-function adjustCulturalTraits(trait, value) {
+export function adjustCulturalTraits(trait, value) {
     // This function would adjust the specified cultural trait by the given value.
     // For demonstration purposes, we'll just log the adjustments to the console.
     console.log(`Adjusted ${trait} by ${value}.`);
@@ -39,7 +39,7 @@ function adjustCulturalTraits(trait, value) {
 
 
 
-function updateResourcesDisplay() {
+export function updateResourcesDisplay() {
     if (isGamePaused) return; // Check if the game is paused
     // Implement based on your UI needs. For example:
     document.getElementById('hunting-pop').textContent = tasks.hunting.population;
@@ -47,7 +47,7 @@ function updateResourcesDisplay() {
     // Add more tasks as needed
 }
 
-function getTotalAssignedPopulation() {
+export function getTotalAssignedPopulation() {
     if (isGamePaused) return; // Check if the game is paused
     return Object.values(tasks).reduce((total, task) => total + task.population, 0);
 }
