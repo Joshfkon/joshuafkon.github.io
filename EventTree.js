@@ -12,7 +12,7 @@ export function checkForPopups() {
     if (gameState.popupShown) return;
 
     // Define the probability of triggering an event (adjust as needed)
-    const eventProbability = 0.1; // 10% chance of an event occurring each day
+    const eventProbability = 0.5; // 10% chance of an event occurring each day
 
     // Check if an event should be triggered based on probability
     if (Math.random() < eventProbability) {
