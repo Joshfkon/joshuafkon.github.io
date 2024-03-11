@@ -6,6 +6,7 @@ import { updateResources } from './gameResourceManagement.js';
 import { gameState } from './gameSetup.js';
 import { checkForPopups } from './EventTree.js';   
 import { updateDisplay } from './UIManagement.js';
+
 let gameLoopInterval = null;
 
 
@@ -22,7 +23,7 @@ let gameLoopInterval = null;
     
         // Define the game loop logic
         function gameLoop() {
-            if (!gameState.isGamePaused) {
+            if (!gameState.isGamePaused && !gameState.isPopupActive) {
               // Call your game logic functions here in the order that makes sense for your game
         
         console.log("Game loop START"); 

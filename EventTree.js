@@ -47,6 +47,8 @@ function shouldTriggerEvent(event) {
 function triggerPopup(event) {
     // Implement the logic to display the event popup based on the triggered event
     // You can use the data from popupsConfig to populate the popup content
+    gameState.isPopupActive = true; // Set the flag to indicate that a popup is active
+
 
     const popup = popupsConfig[event];
     // Display the popup using your UI framework or DOM manipulation
@@ -75,5 +77,7 @@ function triggerPopup(event) {
 function closePopup() {
     // Implement the logic to close the event popup
     // Example:
+    gameState.isPopupActive = false; // Unset the flag when the popup is closed
+
     document.getElementById('popup-container').style.display = 'none';
 }
