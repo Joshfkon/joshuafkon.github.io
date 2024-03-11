@@ -11,7 +11,7 @@ setInterval(updateResources, updateInterval);
 setInterval(spoilFood, spoilageInterval);
 
 export function updateResources() {
-    if (gameState.isGamePaused) return; // Check if the game is paused
+    if (gameState.isGamePaused || gameState.isPopupActive) return; // Check if the game is paused
     
     // Automatically preserve a portion of perishable food
     const amountToPreserveAutomatically = gameState.perishableFood * preservationRate;
