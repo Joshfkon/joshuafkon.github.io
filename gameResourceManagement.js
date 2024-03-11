@@ -20,6 +20,7 @@ export function updateResources() {
     console.log(`${amountToPreserveAutomatically.toFixed(2)} food preserved automatically.`);
     
     // Proceed with food production from tasks
+    if (!gameState.isPopupActive) {
     Object.keys(gameState.tasks).forEach(task => {
         const taskInfo = gameState.tasks[task];
         let foodProduced = 0; // Initialize foodProduced
@@ -57,7 +58,9 @@ export function updateResources() {
         }
         
         gameState.perishableFood += foodProduced;
-    });
+    })
+    
+    }
     
     // Food consumption, including children
     const foodConsumptionPerPerson = 1.0; // Example consumption rate
@@ -176,7 +179,7 @@ export function incrementTime() {
 }
 
 export function spoilFood() {
-    if (gameState.isGamePaused) return; // Check if the game is paused
+    if (gameState.isGamePaused || gameState.isPopupActive) return; // Check if the game is paused
     let spoiledFood = gameState.perishableFood * spoilageRate;
     gameState.perishableFood -= spoiledFood; // Reduce perishable food by the spoilage rate
     updateDisplay();
