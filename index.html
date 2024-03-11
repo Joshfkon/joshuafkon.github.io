@@ -10,20 +10,14 @@
 </head>
 <body>
 
+
 <!-- Popup Container -->
 <div id="popup-container" style="display: none;">
     <!-- Popup Content -->
     <div id="popup-content">
-      <h2>Choose Your Action</h2>
-      <p id="situation-description">Food has grown scarce, and it has not rained for weeks.</p>
-      <!-- Options -->
-      <button onclick="handleOption('Option1')">Move to find better conditions elsewhere</button>
-      <button onclick="handleOption('Option2')">Make a Sacrifice to the Cloud Spirit for Rain</button>
-      <button onclick="handleOption('Option3')">Raid a Neighboring Tribe for their resources</button>
-      <button onclick="handleOption('Option4')">Do Nothing and Continue to Wait</button>
-      <!-- Result Text -->
-      <p id="result-text" style="display: none;"></p>
-      <!-- Close Button -->
+      <h2 id="popup-title"></h2>
+      <p id="popup-description"></p>
+      <div id="popup-options"></div>
       <button id="close-button" onclick="closePopup()">Close</button>
     </div>
 </div>
