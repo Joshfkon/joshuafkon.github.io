@@ -36,7 +36,7 @@ let gameState = {
     },
 
     culturalTraits: {
-        agriculture: 50,
+        agriculture: 10,
         resilience: 50,
         exploration: 50,
         faith: 50,
