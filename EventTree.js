@@ -61,17 +61,21 @@ function triggerPopup(event) {
     popup.options.forEach(option => {
         const button = document.createElement('button');
         button.textContent = option.text;
-        button.addEventListener('click', () => {
+        button.addEventListener('click', function handleOptionClick() {
             // Handle the selected option
             console.log(option.outcome);
+            document.getElementById('result-text').textContent = option.outcome; // Display the result to the user
+            document.getElementById('result-close-button').style.display = 'block'; // Show the close button
             option.effect();
-            // Close the popup
-            closePopup();
+            // Remove the option buttons
+            document.getElementById('popup-options').innerHTML = '';
         });
         document.getElementById('popup-options').appendChild(button);
     });
     // Show the popup
     document.getElementById('popup-container').style.display = 'block';
+
+    document.getElementById('result-close-button').addEventListener('click', closePopup);
 }
 
 function closePopup() {
@@ -79,5 +83,7 @@ function closePopup() {
     // Example:
     gameState.isPopupActive = false; // Unset the flag when the popup is closed
 
-    document.getElementById('popup-container').style.display = 'none';
+    gameState.isPopupActive = false; // Unset the flag when the popup is closed
+    document.getElementById('result-text').textContent = ''; // Clear the result text
+    document.getElementById('result-close-button').style.display = 'none'; // Hide the close button
 }
