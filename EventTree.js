@@ -49,14 +49,15 @@ function triggerPopup(event) {
     // You can use the data from popupsConfig to populate the popup content
     gameState.isPopupActive = true; // Set the flag to indicate that a popup is active
 
-
     const popup = popupsConfig[event];
     // Display the popup using your UI framework or DOM manipulation
     // Example:
     document.getElementById('popup-title').textContent = popup.title;
     document.getElementById('popup-description').textContent = popup.description;
+
     // Clear existing options
     document.getElementById('popup-options').innerHTML = '';
+
     // Add new options
     popup.options.forEach(option => {
         const button = document.createElement('button');
@@ -66,15 +67,19 @@ function triggerPopup(event) {
             console.log(option.outcome);
             document.getElementById('result-text').textContent = option.outcome; // Display the result to the user
             document.getElementById('result-close-button').style.display = 'block'; // Show the close button
+            document.getElementById('popup-title').style.display = 'none'; // Hide the popup title
+            document.getElementById('popup-description').style.display = 'none'; // Hide the popup description
             option.effect();
             // Remove the option buttons
             document.getElementById('popup-options').innerHTML = '';
         });
         document.getElementById('popup-options').appendChild(button);
     });
+
     // Show the popup
     document.getElementById('popup-container').style.display = 'block';
 
+    // Add event listener to the close button
     document.getElementById('result-close-button').addEventListener('click', closePopup);
 }
 
@@ -86,4 +91,6 @@ function closePopup() {
     gameState.isPopupActive = false; // Unset the flag when the popup is closed
     document.getElementById('result-text').textContent = ''; // Clear the result text
     document.getElementById('result-close-button').style.display = 'none'; // Hide the close button
+    document.getElementById('popup-title').style.display = 'block'; // Show the popup title
+    document.getElementById('popup-description').style.display = 'block'; // Show the popup description
 }
