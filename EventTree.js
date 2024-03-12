@@ -65,11 +65,15 @@ function triggerPopup(event) {
         button.addEventListener('click', function handleOptionClick() {
             // Handle the selected option
             console.log(option.outcome);
-            document.getElementById('result-text').textContent = option.outcome; // Display the result to the user
+            let resultText = option.outcome; // Display the result to the user
+            const traitChanges = option.effect();
+            if (traitChanges) {
+                resultText += '\n\nCultural Trait Changes:\n' + traitChanges;
+            }
+            document.getElementById('result-text').textContent = resultText;
             document.getElementById('result-close-button').style.display = 'block'; // Show the close button
             document.getElementById('popup-title').style.display = 'none'; // Hide the popup title
             document.getElementById('popup-description').style.display = 'none'; // Hide the popup description
-            option.effect();
             // Remove the option buttons
             document.getElementById('popup-options').innerHTML = '';
         });
