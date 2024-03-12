@@ -1,3 +1,5 @@
+import { gameState } from './gameSetup.js';
+
 export const popupsConfig = {
     'drought': {
         title: "Choose Your Action",
