@@ -5,36 +5,96 @@ export const popupsConfig = {
         options: [
             {
                 text: "Move to find better conditions elsewhere",
-                outcome: "Your tribe finds a fertile land with ample resources. Your people become more resilient.",
-                effect: () => {
-                    adjustCulturalTraits('resilience', 10); // Adjust resilience by +10
-                    adjustCulturalTraits('exploration', 5); // Adjust exploration by +5
-                }
+                outcomes: [
+                    {
+                        probability: 0.7,
+                        outcome: "Your tribe finds a fertile land with ample resources. Your people become more resilient.",
+                        effect: () => {
+                            adjustCulturalTraits('resilience', 10);
+                            adjustCulturalTraits('nomadic', 5);
+                        }
+                    },
+                    {
+                        probability: 0.3,
+                        outcome: "Your tribe struggles to find a suitable new location and loses some of its members.",
+                        effect: () => {
+                            adjustCulturalTraits('population', -2);
+                            adjustCulturalTraits('nomadic', 2);
+                        }
+                    }
+                ]
             },
             {
                 text: "Make a Sacrifice to the Cloud Spirit for Rain",
-                outcome: "Your sacrifice pleased the Cloud Spirit. Rain rejuvenates your lands, and your people's faith grows stronger.",
-                effect: () => {
-                    adjustCulturalTraits('faith', 10); // Adjust faith by +10
-                    adjustCulturalTraits('agriculture', 5); // Adjust agriculture by +5
-                }
+                outcomes: [
+                    {
+                        probability: 0.6,
+                        outcome: "Your sacrifice pleased the Cloud Spirit. Rain rejuvenates your lands, and your people's faith grows stronger.",
+                        effect: () => {
+                            adjustCulturalTraits('animism', 5, 20);
+                            adjustCulturalTraits('sedentary', 5);
+                        }
+                    },
+                    {
+                        probability: 0.4,
+                        outcome: "The Cloud Spirit is not satisfied with your sacrifice. The drought persists, and your people lose faith.",
+                        effect: () => {
+                            adjustCulturalTraits('animism', -5);
+                            adjustCulturalTraits('sedentary', -2);
+                        }
+                    }
+                ]
             },
             {
                 text: "Raid a Neighboring Tribe for their resources",
-                outcome: "The raid is successful, but it leads to ongoing conflicts. Your tribe becomes more warlike.",
-                effect: () => {
-                    adjustCulturalTraits('warfare', 10); // Adjust warfare by +10
-                    adjustCulturalTraits('diplomacy', -5); // Adjust diplomacy by -5
-                }
+                outcomes: [
+                    {
+                        probability: 0.5,
+                        outcome: "The raid is successful, and your tribe gains resources and becomes more warlike.",
+                        effect: () => {
+                            adjustCulturalTraits('warriorSpirit', 10);
+                            adjustCulturalTraits('pacifism', -5);
+                            adjustCulturalTraits('perishableFood', 15);
+                        }
+                    },
+                    {
+                        probability: 0.5,
+                        outcome: "The raid fails, and your tribe suffers casualties and damages to its reputation.",
+                        effect: () => {
+                            adjustCulturalTraits('warriorSpirit', -5);
+                            gameState.men = Math.max(0, gameState.men - 3); // Decrease the number of men by 3, ensuring it doesn't go below 0
+                            updateDisplay(); // Update the UI to reflect the changes
+                        }
+                    }
+                ]
             }
         ]
     }
 };
 
-export function adjustCulturalTraits(trait, value) {
-    // This function would adjust the specified cultural trait by the given value.
-    // For demonstration purposes, we'll just log the adjustments to the console.
-    console.log(`Adjusted ${trait} by ${value}.`);
+// GameEvents.js
+
+// GameEvents.js
+
+// GameEvents.js
+
+export function adjustCulturalTraits(trait, value, foodBonus = 0) {
+    if (gameState.culturalTraits.hasOwnProperty(trait)) {
+        const oldValue = gameState.culturalTraits[trait];
+        gameState.culturalTraits[trait] += value;
+        // Ensure the trait value stays within a valid range (e.g., 0 to 100)
+        gameState.culturalTraits[trait] = Math.max(0, Math.min(100, gameState.culturalTraits[trait]));
+        const newValue = gameState.culturalTraits[trait];
+        console.log(`Adjusted ${trait} by ${value}. New value: ${newValue}`);
+        
+        // Add the food bonus to perishable food
+        gameState.perishableFood += foodBonus;
+        
+        return `${trait.charAt(0).toUpperCase() + trait.slice(1)} changed from ${oldValue} to ${newValue}. Perishable food increased by ${foodBonus}.\n`;
+    } else {
+        console.warn(`Cultural trait '${trait}' not found.`);
+        return '';
+    }
 }
 
 

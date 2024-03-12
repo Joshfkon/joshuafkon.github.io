@@ -37,7 +37,7 @@ function shouldTriggerEvent(event) {
     switch (event) {
         case 'drought':
             // Trigger the drought event if the user's agriculture trait is below a certain threshold
-            return gameState.culturalTraits.agriculture < 50;
+            return gameState.perishableFood < 10;
         // Add more cases for other events and their triggering conditions
         default:
             return false;
@@ -63,19 +63,36 @@ function triggerPopup(event) {
         const button = document.createElement('button');
         button.textContent = option.text;
         button.addEventListener('click', function handleOptionClick() {
-            // Handle the selected option
-            console.log(option.outcome);
-            let resultText = option.outcome; // Display the result to the user
-            const traitChanges = option.effect();
-            if (traitChanges) {
-                resultText += '\n\nCultural Trait Changes:\n' + traitChanges;
+            // Select an outcome based on probabilities
+            const randomNumber = Math.random();
+            let cumulativeProbability = 0;
+            let selectedOutcome = null;
+
+            for (const outcome of option.outcomes) {
+                cumulativeProbability += outcome.probability;
+                if (randomNumber <= cumulativeProbability) {
+                    selectedOutcome = outcome;
+                    break;
+                }
             }
-            document.getElementById('result-text').textContent = resultText;
-            document.getElementById('result-close-button').style.display = 'block'; // Show the close button
-            document.getElementById('popup-title').style.display = 'none'; // Hide the popup title
-            document.getElementById('popup-description').style.display = 'none'; // Hide the popup description
-            // Remove the option buttons
-            document.getElementById('popup-options').innerHTML = '';
+
+            if (selectedOutcome) {
+                // Handle the selected outcome
+                console.log(selectedOutcome.outcome);
+                let resultText = selectedOutcome.outcome; // Display the result to the user
+                const traitChanges = selectedOutcome.effect();
+                if (traitChanges) {
+                    resultText += '\n\nCultural Trait Changes:\n' + traitChanges;
+                }
+                document.getElementById('result-text').textContent = resultText;
+                document.getElementById('result-close-button').style.display = 'block'; // Show the close button
+                document.getElementById('popup-title').style.display = 'none'; // Hide the popup title
+                document.getElementById('popup-description').style.display = 'none'; // Hide the popup description
+                // Remove the option buttons
+                document.getElementById('popup-options').innerHTML = '';
+            } else {
+                console.error('No outcome selected for the chosen option.');
+            }
         });
         document.getElementById('popup-options').appendChild(button);
     });

@@ -36,13 +36,20 @@ let gameState = {
     },
 
     culturalTraits: {
-        agriculture: 10,
-        resilience: 50,
-        exploration: 50,
-        faith: 50,
-        warfare: 50,
-        diplomacy: 50,
+        warriorSpirit: 10,
+        cohesiveness: 50,
+        polygamy: 100,
+        animism: 50,
+        nomadic: 50,
+        resilience:25,
         // Add more cultural traits as needed
+},
+techTree: {
+    agriculture: 10,
+    fire: 100,
+    clothing: 100,
+    
+    // Add more techs as needed
 },
 }
 // Export the gameState object
