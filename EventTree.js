@@ -90,11 +90,10 @@ function triggerPopup(event) {
 function closePopup() {
     // Implement the logic to close the event popup
     // Example:
-    gameState.isPopupActive = false; // Unset the flag when the popup is closed
-
+    document.getElementById('popup-container').style.display = 'none';
     gameState.isPopupActive = false; // Unset the flag when the popup is closed
     document.getElementById('result-text').textContent = ''; // Clear the result text
     document.getElementById('result-close-button').style.display = 'none'; // Hide the close button
-    document.getElementById('popup-title').style.display = 'block'; // Show the popup title
-    document.getElementById('popup-description').style.display = 'block'; // Show the popup description
+    document.getElementById('popup-title').style.display = 'none'; // Hide the popup title
+    document.getElementById('popup-description').style.display = 'none'; // Hide the popup description
 }
