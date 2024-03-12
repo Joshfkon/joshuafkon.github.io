@@ -14,6 +14,7 @@ export const popupsConfig = {
                         effect: () => {
                             adjustCulturalTraits('resilience', 10);
                             adjustCulturalTraits('nomadic', 5);
+                            adjustCulturalTraits('perishableFood', 20); // Adjust perishableFood separately
                         }
                     },
                     {
@@ -33,8 +34,9 @@ export const popupsConfig = {
                         probability: 0.6,
                         outcome: "Your sacrifice pleased the Cloud Spirit. Rain rejuvenates your lands, and your people's faith grows stronger.",
                         effect: () => {
-                            adjustCulturalTraits('animism', 5, 20);
+                            adjustCulturalTraits('animism', 5,);
                             adjustCulturalTraits('sedentary', 5);
+                            adjustCulturalTraits('perishableFood', 15); // Adjust perishableFood separately
                         }
                     },
                     {
@@ -56,7 +58,7 @@ export const popupsConfig = {
                         effect: () => {
                             adjustCulturalTraits('warriorSpirit', 10);
                             adjustCulturalTraits('pacifism', -5);
-                            adjustCulturalTraits('perishableFood', 15);
+                            adjustCulturalTraits('perishableFood', 35);
                         }
                     },
                     {
@@ -80,7 +82,9 @@ export const popupsConfig = {
 
 // GameEvents.js
 
-export function adjustCulturalTraits(trait, value, foodBonus = 0) {
+// GameEvents.js
+
+export function adjustCulturalTraits(trait, value) {
     if (gameState.culturalTraits.hasOwnProperty(trait)) {
         const oldValue = gameState.culturalTraits[trait];
         gameState.culturalTraits[trait] += value;
@@ -89,16 +93,19 @@ export function adjustCulturalTraits(trait, value, foodBonus = 0) {
         const newValue = gameState.culturalTraits[trait];
         console.log(`Adjusted ${trait} by ${value}. New value: ${newValue}`);
         
-        // Add the food bonus to perishable food
-        gameState.perishableFood += foodBonus;
+        return `${trait.charAt(0).toUpperCase() + trait.slice(1)} changed from ${oldValue} to ${newValue}.\n`;
+    } else if (trait === 'perishableFood') {
+        const oldValue = gameState.perishableFood;
+        gameState.perishableFood += value;
+        const newValue = gameState.perishableFood;
+        console.log(`Adjusted ${trait} by ${value}. New value: ${newValue}`);
         
-        return `${trait.charAt(0).toUpperCase() + trait.slice(1)} changed from ${oldValue} to ${newValue}. Perishable food increased by ${foodBonus}.\n`;
+        return `${trait.charAt(0).toUpperCase() + trait.slice(1)} changed from ${oldValue} to ${newValue}.\n`;
     } else {
         console.warn(`Cultural trait '${trait}' not found.`);
         return '';
     }
 }
-
 
 
 export function updateResourcesDisplay() {
