@@ -12,60 +12,82 @@ setInterval(spoilFood, spoilageInterval);
 
 export function updateResources() {
     if (gameState.isGamePaused || gameState.isPopupActive) return; // Check if the game is paused
-    
+
     // Automatically preserve a portion of perishable food
     const amountToPreserveAutomatically = gameState.perishableFood * preservationRate;
     gameState.perishableFood -= amountToPreserveAutomatically;
     gameState.preservedFood += amountToPreserveAutomatically;
     console.log(`${amountToPreserveAutomatically.toFixed(2)} food preserved automatically.`);
-    
+
+    // Determine the current season
+    const currentSeason = gameState.seasons[gameState.currentSeasonIndex];
+
+    // Define seasonal bonuses/penalties
+    const seasonalFactors = {
+        hunting: {
+            Spring: 1,
+            Summer: 1.2,
+            Autumn: 1.5,
+            Winter: 0.8
+        },
+        gathering: {
+            Spring: 1.2,
+            Summer: 1.2,
+            Autumn: 1.5,
+            Winter: 0.5
+        }
+    };
+
     // Proceed with food production from tasks
     if (!gameState.isPopupActive) {
-    Object.keys(gameState.tasks).forEach(task => {
-        const taskInfo = gameState.tasks[task];
-        let foodProduced = 0; // Initialize foodProduced
-        
-        if (taskInfo.adultPopulation > 0) {
-            if (task === 'hunting') {
-                // Example: 50% chance of success for hunting
-                let success = Math.random() < 0.25;
-                if (success) {
-                    foodProduced = taskInfo.adultPopulation * taskInfo.foodPerTick * (Math.random() * 5.95 + 1);
-                    const huntResultsElement = document.getElementById('hunt-results');
-                    if (huntResultsElement) {
-                        huntResultsElement.textContent = `Success! Hunt yielded ${foodProduced.toFixed(2)} food.`;
+        Object.keys(gameState.tasks).forEach(task => {
+            const taskInfo = gameState.tasks[task];
+            let foodProduced = 0; // Initialize foodProduced
+
+            if (taskInfo.adultPopulation > 0) {
+                if (task === 'hunting') {
+                    // Apply seasonal bonus/penalty for hunting
+                    const huntingFactor = seasonalFactors.hunting[currentSeason];
+                    // Example: 50% chance of success for hunting
+                    let success = Math.random() < 0.25;
+                    if (success) {
+                        foodProduced = taskInfo.adultPopulation * taskInfo.foodPerTick * (Math.random() * 5.95 + 1) * huntingFactor;
+                        const huntResultsElement = document.getElementById('hunt-results');
+                        if (huntResultsElement) {
+                            huntResultsElement.textContent = `Success! Hunt yielded ${foodProduced.toFixed(2)} food.`;
+                        }
+                        console.log(`Hunting Population: ${gameState.tasks.hunting.adultPopulation}, Food Produced: ${foodProduced}`);
+                        console.log(`Total adults: ${gameState.men + gameState.women}, Hunting rate: ${gameState.tasks.hunting.rate}`);
+                        console.log(`Assigned hunters: ${gameState.tasks.hunting.adultPopulation}`);
+                    } else {
+                        foodProduced = 0; // No food produced on failure
+                        const huntResultsElement = document.getElementById('hunt-results');
+                        if (huntResultsElement) {
+                            huntResultsElement.textContent = "Hunt failed. Better luck next time!";
+                        }
+                        console.log(`Hunting Population: ${gameState.tasks.hunting.adultPopulation}, Food Produced: ${foodProduced}`);
                     }
-                    console.log(`Hunting Population: ${gameState.tasks.hunting.adultPopulation}, Food Produced: ${foodProduced}`);
-                    console.log(`Total adults: ${gameState.men + gameState.women}, Hunting rate: ${gameState.tasks.hunting.rate}`);
-                    console.log(`Assigned hunters: ${gameState.tasks.hunting.adultPopulation}`);
-                } else {
-                    foodProduced = 0; // No food produced on failure
-                    const huntResultsElement = document.getElementById('hunt-results');
-                    if (huntResultsElement) {
-                        huntResultsElement.textContent = "Hunt failed. Better luck next time!";
+                } else if (task === 'gathering') {
+                    // Apply seasonal bonus/penalty for gathering
+                    const gatheringFactor = seasonalFactors.gathering[currentSeason];
+                    // Introduce variability in gathering
+                    let variabilityFactor = Math.random() * 0.5 + 0.75; // Random factor between 0.75 and 1.25
+                    foodProduced = taskInfo.adultPopulation * taskInfo.foodPerTick * variabilityFactor * gatheringFactor;
+                    const gatheringResultsElement = document.getElementById('gathering-results');
+                    if (gatheringResultsElement) {
+                        gatheringResultsElement.textContent = `Gathering yielded ${foodProduced.toFixed(2)} food.`;
                     }
-                    console.log(`Hunting Population: ${gameState.tasks.hunting.adultPopulation}, Food Produced: ${foodProduced}`);
-                }
-            } else if (task === 'gathering') {
-                // Introduce variability in gathering
-                let variabilityFactor = Math.random() * 0.5 + 0.75; // Random factor between 0.75 and 1.25
-                foodProduced = taskInfo.adultPopulation * taskInfo.foodPerTick * variabilityFactor;
-                const gatheringResultsElement = document.getElementById('gathering-results');
-                if (gatheringResultsElement) {
-                    gatheringResultsElement.textContent = `Gathering yielded ${foodProduced.toFixed(2)} food.`;
                 }
             }
-        }
-        
-        gameState.perishableFood += foodProduced;
-    })
-    
+
+            gameState.perishableFood += foodProduced;
+        });
     }
-    
+
     // Food consumption, including children
     const foodConsumptionPerPerson = 1.0; // Example consumption rate
     const totalFoodConsumption = (gameState.men + gameState.women + gameState.children) * foodConsumptionPerPerson;
-    
+
     // Subtract consumption, starting with perishable food
     if (gameState.perishableFood >= totalFoodConsumption) {
         gameState.perishableFood -= totalFoodConsumption;
@@ -75,10 +97,9 @@ export function updateResources() {
         gameState.perishableFood = 0; // All perishable food is consumed
         gameState.preservedFood = Math.max(gameState.preservedFood - remainingConsumption, 0); // Ensure preservedFood doesn't go negative
     }
-    
+
     updateDisplay(); // Update the UI with the new values
 }
-
 export function adjustPopulationForFood() {
     if (gameState.isGamePaused) return; // Check if the game is paused
     const totalFood = gameState.perishableFood + gameState.preservedFood;

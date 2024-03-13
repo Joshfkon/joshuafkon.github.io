@@ -73,6 +73,75 @@ export const popupsConfig = {
                 ]
             }
         ]
+    },
+
+    'feud': {
+        title: "Choose Your Action",
+        description: "Members of your tribe are feuding",
+        options: [
+            {
+                text: "Mediate the conflict and seek a peaceful resolution",
+                outcomes: [
+                    {
+                        probability: 0.6,
+                        outcome: "Your mediation skills bring peace to the tribe, and your people become more harmonious.",
+                        effect: () => {
+                            adjustCulturalTraits('cohesion', 10);
+                            adjustCulturalTraits('pacifism', 5);
+                        }
+                    },
+                    {
+                        probability: 0.4,
+                        outcome: "Despite your efforts, the conflict persists, and the tribe remains divided.",
+                        effect: () => {
+                            adjustCulturalTraits('cohesion', -5);
+                        }
+                    }
+                ]
+            },
+            {
+                text: "Take sides and support one faction over the other",
+                outcomes: [
+                    {
+                        probability: 0.5,
+                        outcome: "The faction you support emerges victorious, and your influence grows.",
+                        effect: () => {
+                            adjustCulturalTraits('authority', 10);
+                            adjustCulturalTraits('cohesion', -5);
+                        }
+                    },
+                    {
+                        probability: 0.5,
+                        outcome: "The faction you support loses, and your reputation suffers.",
+                        effect: () => {
+                            adjustCulturalTraits('authority', -5);
+                            adjustCulturalTraits('cohesion', -10);
+                        }
+                    }
+                ]
+            },
+            {
+                text: "Ignore the conflict and focus on other matters",
+                outcomes: [
+                    {
+                        probability: 0.7,
+                        outcome: "The conflict resolves itself without your intervention, but the tribe remains somewhat divided.",
+                        effect: () => {
+                            adjustCulturalTraits('cohesion', -5);
+                        }
+                    },
+                    {
+                        probability: 0.3,
+                        outcome: "The conflict escalates, leading to violence and loss of life.",
+                        effect: () => {
+                            adjustCulturalTraits('cohesion', -15);
+                            gameState.population -= 2;
+                            updateDisplay();
+                        }
+                    }
+                ]
+            }
+        ]
     }
 };
 
