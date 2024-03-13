@@ -6,7 +6,7 @@ import { updateDisplay } from './UIManagement.js';
 const updateInterval = 5000;
 const spoilageRate = 0.3;
 const spoilageInterval = 30000;
-let preservationRate = 0;
+
 setInterval(updateResources, updateInterval);
 setInterval(spoilFood, spoilageInterval);
 
@@ -14,7 +14,7 @@ export function updateResources() {
     if (gameState.isGamePaused || gameState.isPopupActive) return; // Check if the game is paused
 
     // Automatically preserve a portion of perishable food
-    const amountToPreserveAutomatically = gameState.perishableFood * preservationRate;
+    const amountToPreserveAutomatically = gameState.perishableFood * gameState.preservationRate;
     gameState.perishableFood -= amountToPreserveAutomatically;
     gameState.preservedFood += amountToPreserveAutomatically;
     console.log(`${amountToPreserveAutomatically.toFixed(2)} food preserved automatically.`);

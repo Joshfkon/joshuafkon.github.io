@@ -5,6 +5,7 @@ let gameState = {
     isGamePaused: false,
     gameLoopInterval: null,
     perishableFood: 100,
+    preservationRate: 0,
     preservedFood: 50,
     tools: 10,
     men: 10,

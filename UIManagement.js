@@ -20,6 +20,8 @@ export function handleOption(option) {
     document.getElementById('close-button').style.display = 'inline-block';
 }
 
+
+  
 export function closePopup() {
     document.getElementById('popup-container').style.display = 'none';
     document.getElementById('result-text').style.display = 'none';
@@ -117,6 +119,10 @@ export function updateTaskPercentages() {
     });
     updateDisplay();
 }
+
+document.getElementById('preservation-rate').addEventListener('input', function() {
+    gameState.preservationRate = parseFloat(this.value) / 100; // Convert percentage to decimal
+});
 
 
 document.getElementById('hunting-rate').addEventListener('input', function(event) {
