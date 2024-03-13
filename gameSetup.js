@@ -37,11 +37,17 @@ let gameState = {
 
     culturalTraits: {
         warriorSpirit: 10,
+        pacifism: 5,
         cohesiveness: 50,
         polygamy: 100,
         animism: 50,
+        Polytheism: 5,
         nomadic: 50,
+        pastoral: 3,
+        semiNomadic: 5,
+        sedentary: 1,
         resilience:25,
+        fatalist: 2,
         // Add more cultural traits as needed
 },
 techTree: {

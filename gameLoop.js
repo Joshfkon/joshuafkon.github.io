@@ -50,6 +50,7 @@ let gameLoopInterval = null;
 
         // Check if the population has dropped to 0
         if (gameState.population === 0) {
+            updateDisplay(); // This function should refresh your UI based on the latest game state
             gameOver();
             return; // Exit the game loop
         }
