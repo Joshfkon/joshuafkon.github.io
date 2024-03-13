@@ -48,6 +48,12 @@ let gameLoopInterval = null;
         console.log("INCREMENT DAY");   
         incrementTime();
 
+        // Check if the population has dropped to 0
+        if (gameState.population === 0) {
+            gameOver();
+            return; // Exit the game loop
+        }
+
         // Finally, update the UI to reflect the new state after all logic has been processed
         updateDisplay(); // This function should refresh your UI based on the latest game state
 
@@ -84,6 +90,16 @@ let gameLoopInterval = null;
    // document.getElementById('pauseButton').addEventListener('click', pauseGameLoop);
     //document.getElementById('resumeButton').addEventListener('click', resumeGameLoop);
 
+    function gameOver() {
+        // Stop the game loop
+        clearInterval(gameState.gameLoopInterval);
+    
+        // Display the game over message
+        alert("Game Over! You have led your people to ruin.");
+    
+        // You can add additional logic here, such as displaying a game over screen,
+        // providing options to restart the game, or updating the UI to reflect the game over state.
+    }
 
 
 
