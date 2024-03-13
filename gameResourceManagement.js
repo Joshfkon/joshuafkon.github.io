@@ -26,15 +26,15 @@ export function updateResources() {
     const seasonalFactors = {
         hunting: {
             Spring: 1,
-            Summer: 1.2,
-            Autumn: 1.5,
+            Summer: 1.5,
+            Autumn: 2,
             Winter: 0.8
         },
         gathering: {
-            Spring: 1.2,
-            Summer: 1.2,
-            Autumn: 1.5,
-            Winter: 0.5
+            Spring: 1.75,
+            Summer: 1.5,
+            Autumn: 3,
+            Winter: 0.2
         }
     };
 
