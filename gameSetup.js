@@ -4,6 +4,7 @@
 let gameState = {
     isGamePaused: false,
     gameLoopInterval: null,
+    hungerLevel: 0,
     perishableFood: 100,
     preservationRate: 0,
     preservedFood: 50,

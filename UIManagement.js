@@ -38,6 +38,9 @@ export function closePopup() {
  export function updateDisplay() {
     if (gameState.isGamePaused) return; // Check if the game is paused
 
+    document.getElementById('hunger-level-value').textContent = gameState.hungerLevel;
+    document.getElementById('hunger-level-bar').value = gameState.hungerLevel;
+
     // Update UI for food counts
     document.getElementById('perishable-food-count').textContent = parseFloat(gameState.perishableFood).toFixed(2);
     document.getElementById('preserved-food-count').textContent = parseFloat(gameState.preservedFood).toFixed(2);
