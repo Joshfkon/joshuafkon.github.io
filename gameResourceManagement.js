@@ -148,7 +148,7 @@ export function simulatePopulationDynamics() {
     
     // Birth
     for (let i = 0; i < gameState.women; i++) {
-        if (Math.random() < 1 / 365) {
+        if (Math.random() < 1 / 730) {
             console.log("Birth");
             gameState.children++;
         }

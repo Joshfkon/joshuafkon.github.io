@@ -34,11 +34,29 @@ function shouldTriggerEvent(event) {
     // For example, you can check if certain cultural traits or technologies are above or below certain thresholds
     // Return true if the event should be triggered, false otherwise
 
+ 
+
     switch (event) {
         case 'drought':
             // Trigger the drought event if the user's agriculture trait is below a certain threshold
             return gameState.perishableFood < 10;
-        // Add more cases for other events and their triggering conditions
+        
+        case 'bountifulHarvest':
+            return gameState.currentSeasonIndex === 2 && Math.random() < 0.1;
+
+        case 'diseaseOutbreak':
+            return gameState.population >= 10 && Math.random() < 0.05;
+
+        case 'traderArrival':
+             return gameState.day % 30 === 0 && Math.random() < 0.15;
+
+        case 'fishingOpportunity':
+            return (gameState.currentSeasonIndex === 0 || gameState.currentSeasonIndex === 1) && Math.random() < 0.15;
+
+
+        case 'wildfire':
+            return gameState.currentSeasonIndex === 1 && Math.random() < 0.05;
+                
         default:
             return false;
     }
