@@ -106,31 +106,42 @@ export function updateResources() {
 }
 export function adjustPopulationForFood() {
     if (gameState.isGamePaused) return; // Check if the game is paused
+
     const totalFood = gameState.perishableFood + gameState.preservedFood;
     let foodPerPerson = totalFood / gameState.population;
     console.log(`Before adjustment: Population = ${gameState.population}, Food Per Person = ${foodPerPerson}`);
 
-    while (foodPerPerson < 1 && gameState.population > 0) {
-        if (gameState.children > 0) {
-            gameState.children--;
-        } else if (gameState.men > 0 && gameState.women > 0) {
-            // Try to reduce men and women equally
-            gameState.men--;
-            gameState.women--;
-        } else if (gameState.men > 0) {
-            gameState.men--;
-        } else if (gameState.women > 0) {
-            gameState.women--;
-        }
-
-        // Recalculate food per person
-        foodPerPerson = (gameState.perishableFood + gameState.preservedFood) / gameState.population;
+    if (foodPerPerson < 1) {
+        // Increase hunger level if food per person is less than 1
+        gameState.hungerLevel++;
+    } else {
+        // Decrease hunger level if food per person is 1 or more
+        gameState.hungerLevel = Math.max(0, gameState.hungerLevel - 1);
     }
-    console.log(`After decrement: Men = ${gameState.men}, Women = ${gameState.women}, Children = ${gameState.children}, Food Per Person = ${foodPerPerson}`);
+
+    // Check if hunger level reaches the threshold for population decline
+    if (gameState.hungerLevel >= 30) {
+        // Reduce population based on hunger level
+        const populationLoss = Math.floor(gameState.population * 0.1); // Example: Lose 10% of the population
+        gameState.population = Math.max(0, gameState.population - populationLoss);
+
+        // Distribute population loss among men, women, and children
+        const menLoss = Math.min(gameState.men, Math.floor(populationLoss / 3));
+        const womenLoss = Math.min(gameState.women, Math.floor(populationLoss / 3));
+        const childrenLoss = Math.min(gameState.children, populationLoss - menLoss - womenLoss);
+
+        gameState.men -= menLoss;
+        gameState.women -= womenLoss;
+        gameState.children -= childrenLoss;
+
+        // Reset hunger level after population decline
+        gameState.hungerLevel = 0;
+    }
+
+    console.log(`After adjustment: Men = ${gameState.men}, Women = ${gameState.women}, Children = ${gameState.children}, Hunger Level = ${gameState.hungerLevel}`);
 
     updateDisplay(); // Ensure this updates your UI to reflect the changes
 }
-
 // Function to simulate Population dynamics
 export function simulatePopulationDynamics() {
     if (gameState.isGamePaused) return; // Check if the game is paused
