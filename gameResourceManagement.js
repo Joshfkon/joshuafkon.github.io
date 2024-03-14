@@ -144,7 +144,7 @@ export function adjustPopulationForFood() {
     console.log(`After adjustment: Men = ${gameState.men}, Women = ${gameState.women}, Children = ${gameState.children}, Hunger Level = ${gameState.hungerLevel}`);
 
     updateDisplay(); // Ensure this updates your UI to reflect the changes
-}
+
 // Function to simulate Population dynamics
 export function simulatePopulationDynamics() {
     if (gameState.isGamePaused) return; // Check if the game is paused
