@@ -1,5 +1,6 @@
 import { gameState } from './gameSetup.js';
 import { updateDisplay } from './UIManagement.js';
+import { triggerPopup } from './EventTree.js';
 
 //** GAME LOGIC FUNCTIONS 
 //One day

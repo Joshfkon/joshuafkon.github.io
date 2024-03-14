@@ -62,7 +62,7 @@ function shouldTriggerEvent(event) {
     }
 }
 
-function triggerPopup(event) {
+export function triggerPopup(event) {
     // Implement the logic to display the event popup based on the triggered event
     // You can use the data from popupsConfig to populate the popup content
     gameState.isPopupActive = true; // Set the flag to indicate that a popup is active
