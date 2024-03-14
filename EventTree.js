@@ -29,38 +29,31 @@ export function checkForPopups() {
     }
 }
 
-function shouldTriggerEvent(event) {
+
     // Implement the logic to determine if an event should be triggered based on cultural traits and tech tree
     // For example, you can check if certain cultural traits or technologies are above or below certain thresholds
     // Return true if the event should be triggered, false otherwise
 
  
 
-    switch (event) {
-        case 'drought':
-            // Trigger the drought event if the user's agriculture trait is below a certain threshold
-            return gameState.perishableFood < 10;
-        
-        case 'bountifulHarvest':
-            return gameState.currentSeasonIndex === 2 && Math.random() < 0.5;
-
-        case 'diseaseOutbreak':
-            return gameState.population >= 10 && Math.random() < 0.5;
-
-        case 'traderArrival':
-             return gameState.day % 30 === 0 && Math.random() < 0.75;
-
-        case 'fishingOpportunity':
-            return (gameState.currentSeasonIndex === 0 || gameState.currentSeasonIndex === 1) && Math.random() < 0.75;
-
-
-        case 'wildfire':
-            return gameState.currentSeasonIndex === 1 && Math.random() < 0.5;
-                
-        default:
-            return false;
+    function shouldTriggerEvent(event) {
+        switch (event) {
+            case 'drought':
+                return gameState.perishableFood < 10;
+            case 'bountifulHarvest':
+                return gameState.seasons[gameState.currentSeasonIndex] === 'Autumn' && Math.random() < 0.1;
+            case 'diseaseOutbreak':
+                return gameState.population >= 50 && Math.random() < 0.05;
+            case 'traderArrival':
+                return gameState.day % 30 === 0 && Math.random() < 0.15;
+            case 'fishingOpportunity':
+                return (gameState.seasons[gameState.currentSeasonIndex] === 'Spring' || gameState.seasons[gameState.currentSeasonIndex] === 'Summer') && Math.random() < 0.15;
+            case 'wildfire':
+                return gameState.seasons[gameState.currentSeasonIndex] === 'Summer' && Math.random() < 0.05;
+            default:
+                return false;
+        }
     }
-}
 
 export function triggerPopup(event) {
     // Implement the logic to display the event popup based on the triggered event

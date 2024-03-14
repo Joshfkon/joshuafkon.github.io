@@ -1,7 +1,20 @@
 // gameSetup.js
+import { generateGeography, generateClimate, generateFauna } from './geography.js';
+
 
 // Initial game state and configuration
 let gameState = {
+    
+    geography: '',
+    climate: '',
+    fauna: {
+        largePrey: '',
+        largePredators: ''
+    },
+
+    geography: generateGeography(),
+    climate: generateClimate(),
+    fauna: generateFauna(),
     isGamePaused: false,
     gameLoopInterval: null,
     hungerLevel: 0,
