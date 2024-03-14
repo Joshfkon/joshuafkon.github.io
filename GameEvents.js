@@ -142,6 +142,386 @@ export const popupsConfig = {
                 ]
             }
         ]
+    },
+    'bountifulHarvest': {
+        title: "Bountiful Harvest",
+        description: "A particularly good harvest season leads to an abundance of food.",
+        options: [
+            {
+                text: "Celebrate with a feast",
+                outcomes: [
+                    {
+                        probability: 0.8,
+                        outcome: "The feast boosts morale and strengthens social bonds.",
+                        effect: () => {
+                            adjustCulturalTraits('cohesion', 10);
+                            adjustCulturalTraits('perishableFood', -20);
+                        }
+                    },
+                    {
+                        probability: 0.2,
+                        outcome: "The feast depletes food reserves, leaving the tribe vulnerable.",
+                        effect: () => {
+                            adjustCulturalTraits('perishableFood', -40);
+                        }
+                    }
+                ]
+            },
+            {
+                text: "Store the extra food for later",
+                outcomes: [
+                    {
+                        probability: 1,
+                        outcome: "The extra food is preserved, providing a buffer against future hardships.",
+                        effect: () => {
+                            adjustCulturalTraits('perishableFood', 50);
+                        }
+                    }
+                ]
+            }
+        ]
+    },
+    'diseaseOutbreak': {
+        title: "Disease Outbreak",
+        description: "A mysterious disease spreads through the tribe, affecting the population.",
+        options: [
+            {
+                text: "Isolate the sick and provide care",
+                outcomes: [
+                    {
+                        probability: 0.7,
+                        outcome: "The disease is contained, and the affected population recovers.",
+                        effect: () => {
+                            adjustCulturalTraits('population', -5);
+                            adjustCulturalTraits('medicine', 10);
+                        }
+                    },
+                    {
+                        probability: 0.3,
+                        outcome: "Despite efforts, the disease claims many lives.",
+                        effect: () => {
+                            adjustCulturalTraits('population', -15);
+                            adjustCulturalTraits('medicine', 5);
+                        }
+                    }
+                ]
+            },
+            {
+                text: "Perform rituals to appease the spirits",
+                outcomes: [
+                    {
+                        probability: 0.5,
+                        outcome: "The rituals provide comfort, but the disease persists.",
+                        effect: () => {
+                            adjustCulturalTraits('population', -10);
+                            adjustCulturalTraits('spirituality', 5);
+                        }
+                    },
+                    {
+                        probability: 0.5,
+                        outcome: "The rituals have no effect, and the disease spreads further.",
+                        effect: () => {
+                            adjustCulturalTraits('population', -20);
+                            adjustCulturalTraits('spirituality', -5);
+                        }
+                    }
+                ]
+            }
+        ]
+    },
+    'traderArrival': {
+        title: "Trader Arrival",
+        description: "A group of traders arrives at the tribe, offering goods and the opportunity for trade.",
+        options: [
+            {
+                text: "Trade valuable resources for tools and supplies",
+                outcomes: [
+                    {
+                        probability: 0.6,
+                        outcome: "The trade is successful, and the tribe acquires useful tools and supplies.",
+                        effect: () => {
+                            adjustCulturalTraits('tools', 10);
+                            adjustCulturalTraits('perishableFood', -20);
+                        }
+                    },
+                    {
+                        probability: 0.4,
+                        outcome: "The traders drive a hard bargain, and the tribe gains little from the trade.",
+                        effect: () => {
+                            adjustCulturalTraits('tools', 5);
+                            adjustCulturalTraits('perishableFood', -30);
+                        }
+                    }
+                ]
+            },
+            {
+                text: "Decline to trade and send the traders away",
+                outcomes: [
+                    {
+                        probability: 1,
+                        outcome: "The traders leave peacefully, and the tribe retains its resources.",
+                        effect: () => {
+                            // No effect
+                        }
+                    }
+                ]
+            }
+        ]
+    },
+    'fishingOpportunity': {
+        title: "Fishing Opportunity",
+        description: "The tribe discovers a rich fishing spot, providing an opportunity to gather additional food.",
+        options: [
+            {
+                text: "Spend time fishing",
+                outcomes: [
+                    {
+                        probability: 0.8,
+                        outcome: "The fishing expedition is successful, yielding a bountiful catch.",
+                        effect: () => {
+                            adjustCulturalTraits('fishing', 10);
+                            adjustCulturalTraits('perishableFood', 30);
+                        }
+                    },
+                    {
+                        probability: 0.2,
+                        outcome: "The fishing expedition yields a modest catch.",
+                        effect: () => {
+                            adjustCulturalTraits('fishing', 5);
+                            adjustCulturalTraits('perishableFood', 10);
+                        }
+                    }
+                ]
+            },
+            {
+                text: "Continue the journey without fishing",
+                outcomes: [
+                    {
+                        probability: 1,
+                        outcome: "The tribe moves on, missing out on the fishing opportunity.",
+                        effect: () => {
+                            // No effect
+                        }
+                    }
+                ]
+            }
+        ]
+    },
+    'wildfire': {
+        title: "Wildfire",
+        description: "A wildfire spreads near the tribe's settlement, threatening their safety and resources.",
+        options: [
+            {
+                text: "Attempt to contain the fire",
+                outcomes: [
+                    {
+                        probability: 0.6,
+                        outcome: "The tribe successfully contains the fire, minimizing damage.",
+                        effect: () => {
+                            adjustCulturalTraits('firefighting', 10);
+                            adjustCulturalTraits('perishableFood', -10);
+                        }
+                    },
+                    {
+                        probability: 0.4,
+                        outcome: "The fire proves too strong, and the tribe suffers significant losses.",
+                        effect: () => {
+                            adjustCulturalTraits('perishableFood', -30);
+                            adjustCulturalTraits('population', -5);
+                        }
+                    }
+                ]
+            },
+            {
+                text: "Evacuate the settlement",
+                outcomes: [
+                    {
+                        probability: 0.8,
+                        outcome: "The tribe successfully evacuates, avoiding casualties but losing resources.",
+                        effect: () => {
+                            adjustCulturalTraits('perishableFood', -20);
+                            adjustCulturalTraits('tools', -10);
+                        }
+                    },
+                    {
+                        probability: 0.2,
+                        outcome: "The evacuation is chaotic, and some tribe members are injured.",
+                        effect: () => {
+                            adjustCulturalTraits('population', -3);
+                            adjustCulturalTraits('perishableFood', -15);
+                        }
+                    }
+                ]
+            }
+        ]
+    },
+    'birth': {
+        title: "A New Life",
+        description: "A new child is born into the tribe.",
+        options: [
+            {
+                text: "Celebrate the birth with a feast",
+                outcomes: [
+                    {
+                        probability: 0.8,
+                        outcome: "The tribe celebrates the new life, boosting morale and unity.",
+                        effect: () => {
+                            adjustCulturalTraits('cohesion', 5);
+                            adjustCulturalTraits('perishableFood', -10);
+                        }
+                    },
+                    {
+                        probability: 0.2,
+                        outcome: "The feast depletes food reserves, leaving the tribe hungry.",
+                        effect: () => {
+                            adjustCulturalTraits('perishableFood', -20);
+                        }
+                    }
+                ]
+            },
+            {
+                text: "Perform a blessing ritual",
+                outcomes: [
+                    {
+                        probability: 1,
+                        outcome: "The tribe blesses the child, hoping for a prosperous future.",
+                        effect: () => {
+                            adjustCulturalTraits('spirituality', 5);
+                        }
+                    }
+                ]
+            }
+        ]
+    },
+    'adulthood': {
+        title: "Coming of Age",
+        description: "A child has reached adulthood and is now a contributing member of the tribe.",
+        options: [
+            {
+                text: "Assign the new adult to hunting",
+                outcomes: [
+                    {
+                        probability: 1,
+                        outcome: "The new adult joins the hunting party, strengthening the tribe's food gathering capabilities.",
+                        effect: () => {
+                            adjustCulturalTraits('hunting', 5);
+                        }
+                    }
+                ]
+            },
+            {
+                text: "Assign the new adult to gathering",
+                outcomes: [
+                    {
+                        probability: 1,
+                        outcome: "The new adult contributes to gathering resources, increasing the tribe's food supplies.",
+                        effect: () => {
+                            adjustCulturalTraits('gathering', 5);
+                        }
+                    }
+                ]
+            }
+        ]
+    },
+    'oldAgeDeath': {
+        title: "Eternal Rest",
+        description: "An elder member of the tribe has passed away due to old age.",
+        options: [
+            {
+                text: "Conduct a burial ceremony",
+                outcomes: [
+                    {
+                        probability: 1,
+                        outcome: "The tribe honors the elder's memory with a solemn burial ceremony.",
+                        effect: () => {
+                            adjustCulturalTraits('spirituality', 5);
+                            adjustCulturalTraits('cohesion', 5);
+                        }
+                    }
+                ]
+            },
+            {
+                text: "Mourn the loss and move on",
+                outcomes: [
+                    {
+                        probability: 1,
+                        outcome: "The tribe mourns the elder's passing but focuses on the challenges ahead.",
+                        effect: () => {
+                            adjustCulturalTraits('resilience', 5);
+                        }
+                    }
+                ]
+            }
+        ]
+    },
+    'childDeath': {
+        title: "Tragedy Strikes",
+        description: "A child has succumbed to disease, leaving the tribe in mourning.",
+        options: [
+            {
+                text: "Perform a healing ritual",
+                outcomes: [
+                    {
+                        probability: 0.6,
+                        outcome: "The healing ritual brings comfort to the tribe, but the child cannot be saved.",
+                        effect: () => {
+                            adjustCulturalTraits('spirituality', 5);
+                        }
+                    },
+                    {
+                        probability: 0.4,
+                        outcome: "The healing ritual fails to save the child, and the tribe loses faith.",
+                        effect: () => {
+                            adjustCulturalTraits('spirituality', -5);
+                        }
+                    }
+                ]
+            },
+            {
+                text: "Focus on preventing future deaths",
+                outcomes: [
+                    {
+                        probability: 1,
+                        outcome: "The tribe learns from the tragedy and takes measures to improve health and hygiene.",
+                        effect: () => {
+                            adjustCulturalTraits('medicine', 5);
+                        }
+                    }
+                ]
+            }
+        ]
+    },
+    'adultDeath': {
+        title: "A Warrior Falls",
+        description: "An adult member of the tribe has fallen victim to disease.",
+        options: [
+            {
+                text: "Honor the fallen with a warrior's funeral",
+                outcomes: [
+                    {
+                        probability: 1,
+                        outcome: "The tribe pays tribute to the fallen warrior, boosting morale and unity.",
+                        effect: () => {
+                            adjustCulturalTraits('cohesion', 5);
+                            adjustCulturalTraits('warriorSpirit', 5);
+                        }
+                    }
+                ]
+            },
+            {
+                text: "Intensify training to strengthen the tribe",
+                outcomes: [
+                    {
+                        probability: 1,
+                        outcome: "The tribe focuses on training and strengthening its members to prevent future losses.",
+                        effect: () => {
+                            adjustCulturalTraits('warriorSpirit', 5);
+                            adjustCulturalTraits('resilience', 5);
+                        }
+                    }
+                ]
+            }
+        ]
     }
 };
 

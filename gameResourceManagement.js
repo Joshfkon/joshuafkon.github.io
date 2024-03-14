@@ -148,12 +148,13 @@ export function adjustPopulationForFood() {
 // Function to simulate Population dynamics
 export function simulatePopulationDynamics() {
     if (gameState.isGamePaused) return; // Check if the game is paused
-    
+
     // Birth
     for (let i = 0; i < gameState.women; i++) {
         if (Math.random() < 1 / 730) {
             console.log("Birth");
             gameState.children++;
+            triggerPopup('birth'); // Trigger the 'birth' event
         }
     }
 
@@ -163,6 +164,7 @@ export function simulatePopulationDynamics() {
         if (Math.random() < 1 / 3650) {
             console.log("Adult Ceremony");
             childrenBecomingAdults++;
+            triggerPopup('adulthood'); // Trigger the 'adulthood' event
         }
     }
     gameState.children -= childrenBecomingAdults;
@@ -176,6 +178,7 @@ export function simulatePopulationDynamics() {
             if (Math.random() < 1 / 10950) {
                 console.log("Old Age Death");
                 gameState[gender]--;
+                triggerPopup('oldAgeDeath'); // Trigger the 'oldAgeDeath' event
             }
         }
     });
@@ -184,6 +187,7 @@ export function simulatePopulationDynamics() {
     for (let i = 0; i < gameState.children; i++) {
         if (Math.random() < 1 / 1825) {
             gameState.children--;
+            triggerPopup('childDeath'); // Trigger the 'childDeath' event
         }
     }
 
@@ -192,6 +196,7 @@ export function simulatePopulationDynamics() {
         for (let i = 0; i < gameState[gender]; i++) {
             if (Math.random() < 1 / 13140) {
                 gameState[gender]--;
+                triggerPopup('adultDeath'); // Trigger the 'adultDeath' event
             }
         }
     });
