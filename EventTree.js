@@ -42,20 +42,20 @@ function shouldTriggerEvent(event) {
             return gameState.perishableFood < 10;
         
         case 'bountifulHarvest':
-            return gameState.currentSeasonIndex === 2 && Math.random() < 0.1;
+            return gameState.currentSeasonIndex === 2 && Math.random() < 0.5;
 
         case 'diseaseOutbreak':
-            return gameState.population >= 10 && Math.random() < 0.05;
+            return gameState.population >= 10 && Math.random() < 0.5;
 
         case 'traderArrival':
-             return gameState.day % 30 === 0 && Math.random() < 0.15;
+             return gameState.day % 30 === 0 && Math.random() < 0.75;
 
         case 'fishingOpportunity':
-            return (gameState.currentSeasonIndex === 0 || gameState.currentSeasonIndex === 1) && Math.random() < 0.15;
+            return (gameState.currentSeasonIndex === 0 || gameState.currentSeasonIndex === 1) && Math.random() < 0.75;
 
 
         case 'wildfire':
-            return gameState.currentSeasonIndex === 1 && Math.random() < 0.05;
+            return gameState.currentSeasonIndex === 1 && Math.random() < 0.5;
                 
         default:
             return false;
