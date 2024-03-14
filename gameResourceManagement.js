@@ -31,9 +31,9 @@ export function updateResources() {
             Winter: 0.8
         },
         gathering: {
-            Spring: 1.75,
-            Summer: 1.5,
-            Autumn: 3,
+            Spring: 2,
+            Summer: 2.5,
+            Autumn: 3.5,
             Winter: 0.2
         }
     };
@@ -133,7 +133,7 @@ export function simulatePopulationDynamics() {
     
     // Birth
     for (let i = 0; i < gameState.women; i++) {
-        if (Math.random() < 1 / 125) {
+        if (Math.random() < 1 / 365) {
             console.log("Birth");
             gameState.children++;
         }
@@ -142,7 +142,7 @@ export function simulatePopulationDynamics() {
     // Growth
     let childrenBecomingAdults = 0;
     for (let i = 0; i < gameState.children; i++) {
-        if (Math.random() < 1 / 365) {
+        if (Math.random() < 1 / 3650) {
             console.log("Adult Ceremony");
             childrenBecomingAdults++;
         }
