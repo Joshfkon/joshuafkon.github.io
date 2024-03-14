@@ -40,6 +40,8 @@ export function updateResources() {
 
     // Proceed with food production from tasks
     if (!gameState.isPopupActive) {
+        let totalFoodProduced = 0; // Track the total food produced
+
         Object.keys(gameState.tasks).forEach(task => {
             const taskInfo = gameState.tasks[task];
             let foodProduced = 0; // Initialize foodProduced
@@ -80,8 +82,10 @@ export function updateResources() {
                 }
             }
 
-            gameState.perishableFood += foodProduced;
+            totalFoodProduced += foodProduced; // Add the food produced by the current task to the total
         });
+
+        gameState.perishableFood += totalFoodProduced; // Add the total food produced to the perishable food store
     }
 
     // Food consumption, including children
