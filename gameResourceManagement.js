@@ -108,12 +108,13 @@ export function adjustPopulationForFood() {
     if (gameState.isGamePaused) return; // Check if the game is paused
 
     const totalFood = gameState.perishableFood + gameState.preservedFood;
-    let foodPerPerson = totalFood / gameState.population;
-    console.log(`Before adjustment: Population = ${gameState.population}, Food Per Person = ${foodPerPerson}`);
+    const totalPopulation = gameState.men + gameState.women + gameState.children;
+    let foodPerPerson = totalFood / totalPopulation;
+    console.log(`Before adjustment: Population = ${totalPopulation}, Food Per Person = ${foodPerPerson}`);
 
     if (foodPerPerson < 1) {
         // Increase hunger level if food per person is less than 1
-        gameState.hungerLevel++;
+        gameState.hungerLevel = Math.min(gameState.hungerLevel + 1, 30);
     } else {
         // Decrease hunger level if food per person is 1 or more
         gameState.hungerLevel = Math.max(0, gameState.hungerLevel - 1);
@@ -122,10 +123,7 @@ export function adjustPopulationForFood() {
     // Check if hunger level reaches the threshold for population decline
     if (gameState.hungerLevel >= 30) {
         // Reduce population based on hunger level
-        const populationLoss = Math.floor(gameState.population * 0.1); // Example: Lose 10% of the population
-        gameState.population = Math.max(0, gameState.population - populationLoss);
-
-        // Distribute population loss among men, women, and children
+        const populationLoss = Math.floor(totalPopulation * 0.1); // Example: Lose 10% of the population
         const menLoss = Math.min(gameState.men, Math.floor(populationLoss / 3));
         const womenLoss = Math.min(gameState.women, Math.floor(populationLoss / 3));
         const childrenLoss = Math.min(gameState.children, populationLoss - menLoss - womenLoss);
@@ -137,6 +135,11 @@ export function adjustPopulationForFood() {
         // Reset hunger level after population decline
         gameState.hungerLevel = 0;
     }
+
+    console.log(`After adjustment: Men = ${gameState.men}, Women = ${gameState.women}, Children = ${gameState.children}, Hunger Level = ${gameState.hungerLevel}`);
+
+    updateDisplay(); // Ensure this updates your UI to reflect the changes
+}
 
     console.log(`After adjustment: Men = ${gameState.men}, Women = ${gameState.women}, Children = ${gameState.children}, Hunger Level = ${gameState.hungerLevel}`);
 
