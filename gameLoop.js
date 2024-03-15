@@ -6,7 +6,6 @@ import { updateResources } from './gameResourceManagement.js';
 import { gameState } from './gameSetup.js';
 import { checkForPopups } from './EventTree.js';   
 import { updateDisplay } from './UIManagement.js';
-
 import { generateMap } from './mapGeneration.js';
 
 
@@ -91,11 +90,7 @@ let gameLoopInterval = null;
         }
     }
     
-    // Example usage:
-    document.addEventListener('DOMContentLoaded', function() {
-        startGameLoop(); // Start the game loop when the document is ready
-    });
-    
+
     // Assuming you have pause and resume buttons in your UI:
    // document.getElementById('pauseButton').addEventListener('click', pauseGameLoop);
     //document.getElementById('resumeButton').addEventListener('click', resumeGameLoop);
