@@ -9,7 +9,7 @@ import { updateDisplay } from './UIManagement.js';
 
 import { generateMap } from './mapGeneration.js';
 
-import { generateMap } from './mapGeneration.js';
+
 
 document.addEventListener('DOMContentLoaded', function() {
     generateMap(); // Generate the map
