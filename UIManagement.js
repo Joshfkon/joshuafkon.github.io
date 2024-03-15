@@ -4,7 +4,17 @@
     
 import { gameState } from './gameSetup.js';
 
+function updateGeographyInfo(x, y) {
+    const geographyGrid = generateGeography();
+    const currentTerrain = geographyGrid[y * 6 + x];
+    const currentClimate = generateClimate();
+    const currentFauna = generateFauna();
 
+    document.getElementById('current-terrain').textContent = gameState.currentTerrain;
+    document.getElementById('current-climate').textContent = gameState.currentClimate;
+    document.getElementById('current-prey').textContent = gameState.currentPrey;
+    document.getElementById('current-predators').textContent = gameState.currentPredators;
+}
 
 export function handleOption(option) {
     // Example result text, customize as needed
