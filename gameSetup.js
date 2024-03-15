@@ -1,5 +1,5 @@
 // gameSetup.js
-import { generateGeography, generateClimate, generateFauna } from 'mapGeneration.js';
+import { generateGeography, generateClimate, generateFauna } from './mapGeneration.js';
 
 // Initial game state and configuration
 let gameState = {
