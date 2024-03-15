@@ -1,6 +1,5 @@
 // gameSetup.js
-import { generateGeography, generateClimate, generateFauna } from './geography.js';
-
+import { generateGeography, generateClimate, generateFauna } from 'mapGeneration.js';
 
 // Initial game state and configuration
 let gameState = {
@@ -11,6 +10,7 @@ let gameState = {
         largePrey: '',
         largePredators: ''
     },
+
 
     geography: generateGeography(),
     climate: generateClimate(),
@@ -25,6 +25,8 @@ let gameState = {
     men: 10,
     women: 10,
     children: 5,
+    initialTribePositionX: 2,
+    initialTribePositionY: 3,
     // Note: population and totalAdults will be functions to ensure they always return the current value
     get population() {
         return this.men + this.women + this.children;
