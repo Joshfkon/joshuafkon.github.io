@@ -49,8 +49,8 @@ export function closePopup() {
  export function updateDisplay() {
     if (gameState.isGamePaused) return; // Check if the game is paused
 
-    document.getElementById('geography').textContent = gameState.geography;
-    document.getElementById('climate').textContent = gameState.climate;
+    //document.getElementById('geography').textContent = gameState.geography;
+   // document.getElementById('climate').textContent = gameState.climate;
    // document.getElementById('large-prey').textContent = gameState.fauna.largePrey;
    // document.getElementById('large-predators').textContent = gameState.fauna.largePredators;
 
