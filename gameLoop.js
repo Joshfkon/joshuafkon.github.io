@@ -7,6 +7,15 @@ import { gameState } from './gameSetup.js';
 import { checkForPopups } from './EventTree.js';   
 import { updateDisplay } from './UIManagement.js';
 
+import { generateMap } from './mapGeneration.js';
+
+import { generateMap } from './mapGeneration.js';
+
+document.addEventListener('DOMContentLoaded', function() {
+    generateMap(); // Generate the map
+    startGameLoop(); // Start the game loop when the document is ready
+});
+
 let gameLoopInterval = null;
 
 

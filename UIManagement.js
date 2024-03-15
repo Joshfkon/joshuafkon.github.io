@@ -4,12 +4,7 @@
     
 import { gameState } from './gameSetup.js';
 
-import { generateMap } from './mapGeneration.js';
 
-document.addEventListener('DOMContentLoaded', function() {
-    generateMap();
-
-});
 
 export function handleOption(option) {
     // Example result text, customize as needed
