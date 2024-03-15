@@ -10,9 +10,12 @@ import { generateMap } from './mapGeneration.js';
 
 
 
+// gameLoop.js
+
 document.addEventListener('DOMContentLoaded', function() {
     generateMap(gameState.initialTribePositionX, gameState.initialTribePositionY);
-    startGameLoop(); // Start the game loop when the document is ready
+    updateGeographyInfo(gameState.initialTribePositionX, gameState.initialTribePositionY); // Update geography info
+    startGameLoop();
 });
 
 

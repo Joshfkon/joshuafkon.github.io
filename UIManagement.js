@@ -4,16 +4,18 @@
     
 import { gameState } from './gameSetup.js';
 
+// UIManagement.js
+
 function updateGeographyInfo(x, y) {
-    const geographyGrid = generateGeography();
+    const geographyGrid = gameState.geographyGrid;
     const currentTerrain = geographyGrid[y * 6 + x];
     const currentClimate = generateClimate();
     const currentFauna = generateFauna();
 
-    document.getElementById('current-terrain').textContent = gameState.currentTerrain;
-    document.getElementById('current-climate').textContent = gameState.currentClimate;
-    document.getElementById('current-prey').textContent = gameState.currentPrey;
-    document.getElementById('current-predators').textContent = gameState.currentPredators;
+    document.getElementById('current-terrain').textContent = currentTerrain;
+    document.getElementById('current-climate').textContent = currentClimate;
+    document.getElementById('current-prey').textContent = currentFauna.largePrey;
+    document.getElementById('current-predators').textContent = currentFauna.largePredators;
 }
 
 export function handleOption(option) {

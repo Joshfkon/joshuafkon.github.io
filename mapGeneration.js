@@ -9,6 +9,7 @@ export function generateGeography() {
         geographyGrid.push(geographyTypes[Math.floor(Math.random() * geographyTypes.length)]);
     }
 
+    gameState.geographyGrid = geographyGrid; // Store the geography grid in the game state
     return geographyGrid;
 }
 
@@ -30,7 +31,7 @@ export function generateMap(tribePositionX, tribePositionY) {
     const map = document.getElementById('map');
 
     if (map) {
-        const geographyGrid = generateGeography();
+        const geographyGrid = gameState.geographyGrid; // Use the stored geography grid
         const terrainColors = {
             Hills: 'lightgreen',
             Mountains: 'gray',
@@ -44,11 +45,11 @@ export function generateMap(tribePositionX, tribePositionY) {
                 const cell = document.createElement('div');
                 cell.className = 'cell';
                 cell.style.backgroundColor = terrainColors[geographyGrid[index]];
-    
+
                 if (i === tribePositionX && j === tribePositionY) {
                     cell.classList.add('tribe-marker');
                 }
-    
+
                 map.appendChild(cell);
                 index++;
             }
