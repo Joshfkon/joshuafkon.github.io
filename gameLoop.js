@@ -11,7 +11,7 @@ import { generateMap } from './mapGeneration.js';
 
 
 document.addEventListener('DOMContentLoaded', function() {
-    generateMap(); // Generate the map
+    generateMap(initialTribePositionX, initialTribePositionY);
     startGameLoop(); // Start the game loop when the document is ready
 });
 

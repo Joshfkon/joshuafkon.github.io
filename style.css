@@ -140,3 +140,10 @@ button, input[type="number"] {
 .cell {
     background-color: lightgreen;
 }
+
+.tribe-marker {
+    background-image: url('path/to/marker-icon.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
