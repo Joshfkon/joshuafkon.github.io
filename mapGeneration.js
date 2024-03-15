@@ -1,4 +1,5 @@
 // mapGeneration.js
+import { gameState } from './gameSetup.js';
 
 export function generateGeography() {
     const geographyTypes = ['Hills', 'Mountains', 'Forest', 'Temperate'];
