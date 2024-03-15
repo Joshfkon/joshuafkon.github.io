@@ -41,7 +41,7 @@ export function closePopup() {
     document.getElementById('geography').textContent = gameState.geography;
     document.getElementById('climate').textContent = gameState.climate;
     document.getElementById('large-prey').textContent = gameState.fauna.largePrey;
-    document.getElementById('large-predators').textContent = gameState.fauna.largePredators;-
+    document.getElementById('large-predators').textContent = gameState.fauna.largePredators;
 
     document.getElementById('hunger-level-value').textContent = gameState.hungerLevel;
     document.getElementById('hunger-level-bar').value = gameState.hungerLevel;
