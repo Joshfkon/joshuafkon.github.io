@@ -18,7 +18,3 @@ export function generateMap() {
         console.error("Element with ID 'map' not found.");
     }
 }
-
-document.addEventListener('DOMContentLoaded', function() {
-    generateMap();
-});
