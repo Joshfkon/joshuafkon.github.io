@@ -1,7 +1,7 @@
 // mapGeneration.js
 import { gameState } from './gameSetup.js';
 
-export function generateGeography() {
+export function generateGeographyGrid() {
     const geographyTypes = ['Hills', 'Mountains', 'Forest', 'Temperate'];
     const numCells = 6 * 6; // Assuming a 6x6 grid
     const geographyGrid = [];
@@ -10,10 +10,8 @@ export function generateGeography() {
         geographyGrid.push(geographyTypes[Math.floor(Math.random() * geographyTypes.length)]);
     }
 
-    gameState.geographyGrid = geographyGrid; // Store the geography grid in the game state
     return geographyGrid;
 }
-
 export function generateClimate() {
     const climateTypes = ['Tropical', 'Desert', 'Subtropical'];
     return climateTypes[Math.floor(Math.random() * climateTypes.length)];
