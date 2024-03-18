@@ -1,12 +1,12 @@
  //** FUNCTIONAL FUNCTIONS - I.E. NOT GAME LOGIC
 
  //Functions to handle popups
-    
+import { generateClimate, generateFauna } from './mapGeneration.js';
 import { gameState } from './gameSetup.js';
 
 // UIManagement.js
 
-function updateGeographyInfo(x, y) {
+export function updateGeographyInfo(x, y) {
     const geographyGrid = gameState.geographyGrid;
     const currentTerrain = geographyGrid[y * 6 + x];
     const currentClimate = generateClimate();
