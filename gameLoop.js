@@ -7,6 +7,7 @@ import { generateGeographyGrid } from './mapGeneration.js';
 import { gameState } from './gameSetup.js';
 import { checkForPopups } from './EventTree.js';   
 import { updateDisplay } from './UIManagement.js';
+import { updateDisplay, updateGeographyInfo } from './UIManagement.js'; // Add updateGeographyInfo here
 import { generateMap } from './mapGeneration.js';
 
 document.addEventListener('DOMContentLoaded', function() {
