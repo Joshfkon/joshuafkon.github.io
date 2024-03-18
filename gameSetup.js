@@ -1,19 +1,13 @@
-
+// gameSetup.js
 
 // Initial game state and configuration
 let gameState = {
-    
-    geography: '',
+    geographyGrid: [], // Initialize geographyGrid as an empty array
     climate: '',
     fauna: {
         largePrey: '',
         largePredators: ''
     },
-
-
-    geography: generateGeography(),
-    climate: generateClimate(),
-    fauna: generateFauna(),
     isGamePaused: false,
     gameLoopInterval: null,
     hungerLevel: 0,
@@ -50,7 +44,6 @@ let gameState = {
         hunting: { adultPopulation: 0, foodPerTick: 1, rate: 50 },
         gathering: { adultPopulation: 0, foodPerTick: 1, rate: 50 },
     },
-
     culturalTraits: {
         warriorSpirit: 10,
         pacifism: 5,
@@ -65,14 +58,14 @@ let gameState = {
         resilience:25,
         fatalist: 2,
         // Add more cultural traits as needed
-},
-techTree: {
-    agriculture: 10,
-    fire: 100,
-    clothing: 100,
-    
-    // Add more techs as needed
-},
-}
+    },
+    techTree: {
+        agriculture: 10,
+        fire: 100,
+        clothing: 100,
+        // Add more techs as needed
+    },
+};
+
 // Export the gameState object
 export { gameState };
