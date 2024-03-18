@@ -9,10 +9,6 @@ import { checkForPopups } from './EventTree.js';
 import { updateDisplay } from './UIManagement.js';
 import { generateMap } from './mapGeneration.js';
 
-
-
-// gameLoop.js
-
 document.addEventListener('DOMContentLoaded', function() {
     gameState.geographyGrid = generateGeographyGrid(); // Generate and assign the geography grid
     generateMap(gameState.initialTribePositionX, gameState.initialTribePositionY);
