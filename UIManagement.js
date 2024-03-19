@@ -3,17 +3,20 @@
  import { gameState } from './gameSetup.js';
  import { generateClimate, generateFauna } from './mapGeneration.js';
  
- export function updateGeographyInfo(x, y) {
-     const geographyGrid = gameState.geographyGrid;
-     const currentTerrain = geographyGrid[y * 6 + x];
-     const currentClimate = generateClimate();
-     const currentFauna = generateFauna();
- 
-     document.getElementById('current-terrain').textContent = currentTerrain;
-     document.getElementById('current-climate').textContent = currentClimate;
-     document.getElementById('current-prey').textContent = currentFauna.largePrey;
-     document.getElementById('current-predators').textContent = currentFauna.largePredators;
- }
+// UIManagement.js
+
+export function updateGeographyInfo(x, y) {
+    const geographyGrid = gameState.geographyGrid;
+    const currentTerrain = geographyGrid[y * 6 + x];
+    const currentClimate = generateClimate();
+    const currentFauna = generateFauna();
+
+    document.getElementById('current-terrain').textContent = currentTerrain;
+    document.getElementById('current-climate').textContent = currentClimate;
+    // Remove the following lines if you don't want to display prey and predators
+    // document.getElementById('current-prey').textContent = currentFauna.largePrey;
+    // document.getElementById('current-predators').textContent = currentFauna.largePredators;
+}
 
 export function handleOption(option) {
     // Example result text, customize as needed
