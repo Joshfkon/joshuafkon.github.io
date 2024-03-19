@@ -143,7 +143,7 @@ button, input[type="number"] {
 
 .tribe-marker {
     /* Remove the background image styling */
-    /* background-image: url('hut(1).png'); */
-    background-color: red; /* Add a background color instead */
+    background-image: url('hut.png'); 
+     /* background-color: red; /* Add a background color instead */
     /* ... other styles ... */
 }
