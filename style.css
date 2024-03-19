@@ -145,8 +145,27 @@ button, input[type="number"] {
 }
 
 .tribe-marker {
+    width: 30px;
+    height: 30px;
     background-image: url('hut.png');
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#tribe-info {
+    margin-top: 10px;
+    text-align: center;
+}
+
+#tribe-location {
+    font-weight: bold;
+}
+
+#tribe-population {
+    margin-top: 5px;
 }

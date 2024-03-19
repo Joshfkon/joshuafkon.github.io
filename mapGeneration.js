@@ -46,13 +46,10 @@ export function generateMap(tribePositionX, tribePositionY) {
                 cell.style.backgroundColor = terrainColors[geographyGrid[index]];
 
                 if (i === tribePositionX && j === tribePositionY) {
-                    cell.classList.add('tribe-marker');
+                    const tribeMarker = document.createElement('div');
+                    tribeMarker.className = 'tribe-marker';
+                    cell.appendChild(tribeMarker);
                 }
-
-                // Add click/tap event listener to each cell
-                cell.addEventListener('click', function () {
-                    displayTerrain(geographyGrid[index]);
-                });
 
                 map.appendChild(cell);
                 index++;
@@ -61,8 +58,4 @@ export function generateMap(tribePositionX, tribePositionY) {
     } else {
         console.error("Element with ID 'map' not found.");
     }
-}
-
-function displayTerrain(terrain) {
-    alert(`Terrain: ${terrain}`);
 }

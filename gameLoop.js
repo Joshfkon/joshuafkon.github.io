@@ -10,9 +10,9 @@ import { updateDisplay, updateGeographyInfo } from './UIManagement.js'; // Add u
 import { generateMap } from './mapGeneration.js';
 
 document.addEventListener('DOMContentLoaded', function() {
-    gameState.geographyGrid = generateGeographyGrid(); // Generate and assign the geography grid
+    gameState.geographyGrid = generateGeographyGrid();
     generateMap(gameState.initialTribePositionX, gameState.initialTribePositionY);
-    updateGeographyInfo(gameState.initialTribePositionX, gameState.initialTribePositionY);
+    renderTribeLocation();
     startGameLoop();
 });
 
