@@ -3,11 +3,10 @@ import { adjustPopulationForFood } from './gameResourceManagement.js';
 import { simulatePopulationDynamics } from './gameResourceManagement.js';   
 import { incrementTime } from './gameResourceManagement.js';   
 import { updateResources } from './gameResourceManagement.js';
-import { generateGeographyGrid } from './mapGeneration.js';
 import { gameState } from './gameSetup.js';
 import { checkForPopups } from './EventTree.js';   
 import { generateGeographyGrid, generateMap, renderTribeLocation } from './mapGeneration.js';
-import { generateMap } from './mapGeneration.js';
+
 
 document.addEventListener('DOMContentLoaded', function() {
     gameState.geographyGrid = generateGeographyGrid();
