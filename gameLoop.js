@@ -7,10 +7,10 @@ import { gameState } from './gameSetup.js';
 import { checkForPopups } from './EventTree.js';   
 import { generateGeographyGrid, generateMap, renderTribeLocation } from './mapGeneration.js';
 
-
 document.addEventListener('DOMContentLoaded', function() {
     gameState.geographyGrid = generateGeographyGrid();
-    generateMap(gameState.initialTribePositionX, gameState.initialTribePositionY);
+    generateMap();
+    placeTribeMarker(gameState.tribePosition.x, gameState.tribePosition.y);
     renderTribeLocation();
     startGameLoop();
 });

@@ -18,8 +18,7 @@ let gameState = {
     men: 10,
     women: 10,
     children: 5,
-    initialTribePositionX: 2,
-    initialTribePositionY: 3,
+    tribePosition: { x: 2, y: 3 }, // Initial tribe position
     // Note: population and totalAdults will be functions to ensure they always return the current value
     get population() {
         return this.men + this.women + this.children;

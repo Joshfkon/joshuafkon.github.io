@@ -17,10 +17,7 @@ export function renderTribeLocation() {
     const tribeMarker = document.querySelector('.tribe-marker');
 
     if (tribeMarker) {
-        const population = gameState.population;
-        tribeMarker.textContent = population;
-    } else {
-        console.error("Tribe marker not found.");
+        tribeMarker.textContent = gameState.population;
     }
 }
 export function generateClimate() {
@@ -36,8 +33,18 @@ export function generateFauna() {
         largePredators: largePredators[Math.floor(Math.random() * largePredators.length)]
     };
 }
+export function placeTribeMarker(x, y) {
+    const tribeMarkerContainer = document.getElementById('tribe-marker-container');
+    tribeMarkerContainer.innerHTML = ''; // Clear any existing marker
 
-export function generateMap(tribePositionX, tribePositionY) {
+    const tribeMarker = document.createElement('div');
+    tribeMarker.className = 'tribe-marker';
+    tribeMarker.textContent = gameState.population;
+    tribeMarkerContainer.appendChild(tribeMarker);
+
+    gameState.tribePosition = { x, y }; // Update the tribe's position in the game state
+}
+export function generateMap() {
     const map = document.getElementById('map');
 
     if (map) {
@@ -55,13 +62,9 @@ export function generateMap(tribePositionX, tribePositionY) {
                 const cell = document.createElement('div');
                 cell.className = 'cell';
                 cell.style.backgroundColor = terrainColors[geographyGrid[index]];
-
-                if (i === tribePositionX && j === tribePositionY) {
-                    const tribeMarker = document.createElement('div');
-                    tribeMarker.className = 'tribe-marker';
-                    cell.appendChild(tribeMarker);
-                }
-
+                cell.addEventListener('click', function () {
+                    placeTribeMarker(i, j);
+                });
                 map.appendChild(cell);
                 index++;
             }
