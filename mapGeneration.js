@@ -12,6 +12,17 @@ export function generateGeographyGrid() {
 
     return geographyGrid;
 }
+
+export function renderTribeLocation() {
+    const tribeMarker = document.querySelector('.tribe-marker');
+
+    if (tribeMarker) {
+        const population = gameState.population;
+        tribeMarker.textContent = population;
+    } else {
+        console.error("Tribe marker not found.");
+    }
+}
 export function generateClimate() {
     const climateTypes = ['Tropical', 'Desert', 'Subtropical'];
     return climateTypes[Math.floor(Math.random() * climateTypes.length)];
