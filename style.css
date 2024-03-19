@@ -142,8 +142,8 @@ button, input[type="number"] {
 }
 
 .tribe-marker {
-    background-image: url('hut(1).png');
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
+    /* Remove the background image styling */
+    /* background-image: url('hut(1).png'); */
+    background-color: red; /* Add a background color instead */
+    /* ... other styles ... */
 }
