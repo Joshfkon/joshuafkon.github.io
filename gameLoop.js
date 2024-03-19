@@ -1,4 +1,4 @@
-import { updateTaskPercentages } from './UIManagement.js';   
+import { updateTaskPercentages, updateDisplay } from './UIManagement.js';
 import { adjustPopulationForFood } from './gameResourceManagement.js';   
 import { simulatePopulationDynamics } from './gameResourceManagement.js';   
 import { incrementTime } from './gameResourceManagement.js';   
