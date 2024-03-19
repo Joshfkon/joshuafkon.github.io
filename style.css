@@ -125,6 +125,8 @@ button, input[type="number"] {
 
 #map-container {
     margin-top: 20px;
+    display: flex;
+    justify-content: center;
 }
 
 #map {
@@ -139,11 +141,12 @@ button, input[type="number"] {
 
 .cell {
     background-color: lightgreen;
+    cursor: pointer; /* Add cursor pointer to indicate clickable cells */
 }
 
 .tribe-marker {
-    /* Remove the background image styling */
-    background-image: url('hut.png'); 
-     /* background-color: red; /* Add a background color instead */
-    /* ... other styles ... */
+    background-image: url('hut.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
 }
